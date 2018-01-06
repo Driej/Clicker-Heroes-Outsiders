@@ -1,0 +1,182 @@
+.container {
+	padding: 0;
+	max-width: 1200px;
+	margin: auto;
+	display: block;
+}
+
+.boxes {
+	display: inline-block;
+	width: 100%;
+}
+
+.boxes > div {
+	float: left;
+	overflow: hidden;
+}
+
+.boxes > div > div {
+	border-style: solid;
+	//border-color: #a0b0c0;
+	border-color: #7080a0;
+	border-radius: 6px;
+	border-width: 1px;
+	box-sizing: border-box;
+	margin: 6px;
+}
+
+.title {
+	//background-color: #d0e0f0;
+	background-color: #7080a0;
+	color: white;
+	padding: 12px;
+}
+
+.content {
+	padding: 12px;
+	color: #405070;
+}
+
+@media (max-width: 630px) {
+
+	.box-4, .box-6, .box-8, .box-12 {
+		width: 100%;
+	}
+
+}
+
+@media (min-width: 631px) {
+
+	.box-4 {
+		width: 33.3333333333%;
+	}
+
+	.box-6 {
+		width: 50%;
+	}
+
+	.box-8 {
+		width: 66.6666666666%;
+	}
+
+	.box-12 {
+		width: 100%;
+	}
+
+}
+
+input {
+	border: none;
+	padding: 5px;
+	width: 48px;
+	text-align: center;
+	font-size: 14px;
+	background-color: #eee;
+	transition: background-color 0.3s;
+}
+
+input:hover {
+	background-color: #d0e0f0;
+}
+
+input:focus {
+	background-color: #c0d0ff;
+}
+
+.checkbox {
+	width: 10px;
+	margin: 4px 6px 8px 0;
+}
+
+#calculateButton, #defaultButton {
+	background-color: white;
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 4px;
+	border-color: #7080a0;
+	padding: 6px;
+	width: 100%;
+	transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+	color: #405070;
+	font-size: 16px;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+#calculateButton:hover, #defaultButton:hover {
+	background-color: #7080a0;
+	color: white;
+}
+
+#calculateButton:active, #defaultButton:active {
+	border-color: #405070;
+	background-color: #405070;
+	color: white;
+}
+
+#defaultButton {
+	width: 165px;
+	margin-top: 4px;
+}
+
+#showAdvanced {
+	background-color: white;
+	border: none;
+	width: 100%;
+	color: #405070;
+}
+
+#advancedSettings {
+	margin-top: 10px;
+	display: none;
+}
+
+.numberInput {
+	padding: 2px;
+}
+
+.numberInput > p {
+	display: inline-block;
+	margin: 0;
+	width: 100px;
+}
+
+.numberInput > input {
+	
+}
+
+h1 {
+	margin: 0;
+	font-size: 18px;
+	text-decoration: underline;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	background: #7080a0;
+}
+
+table {
+	width: 100%;
+}
+
+thead {
+	text-align: left;
+}
+
+th {
+	border-bottom: 3px solid #ddd;
+}
+
+th, td {
+	padding: 4px;
+}
+
+td {
+	border-bottom: 1px solid #ddd;
+}
+
+//tr:nth-child(even) {
+	background-color: #f2f2f2;
+}

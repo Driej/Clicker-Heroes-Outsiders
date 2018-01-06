@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html;">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>CH Outsider Calculator</title>
+	<link rel="stylesheet" href="css/normalize.css">
+	<link rel="stylesheet" href="css/main-v001.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+	<body>
+		<div class="container">
+			<div class="boxes">
+				<div class="box-12">
+					<div>
+						<div class="title">Info</div>
+						<div class="content">
+							<p>Send your Feedback to: <a href="https://www.reddit.com/user/Driej">https://www.reddit.com/user/Driej</a></p>
+							<p>This calculator works for Active and Hybrid playstyles.</p>
+							<p>Late game Outsider ratios are rough guesses until we know true optimal values. If you want to change them, make sure they add up to no more than 0.5.</p>
+						</div>
+					</div>
+				</div>
+				<div class="box-4">
+					<div>
+						<div class="title">Inputs</div>
+						<div class="content">
+							<div class="numberInput">
+								<p>Ancient Souls:</p>
+								<input value="0" id="ancient_souls" type="text">
+							</div>
+							<div id="TP">TP: 2.0000%</div>
+							<br><input type="checkbox" id="reserveAS" class="checkbox" checked>Reserve Ancient Souls
+							<br><input type="checkbox" id="levelXiliqil" class="checkbox">Level Xiliqil
+							<br><button id="calculateButton" onclick="calculateClick()">Calculate</button>
+							<hr>
+							<button id="showAdvanced" onclick="showAdvancedClick()">Show Advanced Settings</button>
+							<div id="advancedSettings">
+								<div class="numberInput">
+									<p>Zone override:</p>
+									<input value="0" id="zoneOverride" type="text">
+								</div>
+								<div class="numberInput">
+									<p>Reserved AS:</p>
+									<input value="0.1" id="reservedAS" type="text">
+								</div>
+								<h1>Outsider Ratios:</h1>
+								<div class="numberInput">
+									<p>Xiliqil:</p>
+									<input value="0.05" id="xiliqilRatio" type="text">
+								</div>
+								<div class="numberInput">
+									<p>Rhageist:</p>
+									<input value="0.25" id="rhageistRatio" type="text">
+								</div>
+								<div class="numberInput">
+									<p>K'Ariqua:</p>
+									<input value="0.002" id="kariquaRatio" type="text">
+								</div>
+								<div class="numberInput">
+									<p>Orphalas:</p>
+									<input value="0.05" id="orphalasRatio" type="text">
+								</div>
+								<div class="numberInput">
+									<p>Sen-Akhan:</p>
+									<input value="0.048" id="senakhanRatio" type="text">
+								</div>
+								<button id="defaultButton" onclick="defaultClick()">Set to Default</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="box-8">
+					<div>
+						<div class="title">Outsider Levels</div>
+						<div class="content">
+							<table id="OutsidersTable" cellspacing="0">
+								<thead><tr>
+									<th>Outsider</th>
+									<th>Level</th>
+									<th>Total Cost</th>
+									<th>Cap</th>
+									<th>Cap Cost</th>
+								</tr></thead>
+								<tbody>
+									
+								</tbody>
+							</table>
+							<div id="spentAS">Total: 0</div>
+							<div id="unspentAS">Unspent: 0</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="boxes">
+				<div class="box-4">
+					<div>
+						<div class="title">End of Transcension</div>
+						<div class="content">
+							<div id="predictedHZE"></div>
+							<div id="predictedHS"></div>
+							<div id="predictedAS"></div>
+							<div id="predictedTP"></div>
+							<br>
+							<div id="predictedAncients"></div>
+							<div id="kuma"></div>
+							<div id="atman"></div>
+							<div id="bubos"></div>
+							<div id="chronos"></div>
+							<div id="dora"></div>
+							
+						</div>
+					</div>
+				</div>
+				<div class="box-4">
+					<div>
+						<div class="title">Unbuffed stats at HZE</div>
+						<div class="content">
+							<div id="unbuffedMPZ"></div>
+							<div id="unbuffedTCC"></div>
+							<div id="unbuffedBossHP"></div>
+							<div id="unbuffedTimer"></div>
+							<div id="unbuffedPBC"></div>
+						</div>
+					</div>
+				</div>
+				<div class="box-4">
+					<div>
+						<div class="title">Buffed stats at HZE</div>
+						<div class="content">
+							<div id="buffedMPZ"></div>
+							<div id="buffedTCC"></div>
+							<div id="buffedBossHP"></div>
+							<div id="buffedTimer"></div>
+							<div id="buffedPBC"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="js/main.js"></script>
+	</body>
+</html>
