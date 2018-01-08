@@ -1,7 +1,7 @@
 var defaultSettings = {
 	zoneOverride: 0,
 	reservedAS: 0.1,
-	xiliqilRatio: 0.05,
+	xyliqilRatio: 0.05,
 	rhageistRatio: 0.25,
 	kariquaRatio: 0.002,
 	orphalasRatio: 0.05,
@@ -119,7 +119,7 @@ function calculateClick() {
 	for(var s in settings) {
 		if( s=="zoneOverride" ) continue;
 		if( !($("#reserveAS").is(":checked")) && s=="reservedAS" ) continue;
-		if( !($("#levelXiliqil").is(":checked")) && s=="xiliqilRatio" ) continue;
+		if( !($("#levelXyliqil").is(":checked")) && s=="xyliqilRatio" ) continue;
 		if(settings.hasOwnProperty(s)) {
 			tally += settings[s];
 		}
@@ -130,7 +130,7 @@ function calculateClick() {
 		for(var s in settings) {
 			if( s=="zoneOverride" ) continue;
 			if( !($("#reserveAS").is(":checked")) && s=="reservedAS" ) continue;
-			if( !($("#levelXiliqil").is(":checked")) && s=="xiliqilRatio" ) continue;
+			if( !($("#levelXyliqil").is(":checked")) && s=="xyliqilRatio" ) continue;
 			if(settings.hasOwnProperty(s)) {
 				settings[s] *= multiplier;
 				$( "#"+s ).val( settings[s] );
@@ -225,10 +225,10 @@ function calculateClick() {
 		reservedAS = Math.floor( ancientSouls*settings.reservedAS )
 	}
 	var spendableAS = ancientSouls - reservedAS;
-	if( $("#levelXiliqil").is(":checked") ) {
-		outsiders.xiliqil = spendAS( settings.xiliqilRatio, ancientSouls );
-	}else outsiders.xiliqil = 0;
-	outsiderCosts.xiliqil = totalCost(outsiders.xiliqil);
+	if( $("#levelXyliqil").is(":checked") ) {
+		outsiders.xyliqil = spendAS( settings.xyliqilRatio, ancientSouls );
+	}else outsiders.xyliqil = 0;
+	outsiderCosts.xyliqil = totalCost(outsiders.xyliqil);
 	for( var o in outsiderCaps ) {
 		if( o=="borb" ) continue;
 		if(outsiderCaps.hasOwnProperty(o)) {
@@ -262,12 +262,12 @@ function calculateClick() {
 	outsiderCosts.pony = totalCost(pony);
 	
 	//Outsiders Table
-	outsiderCaps.xiliqil = "NA";
+	outsiderCaps.xyliqil = "NA";
 	outsiderCaps.chor = 150;
 	outsiderCaps.phan = "NA";
 	outsiderCaps.pony = "NA";
-	var outsiderNames = ["Xiliqil","Chor'gorloth","Phandorys","Ponyboy","Borb","Rhageist","K'Ariqua","Orphalas","Sen-Akhan"];
-		outsiderAlias = ["xiliqil","chor","phan","pony","borb","rhageist","kariqua","orphalas","senakhan"];
+	var outsiderNames = ["Xyliqil","Chor'gorloth","Phandorys","Ponyboy","Borb","Rhageist","K'Ariqua","Orphalas","Sen-Akhan"];
+		outsiderAlias = ["xyliqil","chor","phan","pony","borb","rhageist","kariqua","orphalas","senakhan"];
 		toappend = "";
 	
 	var totalAS = 0;
