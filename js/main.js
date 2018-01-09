@@ -1,10 +1,10 @@
 var defaultSettings = {
 	zoneOverride: 0,
-	reservedAS: 0.08,
-	xyliqilRatio: 0.02,
-	rhageistRatio: 0.2,
-	kariquaRatio: 0.05,
-	orphalasRatio: 0.1,
+	reservedAS: 0.1,
+	xyliqilRatio: 0.025,
+	rhageistRatio: 0.25,
+	kariquaRatio: 0.025,
+	orphalasRatio: 0.05,
 	senakhanRatio: 0.05
 }
 
