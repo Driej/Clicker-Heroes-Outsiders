@@ -175,12 +175,12 @@ function calculateClick() {
 		chronos = 30*( 1 - Math.exp( -0.034*ancientLevels ) );
 		dora = 9900*( 1 - Math.exp( -0.002*ancientLevels ) );
 	
-	$("#predictedHZE").html("Highest Zone: " + HZE);
-	$("#predictedHS").html("logHS: " + logHS.toFixed(2) );
-	$("#predictedAS").html("AncientSouls: " + AS );
+	$("#predictedHZE").html("Highest Zone: " + HZE.toLocaleString() );
+	$("#predictedHS").html("logHS: " + logHS.toFixed(2).toLocaleString() );
+	$("#predictedAS").html("AncientSouls: " + AS.toLocaleString() );
 	$("#predictedTP").html("TP: " + newTP.toFixed(4) + "%" );
 	
-	$("#predictedAncients").html("Ancient Levels: " + ancientLevels );
+	$("#predictedAncients").html("Ancient Levels: " + ancientLevels.toLocaleString() );
 	$("#kuma").html( kuma.toFixed(2) + " monsters per zone" );
 	$("#atman").html( atman.toFixed(2) + "% chance of primal" );
 	$("#bubos").html( bubos.toFixed(2) + " boss life" );
@@ -275,12 +275,12 @@ function calculateClick() {
 	for( i=0; i<outsiderAlias.length; i++ ) {
 		var o = outsiderAlias[i];
 		totalAS += outsiderCosts[o];
-		toappend += "<tr><td>" + outsiderNames[i] + "</td><td>" + outsiders[o] + "</td><td>" + outsiderCosts[o] + "</td><td>";
+		toappend += "<tr><td>" + outsiderNames[i] + "</td><td>" + outsiders[o].toLocaleString() + "</td><td>" + outsiderCosts[o].toLocaleString() + "</td><td>";
 		var cap = outsiderCaps[o];
 		if( cap=="NA" ) {
 			toappend += "NA</td><td>NA</td></tr>";
 		}else{
-			toappend += cap + "</td><td>" + totalCost(cap) + "</td><tr>";
+			toappend += cap.toLocaleString() + "</td><td>" + totalCost(cap).toLocaleString() + "</td><tr>";
 		}
 	}
 	
