@@ -1,11 +1,11 @@
 var defaultSettings = {
 	zoneOverride: 0,
-	reservedAS: 0.1,
-	xyliqilRatio: 0.05,
-	rhageistRatio: 0.25,
-	kariquaRatio: 0.002,
-	orphalasRatio: 0.05,
-	senakhanRatio: 0.048
+	reservedAS: 0.08,
+	xyliqilRatio: 0.02,
+	rhageistRatio: 0.2,
+	kariquaRatio: 0.05,
+	orphalasRatio: 0.1,
+	senakhanRatio: 0.05
 }
 
 var settingsVisible = false;
@@ -124,7 +124,7 @@ function calculateClick() {
 			tally += settings[s];
 		}
 	}
-	if( tally>0.5 ) {
+	if( tally>0.5000001 ) {
 		alert("The relevant ratios were normalized to add up to 0.5")
 		var multiplier = 0.5/tally;
 		for(var s in settings) {
@@ -304,3 +304,5 @@ function calculateClick() {
 	
 	
 }
+
+$(setDefaults)
