@@ -170,7 +170,7 @@ function calculateClick() {
 		newTP = 25 - 23*Math.exp( -0.0003*AS );
 		ancientLevels = Math.floor( logHS*3.284 ) + 11;
 		kuma = -100*( 1 - Math.exp( -0.0025*ancientLevels ) );
-		atman = 75*( 1 - Math.exp( -0.0013*ancientLevels ) );
+		atman = 75*( 1 - Math.exp( -0.013*ancientLevels ) );
 		bubos = -5*( 1 - Math.exp( -0.002*ancientLevels ) );
 		chronos = 30*( 1 - Math.exp( -0.034*ancientLevels ) );
 		dora = 9900*( 1 - Math.exp( -0.002*ancientLevels ) );
