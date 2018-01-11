@@ -102,7 +102,8 @@ function calculateClick() {
 	var settings = {};
 	for(var s in defaultSettings) {
 		if(defaultSettings.hasOwnProperty(s)) {
-			var setting = parseFloat( ($( "#"+s ).val()) );
+			var val = $( "#"+s ).val();
+			var setting = ( val=="" ) ? 0 : parseFloat( val );
 			if( isNaN(setting) || setting<0 ) {
 				setDefaults();
 				settings = defaultSettings;
