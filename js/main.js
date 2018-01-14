@@ -50,10 +50,10 @@ function nOS( as, tp, zone ) {
   
   while( as>0 ) {
     var damage_increase = ( phan+2 ) / ( phan+1 );
-    var zone_increase = Math.log( damage_increase ) / Math.log( hp_multiplier );
+    var zone_increase = Math.log( damage_increase ) / Math.log( hp_multiplier ) * 1.4;
     var phan_buff = Math.pow( hs_multiplier, zone_increase );
     
-    if( phan < 3 ) phan_buff *= 1.5;
+    if( phan < 3 ) phan_buff *= 1.3;
     
     if( chor<as && chor<150 ) {
       var chor_bpAS = Math.pow( chor_buff, 1/(chor+1) );
