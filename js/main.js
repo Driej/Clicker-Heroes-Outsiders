@@ -303,6 +303,13 @@ function calculateClick() {
 	$("#buffedTimer").html( "Boss Timer: " + buffedTimer.toFixed() + "s" );
 	$("#buffedPBC").html( "Primal Chance: " + buffedPBC.toFixed() + "%" );
 	
+	//Zone Breakpoints
+	$("#3mpz").html( "3 monsters per zone: " + ( -3500 - Math.floor( kuma*( 1 + outsiders.borb/10 ) )*500 ).toLocaleString() );
+	$("#5PBC").html( "5% primal chance: " + ( 5500 + Math.floor( atman*( 1 + outsiders.rhageist/4 )/2)*500 ).toLocaleString() );
+	$("#90BHP").html( "90% boss health: " + ( Math.ceil( ( bubos*( 1 + outsiders.kariqua/2 )*-10 - 10 )/0.4 )*500 ).toLocaleString() );
+	$("#2sTimer").html( "2s boss timer: " + ( 7000 + Math.floor( chronos*( 1 + outsiders.orphalas*0.75 )/2 )*500 ).toLocaleString() );
+	$("#99TTC").html( "99% treasure chests: " + (Math.ceil( Math.log10( 0.995/( dora/10000*( 1 + outsiders.senakhan ) + 0.01 ) )/Math.log10( 0.99401 ) )*500 ).toLocaleString() );
+	$("#1TTC").html( "1% treasure chests: " + (Math.ceil( Math.log10( 0.015/( dora/10000*( 1 + outsiders.senakhan ) + 0.01 ) )/Math.log10( 0.99401 ) )*500 ).toLocaleString() );
 	
 }
 
