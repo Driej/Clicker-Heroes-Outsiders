@@ -1,9 +1,9 @@
 var defaultSettings = {
 	zoneOverride: 0,
 	reservedAS: 0.1,
-	xyliqilRatio: 0.025,
+	//xyliqilRatio: 0.025,
 	rhageistRatio: 0.25,
-	kariquaRatio: 0.025,
+	kariquaRatio: 0.05,
 	orphalasRatio: 0.05,
 	senakhanRatio: 0.05
 }
@@ -226,9 +226,9 @@ function calculateClick() {
 		reservedAS = Math.floor( ancientSouls*settings.reservedAS )
 	}
 	var spendableAS = ancientSouls - reservedAS;
-	if( $("#levelXyliqil").is(":checked") ) {
+	/*if( $("#levelXyliqil").is(":checked") ) {
 		outsiders.xyliqil = spendAS( settings.xyliqilRatio, ancientSouls );
-	}else outsiders.xyliqil = 0;
+	}else*/ outsiders.xyliqil = 0;
 	outsiderCosts.xyliqil = totalCost(outsiders.xyliqil);
 	for( var o in outsiderCaps ) {
 		if( o=="borb" ) continue;
