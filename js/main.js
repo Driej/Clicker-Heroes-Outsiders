@@ -3,8 +3,8 @@ var defaultSettings = {
 	reservedAS: 0.1,
 	//xyliqilRatio: 0.025,
 	rhageistRatio: 0.25,
-	kariquaRatio: 0.05,
-	orphalasRatio: 0.05,
+	kariquaRatio: 0.03,
+	orphalasRatio: 0.07,
 	senakhanRatio: 0.05
 }
 
