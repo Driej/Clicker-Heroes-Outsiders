@@ -1,3 +1,6 @@
+//Polyfill for Internet Explorer
+Math.log10 = function (x) { return Math.log(x) / Math.LN10; };
+
 var defaultSettings = {
 	zoneOverride: 0,
 	reservedAS: 0.1,
