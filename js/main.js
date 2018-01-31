@@ -317,7 +317,7 @@ function calculateClick() {
 	//End of Transcension Adjustments
 	var ponybonus = Math.pow( outsiders.pony, 2 )*10;
 		series = 1/( 1 - 1/( 1 + tp/100 ) );
-		pbcm = 100/buffedPBC;
+		pbcm = 100/Math.min(buffedPBC,100);
 	
 	logHS = Math.log10( 1 + tp/100 )*(HZE-105)/5 + Math.log10( ponybonus + 1 ) + Math.log10( 20*series*pbcm );
 	AS = Math.floor( logHS*5 );
