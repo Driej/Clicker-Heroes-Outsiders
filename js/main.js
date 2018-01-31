@@ -314,6 +314,19 @@ function calculateClick() {
 	$("#99TTC").html( "99% treasure chests: " + (Math.ceil( Math.log10( 0.995/( dora/10000*( 1 + outsiders.senakhan ) + 0.01 ) )/Math.log10( 0.99401 ) )*500 ).toLocaleString() );
 	$("#1TTC").html( "1% treasure chests: " + (Math.ceil( Math.log10( 0.015/( dora/10000*( 1 + outsiders.senakhan ) + 0.01 ) )/Math.log10( 0.99401 ) )*500 ).toLocaleString() );
 	
+	//End of Transcension Adjustments
+	var ponybonus = Math.pow( outsiders.pony, 2 )*10;
+		series = 1/( 1 - 1/( 1 + tp/100 ) );
+		pbcm = 100/buffedPBC;
+	
+	logHS = Math.log10( 1 + tp/100 )*(HZE-105)/5 + Math.log10( ponybonus + 1 ) + Math.log10( 20*series*pbcm );
+	AS = Math.floor( logHS*5 );
+	newTP = 25 - 23*Math.exp( -0.0003*AS );
+	
+	$("#predictedHS").html("logHS: " + logHS.toFixed(2).toLocaleString() );
+	$("#predictedAS").html("AncientSouls: " + AS.toLocaleString() );
+	$("#predictedTP").html("TP: " + newTP.toFixed(4) + "%" );
+	
 }
 
 $(setDefaults)
