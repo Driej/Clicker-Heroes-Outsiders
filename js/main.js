@@ -324,7 +324,7 @@ function calculateClick() {
 	newTP = 25 - 23*Math.exp( -0.0003*AS );
 	
 	$("#predictedHS").html("logHS: " + logHS.toFixed(2).toLocaleString() );
-	$("#predictedAS").html("AncientSouls: " + AS.toLocaleString() );
+	$("#predictedAS").html("AncientSouls: " + AS.toLocaleString() + " (+" + (AS-inputAS).toLocaleString() + ")");
 	$("#predictedTP").html("TP: " + newTP.toFixed(4) + "%" );
 	
 }
