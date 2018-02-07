@@ -293,7 +293,12 @@ function calculateClick() {
 		if( cap=="NA" ) {
 			toappend += "NA</td><td>NA</td></tr>";
 		}else{
-			toappend += cap.toLocaleString() + "</td><td>" + totalCost(cap).toLocaleString() + "</td><tr>";
+			var tC = totalCost(cap);
+			if( cap>=1e6 ) cap = cap.toExponential(3);
+			else cap = cap.toLocaleString();
+			if( tC>=1e6 ) tC = tC.toExponential(3);
+			else tC = tC.toLocaleString();
+			toappend += cap + "</td><td>" + tC + "</td><tr>";
 		}
 	}
 	
