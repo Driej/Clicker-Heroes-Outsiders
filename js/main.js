@@ -232,7 +232,7 @@ function calculateClick() {
 	var outsiderCaps = {
 		borb: Math.max( 0, Math.ceil( ((unbuffedMPZ-2)/-kuma-1)/0.1 ) ),
 		rhageist: Math.ceil( ((100-unbuffedPBC)/atman-1)/0.25 ),
-		kariqua: Math.ceil( ((unbuffedBossHP-1)/-bubos-1)/0.5 ),
+		kariqua: Math.ceil( ((unbuffedBossHP-5)/-bubos-1)/0.5 ),
 		orphalas: Math.max( 1, Math.ceil( ((2-unbuffedTimer)/chronos-1)/0.75 ) ) + 2,
 		senakhan: Math.max( 1, Math.ceil( (100/unbuffedTCC)/(dora/100+1)-1 ) )
 	}
@@ -350,7 +350,7 @@ function calculateClick() {
 	//Buffed Stats
 	var buffedMPZ = Math.max( 2, unbuffedMPZ + kuma*( 1 + outsiders.borb/10 ) );
 		buffedTCC = Math.max( 1, ( dora*( 1 + outsiders.senakhan)/100 + 1 )*unbuffedTCC );
-		buffedBossHP = Math.floor( Math.max( 1, unbuffedBossHP + bubos*( 1 + outsiders.kariqua*0.5 ) ) );
+		buffedBossHP = Math.floor( Math.max( 5, unbuffedBossHP + bubos*( 1 + outsiders.kariqua*0.5 ) ) );
 		buffedTimer = Math.max( 2, unbuffedTimer + chronos*( 1 + outsiders.orphalas*0.75 ) );
 		buffedPBC = Math.max( 5, unbuffedPBC + atman*( 1 + outsiders.rhageist*0.25 ) );
 	
