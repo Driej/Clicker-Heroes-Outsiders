@@ -1,6 +1,8 @@
 //Polyfill for Internet Explorer
 Math.log10 = function (x) { return Math.log(x) / Math.LN10; };
 
+var e11 = false;
+
 var defaultSettings = {
 	zoneOverride: 0,
 	reservedAS: 0.1,
@@ -56,13 +58,13 @@ function nOS( as, tp, zone ) {
     var zone_increase = Math.log( damage_increase ) / Math.log( hp_multiplier ) * 1.4;
     var phan_buff = Math.pow( hs_multiplier, zone_increase );
     
-    if( phan < 3 ) phan_buff *= 1.3;
+    if( phan < 5 ) phan_buff *= 1.3;
     
     if( chor<as && chor<150 ) {
       var chor_bpAS = Math.pow( chor_buff, 1/(chor+1) );
       if( chor_bpAS>=phan_buff ) {
         if( pony<as ) {
-          var pony_buff = ( Math.pow( pony+1, 2 )*10 + 1 ) / ( Math.pow( pony, 2 )*10 + 1 );
+          var pony_buff = ( Math.pow( pony+1, 2 )*(e11?1:10) + 1 ) / ( Math.pow( pony, 2 )*(e11?1:10) + 1 );
           var pony_bpAS = Math.pow( pony_buff, 1/(pony+1) );
           if( pony_bpAS >= chor_bpAS ) {
             as -= ++pony;
@@ -75,7 +77,7 @@ function nOS( as, tp, zone ) {
     }
     
     if( pony<as ) {
-      var pony_buff = ( Math.pow( pony+1, 2 )*10 + 1 ) / ( Math.pow( pony, 2 )*10 + 1 );
+      var pony_buff = ( Math.pow( pony+1, 2 )*(e11?1:10) + 1 ) / ( Math.pow( pony, 2 )*(e11?1:10) + 1 );
       var pony_bpAS = Math.pow( pony_buff, 1/(pony+1) );
       if( pony_bpAS>=phan_buff ) {
         as -= ++pony;
@@ -93,6 +95,8 @@ function nOS( as, tp, zone ) {
 }//function nOS
 
 function calculateClick() {
+	
+	e11 = $("#beta").is(":checked");
 	
 	//Validate Ancient Souls
 	var inputAS = parseInt( $("#ancient_souls").val() || 0 );
@@ -156,20 +160,38 @@ function calculateClick() {
 		}else if( inputAS<10500 ) {
 			HZE = ( 1 - Math.exp(-inputAS/3900) )*200000 + 4800;
 		}else{
-			if( inputAS>=33000 ) {
-				HZE = 1236000;
-			}else if( inputAS>=19000 ) {
-				HZE = 414000;
-			}else if( inputAS>=15500 ) {
-				HZE = 281000;
-			}else{
-				HZE = 205000;
+			if( e11 ) {
+				if( inputAS>=27000 ){
+					HZE = 2716000;
+				}else if( inputAS>=14500 ) {
+					var as = Math.max( 27000, inputAS*1.5 );
+					HZE = ( as/5 - 5 )*51.8*Math.log( 1.25 )/Math.log( 1 + tp/100 );
+				}else {
+					HZE = 220000;
+				}
+			} else {
+				if( inputAS>=14500 ) {
+					var as = inputAS*1.5;
+					HZE = ( as/5 - 6 )*51.8*Math.log( 1.25 )/Math.log( 1 + tp/100 );
+					HZE = Math.min( 1236000, HZE );
+				}else {
+					HZE = 220000;
+				}
+				/*if( inputAS>=33000 ) {
+					HZE = 1236000;
+				}else if( inputAS>=19000 ) {
+					HZE = 414000;
+				}else if( inputAS>=15500 ) {
+					HZE = 281000;
+				}else{
+					HZE = 205000;
+				}*/
 			}
 		}
 		HZE = Math.floor(HZE);
 	}
 	
-	var logHS = Math.log10( 1 + tp/100 )*HZE/5 + 6;
+	var logHS = Math.log10( 1 + tp/100 )*HZE/5 + (e11?5:6);
 		AS = Math.floor( logHS*5 );
 		newTP = 25 - 23*Math.exp( -0.0003*AS );
 		ancientLevels = Math.floor( logHS*3.284 ) + 11;
@@ -194,13 +216,13 @@ function calculateClick() {
 	//Unbuffed Stats
 	var zone = Math.floor(HZE/500)*500;
 		nerfs = zone/500;
-		unbuffedMPZ = 10 + nerfs;
+		unbuffedMPZ = 10 + nerfs*(e11?0.1:1);
 		unbuffedTCC = Math.exp( -0.006*nerfs );
 		unbuffedBossHP = 10 + nerfs*0.4;
 		unbuffedTimer = 30 - nerfs*2;
 		unbuffedPBC = 25 - nerfs*2;
 	
-	$("#unbuffedMPZ").html( "Monsters per Zone: " + unbuffedMPZ );
+	$("#unbuffedMPZ").html( "Monsters per Zone: " + unbuffedMPZ.toFixed(1) );
 	$("#unbuffedTCC").html( "Treasure Chests: " + unbuffedTCC.toFixed(6) + "x" );
 	$("#unbuffedBossHP").html( "Boss Health: " + unbuffedBossHP.toFixed(1) + "x" );
 	$("#unbuffedTimer").html( "Boss Timer: " + unbuffedTimer + "s" );
@@ -208,7 +230,7 @@ function calculateClick() {
 	
 	//Outsider Caps
 	var outsiderCaps = {
-		borb: Math.ceil( ((unbuffedMPZ-2)/-kuma-1)/0.1 ),
+		borb: Math.max( 0, Math.ceil( ((unbuffedMPZ-2)/-kuma-1)/0.1 ) ),
 		rhageist: Math.ceil( ((100-unbuffedPBC)/atman-1)/0.25 ),
 		kariqua: Math.ceil( ((unbuffedBossHP-1)/-bubos-1)/0.5 ),
 		orphalas: Math.max( 1, Math.ceil( ((2-unbuffedTimer)/chronos-1)/0.75 ) ) + 2,
@@ -219,9 +241,24 @@ function calculateClick() {
 	var outsiders = {};
 	var outsiderCosts = {};
 	
-	if( outsiderCaps.borb>15 ) outsiders.borb = outsiderCaps.borb;
-	else if( inputAS>=600 ) outsiders.borb = 15;
-	else outsiders.borb = spendAS( 0.2, inputAS );
+	/*if( inputAS<100 ) {
+		outsiders.borb = spendAS( 0.4-inputAS/500, inputAS );
+	}else {
+		if( e11 ) {
+			if( outsiderCaps.borb>10 ) outsiders.borb = outsiderCaps.borb;
+			else if( inputAS>=275 ) outsiders.borb = 10;
+			else outsiders.borb = spendAS( 0.2, inputAS );
+		}else {
+			if( outsiderCaps.borb>15 ) outsiders.borb = outsiderCaps.borb;
+			else if( inputAS>=600 ) outsiders.borb = 15;
+			else outsiders.borb = spendAS( 0.2, inputAS );
+		}
+	}*/
+	if( e11 ) {
+		outsiders.borb = Math.max( (inputAS>=138)?10:spendAS(0.4,inputAS), outsiderCaps.borb );
+	}else {
+		outsiders.borb =  Math.max( (inputAS>=300)?15:spendAS(0.4,inputAS), outsiderCaps.borb );
+	}
 	outsiderCosts.borb = totalCost(outsiders.borb);
 	
 	var ancientSouls = inputAS - outsiderCosts.borb;
@@ -244,7 +281,10 @@ function calculateClick() {
 	for( var o in outsiderCaps ) {
 		if( o=="borb" ) continue;
 		if(outsiderCaps.hasOwnProperty(o)) {
-			var ratio = settings[o+"Ratio"]
+			var ratio = settings[o+"Ratio"];
+			if( inputAS<100 ) {
+				ratio *= inputAS/100
+			}
 			var outsiderCap = Math.min( outsiderCaps[o], limits[o] );
 			if( totalCost(outsiderCap)>(ancientSouls*ratio) ) {
 				outsiders[o] = spendAS( ratio, ancientSouls );
@@ -321,7 +361,11 @@ function calculateClick() {
 	$("#buffedPBC").html( "Primal Chance: " + buffedPBC.toFixed() + "%" );
 	
 	//Zone Breakpoints
-	$("#3mpz").html( "3 monsters per zone: " + ( -3500 - Math.floor( kuma*( 1 + outsiders.borb/10 ) )*500 ).toLocaleString() );
+	if( e11 ) {
+		$("#3mpz").html( "3 monsters per zone: " + ( -39500 - Math.floor( kuma*( 1 + outsiders.borb/10 ) )*5000 ).toLocaleString() );
+	}else {
+		$("#3mpz").html( "3 monsters per zone: " + ( -3500 - Math.floor( kuma*( 1 + outsiders.borb/10 ) )*500 ).toLocaleString() );
+	}
 	$("#5PBC").html( "5% primal chance: " + ( 5500 + Math.floor( atman*( 1 + outsiders.rhageist/4 )/2)*500 ).toLocaleString() );
 	$("#90BHP").html( "90% boss health: " + ( Math.ceil( ( bubos*( 1 + outsiders.kariqua/2 )*-10 - 10 )/0.4 )*500 ).toLocaleString() );
 	$("#2sTimer").html( "2s boss timer: " + ( 7000 + Math.floor( chronos*( 1 + outsiders.orphalas*0.75 )/2 )*500 ).toLocaleString() );
@@ -329,12 +373,12 @@ function calculateClick() {
 	$("#1TTC").html( "1% treasure chests: " + (Math.ceil( Math.log10( 0.015/( dora/10000*( 1 + outsiders.senakhan ) + 0.01 ) )/Math.log10( 0.99401 ) )*500 ).toLocaleString() );
 	
 	//End of Transcension Adjustments
-	var ponybonus = Math.pow( outsiders.pony, 2 )*10;
+	var ponybonus = Math.pow( outsiders.pony, 2 )*(e11?1:10);
 		series = 1/( 1 - 1/( 1 + tp/100 ) );
 		pbcm = 100/Math.min(buffedPBC,100);
 	
 	logHS = Math.log10( 1 + tp/100 )*(HZE-105)/5 + Math.log10( ponybonus + 1 ) + Math.log10( 20*series*pbcm );
-	AS = Math.floor( logHS*5 );
+	AS = Math.max( inputAS, Math.floor( logHS*5 ));
 	newTP = 25 - 23*Math.exp( -0.0003*AS );
 	
 	$("#predictedHS").html("logHS: " + logHS.toFixed(2).toLocaleString() );
