@@ -150,11 +150,11 @@ function calculateClick() {
 	//End of Transcension
 	var HZE = Math.floor(settings.zoneOverride);
 	if ( HZE==0 ) {
-		if ( inputAS<200 ) {
-			var as = inputAS + 43;
+		if ( inputAS<100 ) {
+			var as = inputAS + 42;
 			HZE = ( as/5 - 6 )*51.8*Math.log( 1.25 )/Math.log( 1 + tp/100 );
 		}else if( inputAS<10500 ) {
-			HZE = ( 1 - Math.exp(-inputAS/3900) )*200000 + 5000;
+			HZE = ( 1 - Math.exp(-inputAS/3900) )*200000 + 4800;
 		}else{
 			if( inputAS>=33000 ) {
 				HZE = 1236000;
@@ -195,7 +195,7 @@ function calculateClick() {
 	var zone = Math.floor(HZE/500)*500;
 		nerfs = zone/500;
 		unbuffedMPZ = 10 + nerfs;
-		unbuffedTCC = Math.pow( 0.99401, nerfs );
+		unbuffedTCC = Math.exp( -0.006*nerfs );
 		unbuffedBossHP = 10 + nerfs*0.4;
 		unbuffedTimer = 30 - nerfs*2;
 		unbuffedPBC = 25 - nerfs*2;
@@ -208,7 +208,7 @@ function calculateClick() {
 	
 	//Outsider Caps
 	var outsiderCaps = {
-		borb: Math.max( 5, Math.ceil( ((unbuffedMPZ-2)/-kuma-1)/0.1 )),
+		borb: Math.ceil( ((unbuffedMPZ-2)/-kuma-1)/0.1 ),
 		rhageist: Math.ceil( ((100-unbuffedPBC)/atman-1)/0.25 ),
 		kariqua: Math.ceil( ((unbuffedBossHP-1)/-bubos-1)/0.5 ),
 		orphalas: Math.max( 1, Math.ceil( ((2-unbuffedTimer)/chronos-1)/0.75 ) ) + 2,
@@ -218,11 +218,12 @@ function calculateClick() {
 	//Outsider Levelling
 	var outsiders = {};
 	var outsiderCosts = {};
-	var borb = 0;
-	if( inputAS<100 && ( totalCost(outsiderCaps.borb)>(inputAS*0.3) ) ) {
-		outsiders.borb = spendAS( 0.3, inputAS );
-	} else outsiders.borb = outsiderCaps.borb;
+	
+	if( outsiderCaps.borb>15 ) outsiders.borb = outsiderCaps.borb;
+	else if( inputAS>=600 ) outsiders.borb = 15;
+	else outsiders.borb = spendAS( 0.2, inputAS );
 	outsiderCosts.borb = totalCost(outsiders.borb);
+	
 	var ancientSouls = inputAS - outsiderCosts.borb;
 		reservedAS = 0;
 	if( $("#reserveAS").is(":checked") ) {
@@ -233,13 +234,21 @@ function calculateClick() {
 		outsiders.xyliqil = spendAS( settings.xyliqilRatio, ancientSouls );
 	}else*/ outsiders.xyliqil = 0;
 	outsiderCosts.xyliqil = totalCost(outsiders.xyliqil);
+	
+	var limits = {
+		rhageist: 107,
+		kariqua: 164,
+		orphalas: 147,
+		senakhan: 71
+	}
 	for( var o in outsiderCaps ) {
 		if( o=="borb" ) continue;
 		if(outsiderCaps.hasOwnProperty(o)) {
 			var ratio = settings[o+"Ratio"]
-			if( totalCost(outsiderCaps[o])>(ancientSouls*ratio) ) {
+			var outsiderCap = Math.min( outsiderCaps[o], limits[o] );
+			if( totalCost(outsiderCap)>(ancientSouls*ratio) ) {
 				outsiders[o] = spendAS( ratio, ancientSouls );
-			} else outsiders[o] = outsiderCaps[o];
+			} else outsiders[o] = outsiderCap;
 			outsiderCosts[o] = totalCost( outsiders[o] );
 		}
 	}
