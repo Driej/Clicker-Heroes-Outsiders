@@ -163,15 +163,31 @@ function calculateClick() {
 			if( e11 ) {
 				if( inputAS>=27000 ){
 					HZE = 2716000;
+				}else if( inputAS>=17000 ) {
+					var as = inputAS*2;
+					HZE = ( as/5 - 6 )*51.8*Math.log( 1.25 )/Math.log( 1 + tp/100 );
+					HZE = Math.min( 1236000, HZE );
 				}else if( inputAS>=14500 ) {
-					var as = Math.max( 27000, inputAS*1.5 );
+					var as = Math.max( 27000, inputAS*1.8 );
 					HZE = ( as/5 - 5 )*51.8*Math.log( 1.25 )/Math.log( 1 + tp/100 );
 				}else {
 					HZE = 220000;
 				}
 			} else {
-				if( inputAS>=14500 ) {
-					var as = inputAS*1.5;
+				if ( inputAS>=80000 ) {
+					var b = spendAS(1,inputAS-20000);
+						m = Math.min( 2716000, 46500 + b*5000 );
+					HZE = m;
+				}else if( inputAS>=20000 ) {
+					var b = spendAS(1,inputAS*0.75);
+						m = Math.min( 2716000, 46500 + b*5000 );
+					HZE = m;
+				}else if( inputAS>=17000 ) {
+					var as = inputAS*2;
+					HZE = ( as/5 - 6 )*51.8*Math.log( 1.25 )/Math.log( 1 + tp/100 );
+					HZE = Math.min( 1236000, HZE );
+				}else if( inputAS>=14500 ) {
+					var as = inputAS*1.8;
 					HZE = ( as/5 - 6 )*51.8*Math.log( 1.25 )/Math.log( 1 + tp/100 );
 					HZE = Math.min( 1236000, HZE );
 				}else {
