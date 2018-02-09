@@ -54,6 +54,16 @@ function nOS( as, tp, zone ) {
   var chor_buff = 1/0.95;
   
   while( as>0 ) {
+	
+	if( pony<1 ) {
+		as -= ++pony;
+		continue;
+	}else if( phan<3 ) {
+		phan++;
+		as--;
+		continue;
+	}
+	
     var damage_increase = ( phan+2 ) / ( phan+1 );
     var zone_increase = Math.log( damage_increase ) / Math.log( hp_multiplier ) * 1.4;
     var phan_buff = Math.pow( hs_multiplier, zone_increase );
@@ -271,9 +281,11 @@ function calculateClick() {
 		}
 	}*/
 	if( e11 ) {
-		outsiders.borb = Math.max( (inputAS>=138)?10:spendAS(0.4,inputAS), outsiderCaps.borb );
+		var b = Math.max( (inputAS>=138)?10:spendAS(0.4,inputAS), outsiderCaps.borb );
+		outsiders.borb = totalCost(b)>(inputAS-5)?spendAS(1,inputAS-5):b;
 	}else {
-		outsiders.borb =  Math.max( (inputAS>=300)?15:spendAS(0.4,inputAS), outsiderCaps.borb );
+		var b = Math.max( (inputAS>=300)?15:spendAS(0.4,inputAS), outsiderCaps.borb );
+		outsiders.borb = totalCost(b)>(inputAS-5)?spendAS(1,inputAS-5):b;
 	}
 	outsiderCosts.borb = totalCost(outsiders.borb);
 	
@@ -338,6 +350,7 @@ function calculateClick() {
 	var outsiderNames = ["Xyliqil","Chor'gorloth","Phandorys","Ponyboy","Borb","Rhageist","K'Ariqua","Orphalas","Sen-Akhan"];
 		outsiderAlias = ["xyliqil","chor","phan","pony","borb","rhageist","kariqua","orphalas","senakhan"];
 		toappend = "";
+		quickshare = "";
 	
 	var totalAS = 0;
 	
@@ -356,10 +369,15 @@ function calculateClick() {
 			else tC = tC.toLocaleString();
 			toappend += cap + "</td><td>" + tC + "</td><tr>";
 		}
+		
+		quickshare += outsiders[o].toLocaleString();
+		if( o!=="senakhan" ) quickshare += "/";
+		if( o=="pony" ) quickshare += "/";
 	}
 	
 	$("#OutsidersTable tbody").html(toappend);
 	
+	$("#share").html( quickshare );
 	$("#spentAS").html( "Total: " + totalAS );
 	$("#unspentAS").html( "Unspent: " + (inputAS-totalAS) );
 	
