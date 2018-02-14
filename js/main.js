@@ -287,7 +287,7 @@ function calculateClick() {
 		}
 	}*/
 	if( e11 ) {
-		var b = Math.max( (inputAS>=16833)?100:spendAS(0.3,inputAS), inputAS>=20000?outsiderCaps.borb:0 );
+		var b = Math.max( (inputAS>=10100)?100:spendAS(0.5,inputAS), inputAS>=20000?outsiderCaps.borb:0 );
 		outsiders.borb = totalCost(b)>(inputAS-5)?spendAS(1,inputAS-5):b;
 	}else {
 		var b = Math.max( (inputAS>=300)?15:spendAS(0.4,inputAS), outsiderCaps.borb );
