@@ -156,6 +156,16 @@ function calculateClick() {
 		}
 	}
 	
+	//Half Super Outsiders Spending in Late Game
+	for(var s in settings) {
+		if( s=="zoneOverride" ) continue;
+		if( !($("#reserveAS").is(":checked")) && s=="reservedAS" ) continue;
+		if( !($("#levelXyliqil").is(":checked")) && s=="xyliqilRatio" ) continue;
+		if(settings.hasOwnProperty(s)) {
+			settings[s] = settings[s]*0.5;
+		}
+	}
+	
 	var tp = 25 - 23*Math.exp( -0.0003*inputAS );
 	var logHSSacrificed = inputAS/5;
 	
