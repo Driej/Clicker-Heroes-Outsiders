@@ -171,8 +171,14 @@ function calculateClick() {
 			HZE = ( 1 - Math.exp(-inputAS/3900) )*200000 + 4800;
 		}else{
 			if( e11 ) {
-				if( inputAS>=27000 ){
-					HZE = 2716000;
+				if ( inputAS>=80000 ) {
+					var b = spendAS(1,inputAS-20000);
+						m = Math.min( 7e6, b*5000 );
+					HZE = m;
+				}else if( inputAS>=20000 ) {
+					var b = spendAS(1,inputAS*0.75);
+						m = Math.min( 7e6, b*5000 );
+					HZE = m;
 				}else if( inputAS>=17000 ) {
 					var as = inputAS*2;
 					HZE = ( as/5 - 6 )*51.8*Math.log( 1.25 )/Math.log( 1 + tp/100 );
@@ -221,7 +227,7 @@ function calculateClick() {
 		AS = Math.floor( logHS*5 );
 		newTP = 25 - 23*Math.exp( -0.0003*AS );
 		ancientLevels = Math.floor( logHS*3.284 ) + 11;
-		kuma = -100*( 1 - Math.exp( -0.0025*ancientLevels ) );
+		kuma = (e11?-8:-100)*( 1 - Math.exp( -0.0025*ancientLevels ) );
 		atman = 75*( 1 - Math.exp( -0.013*ancientLevels ) );
 		bubos = -5*( 1 - Math.exp( -0.002*ancientLevels ) );
 		chronos = 30*( 1 - Math.exp( -0.034*ancientLevels ) );
@@ -256,7 +262,7 @@ function calculateClick() {
 	
 	//Outsider Caps
 	var outsiderCaps = {
-		borb: Math.max( 0, Math.ceil( ((unbuffedMPZ-2)/-kuma-1)/0.1 ) ),
+		borb: Math.max( 0, Math.ceil( ((unbuffedMPZ-2)/-kuma-1)/(e11?0.125:0.1) ) ),
 		rhageist: Math.ceil( ((100-unbuffedPBC)/atman-1)/0.25 ),
 		kariqua: Math.ceil( ((unbuffedBossHP-5)/-bubos-1)/0.5 ),
 		orphalas: Math.max( 1, Math.ceil( ((2-unbuffedTimer)/chronos-1)/0.75 ) ) + 2,
@@ -281,7 +287,7 @@ function calculateClick() {
 		}
 	}*/
 	if( e11 ) {
-		var b = Math.max( (inputAS>=138)?10:spendAS(0.4,inputAS), outsiderCaps.borb );
+		var b = Math.max( (inputAS>=16833)?100:spendAS(0.3,inputAS), outsiderCaps.borb );
 		outsiders.borb = totalCost(b)>(inputAS-5)?spendAS(1,inputAS-5):b;
 	}else {
 		var b = Math.max( (inputAS>=300)?15:spendAS(0.4,inputAS), outsiderCaps.borb );
@@ -382,7 +388,7 @@ function calculateClick() {
 	$("#unspentAS").html( "Unspent: " + (inputAS-totalAS) );
 	
 	//Buffed Stats
-	var buffedMPZ = Math.max( 2, unbuffedMPZ + kuma*( 1 + outsiders.borb/10 ) );
+	var buffedMPZ = Math.max( 2, unbuffedMPZ + kuma*( 1 + outsiders.borb/(e11?8:10) ) );
 		buffedTCC = Math.max( 1, ( dora*( 1 + outsiders.senakhan)/100 + 1 )*unbuffedTCC );
 		buffedBossHP = Math.floor( Math.max( 5, unbuffedBossHP + bubos*( 1 + outsiders.kariqua*0.5 ) ) );
 		buffedTimer = Math.max( 2, unbuffedTimer + chronos*( 1 + outsiders.orphalas*0.75 ) );
@@ -396,7 +402,7 @@ function calculateClick() {
 	
 	//Zone Breakpoints
 	if( e11 ) {
-		$("#3mpz").html( "3 monsters per zone: " + ( -39500 - Math.floor( kuma*( 1 + outsiders.borb/10 ) )*5000 ).toLocaleString() );
+		$("#3mpz").html( "3 monsters per zone: " + ( -35000 - Math.floor( kuma*( 1 + outsiders.borb/8 )*10 )*500 ).toLocaleString() );
 	}else {
 		$("#3mpz").html( "3 monsters per zone: " + ( -3500 - Math.floor( kuma*( 1 + outsiders.borb/10 ) )*500 ).toLocaleString() );
 	}
