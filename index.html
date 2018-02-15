@@ -19,7 +19,6 @@
 						<div class="content">
 							<p>Send your Feedback to: <a href="https://redd.it/7on5it">https://redd.it/7on5it</a></p>
 							<p>This calculator works for Active and Hybrid playstyles.</p>
-							<p>Late game Outsider ratios are rough guesses until we know true optimal values. If you want to change them, make sure they add up to no more than 0.5.</p>
 							<p>When over 27k Ancient Souls, I advise you to use my <a href="https://redd.it/7qzrz4">Spreadsheet</a> instead. The spreadsheet takes a closer look at Outsider effects across the whole transcension instead of using ratios to guess.</p>
 						</div>
 					</div>
@@ -33,10 +32,9 @@
 								<input value="0" id="ancient_souls" type="text">
 							</div>
 							<div id="TP">TP: 2.0000%</div>
-							<br><input type="checkbox" id="reserveAS" class="checkbox">Reserve Ancient Souls
-							<!--<br><input type="checkbox" id="levelXyliqil" class="checkbox">Level Xyliqil-->
-							<br><input type="checkbox" id="beta" class="checkbox">e11 beta(round 2)
-							<br><button id="calculateButton" onclick="calculateClick()">Calculate</button>
+							<br><input type="checkbox" id="reserveAS" class="checkbox" onclick="refresh()">Reserve Ancient Souls
+							<br><input type="checkbox" id="beta" class="checkbox" onclick="refresh()">e11 beta(round 2)
+							<br><button id="calculateButton" onclick="refresh()">Calculate</button>
 							<hr>
 							<button id="showAdvanced" onclick="showAdvancedClick()">Show Advanced Settings</button>
 							<div id="advancedSettings">
@@ -47,27 +45,6 @@
 								<div class="numberInput">
 									<p>Reserved AS:</p>
 									<input id="reservedAS" type="text">
-								</div>
-								<h1>Outsider Ratios:</h1>
-								<!--<div class="numberInput">
-									<p>Xyliqil:</p>
-									<input id="xyliqilRatio" type="text">
-								</div>-->
-								<div class="numberInput">
-									<p>Rhageist:</p>
-									<input id="rhageistRatio" type="text">
-								</div>
-								<div class="numberInput">
-									<p>K'Ariqua:</p>
-									<input id="kariquaRatio" type="text">
-								</div>
-								<div class="numberInput">
-									<p>Orphalas:</p>
-									<input id="orphalasRatio" type="text">
-								</div>
-								<div class="numberInput">
-									<p>Sen-Akhan:</p>
-									<input id="senakhanRatio" type="text">
 								</div>
 								<button id="defaultButton" onclick="defaultClick()">Set to Default</button>
 							</div>
@@ -83,15 +60,12 @@
 									<th>Outsider</th>
 									<th>Level</th>
 									<th>Total Cost</th>
-									<th>Cap</th>
-									<th>Cap Cost</th>
 								</tr></thead>
 								<tbody>
 									
 								</tbody>
 							</table>
 							<div id="share"></div>
-							<div id="spentAS">Total: 0</div>
 							<div id="unspentAS">Unspent: 0</div>
 						</div>
 					</div>
