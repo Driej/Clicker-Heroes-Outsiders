@@ -7,10 +7,10 @@ var defaultSettings = {
 	zoneOverride: 0,
 	reservedAS: 0.1,
 	//xyliqilRatio: 0.025,
-	rhageistRatio: 0.25,
-	kariquaRatio: 0.03,
-	orphalasRatio: 0.07,
-	senakhanRatio: 0.05
+	rhageistRatio: 0.125,
+	kariquaRatio: 0.015,
+	orphalasRatio: 0.035,
+	senakhanRatio: 0.025
 }
 
 var settingsVisible = false;
@@ -153,16 +153,6 @@ function calculateClick() {
 				settings[s] *= multiplier;
 				$( "#"+s ).val( settings[s] );
 			}
-		}
-	}
-	
-	//Half Super Outsiders Spending in Late Game
-	for(var s in settings) {
-		if( s=="zoneOverride" ) continue;
-		if( !($("#reserveAS").is(":checked")) && s=="reservedAS" ) continue;
-		if( !($("#levelXyliqil").is(":checked")) && s=="xyliqilRatio" ) continue;
-		if(settings.hasOwnProperty(s)) {
-			settings[s] = settings[s]*0.5;
 		}
 	}
 	
@@ -313,7 +303,7 @@ function calculateClick() {
 	var ancientSouls = inputAS - outsiderCosts.borb;
 		reservedAS = 0;
 	if( $("#reserveAS").is(":checked") ) {
-		reservedAS = Math.floor( ancientSouls*settings.reservedAS )
+		reservedAS = Math.floor( ancientSouls*settings.reservedAS );
 	}
 	var spendableAS = ancientSouls - reservedAS;
 	/*if( $("#levelXyliqil").is(":checked") ) {
