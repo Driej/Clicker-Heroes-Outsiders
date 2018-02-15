@@ -113,7 +113,7 @@ function getInputs() {
 	return [ancientSouls, settings[0], settings[1]];
 }
 
-function calculateClick(test=false, ancientSouls=0, useBeta) {
+function refresh(test=false, ancientSouls=0, useBeta) {
 	//Inputs
 	this.useBeta = test ? useBeta : $("#beta").is(":checked");
 	if (!test) {
@@ -382,12 +382,16 @@ function calculateClick(test=false, ancientSouls=0, useBeta) {
 function test() {
 	var cases = [0,1,10,100,1000,10000,100000];
 	for (i=0;i<cases.length;i++) {
-		calculateClick(true,cases[i],false);
+		refresh(true,cases[i],false);
 	}
 	console.log();
 	for (i=0;i<cases.length;i++) {
-		calculateClick(true,cases[i],true);
+		refresh(true,cases[i],true);
 	}
 }
+
+$("#ancient_souls").keyup(function(ev) {
+	if (ev.which === 13) refresh();
+});
 
 $(setDefaults)
