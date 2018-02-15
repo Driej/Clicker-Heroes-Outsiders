@@ -183,7 +183,7 @@ function calculateClick() {
 			if( e11 ) {
 				if ( inputAS>=80000 ) {
 					var b = spendAS(1,inputAS-20000);
-						m = Math.min( 7e6, b*5000 );
+						m = Math.min( 4.5e6, b*5000 );
 					HZE = m;
 				}else if( inputAS>=20000 ) {
 					var b = spendAS(1,inputAS*0.75);
@@ -202,7 +202,7 @@ function calculateClick() {
 			} else {
 				if ( inputAS>=80000 ) {
 					var b = spendAS(1,inputAS-20000);
-						m = Math.min( 2716000, 46500 + b*5000 );
+						m = Math.min( 4.5e6, 46500 + b*5000 );
 					HZE = m;
 				}else if( inputAS>=20000 ) {
 					var b = spendAS(1,inputAS*0.75);
