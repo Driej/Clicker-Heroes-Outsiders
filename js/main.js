@@ -290,13 +290,16 @@ function calculateClick(test=false, ancientSouls=0, useBeta) {
 	//test log
 	var unspent = this.remainingAncientSouls + (unspentAncientSouls||0);
 	if (test) {
+		let stringHeroSouls = ( newLogHeroSouls>=6 )
+			? Math.pow(10,newLogHeroSouls%1).toFixed(3) + "e+" + Math.floor(newLogHeroSouls)
+			: Math.round(Math.pow(10,newLogHeroSouls));
 		console.log(JSON.stringify({
 			ancientSouls: ancientSouls,
 			useBeta: useBeta,
 			expectedLevels: [xyliqilLevel,chorLevel,phanLevel,ponyLevel,borbLevel,rhageistLevel,kariquaLevel,orphalasLevel,senakhanLevel],
 			expectedRemaining: unspent,
 			newHze: this.newHze,
-			newHeroSouls: Math.pow(10,newLogHeroSouls).toExponential(3),
+			newHeroSouls: stringHeroSouls,
 			newAncientSouls: this.newAncientSouls,
 			newTranscendentPower: this.newTranscendentPower*100
 		}));
