@@ -236,8 +236,10 @@ function calculateClick() {
 	var logHS = Math.log10( 1 + tp/100 )*HZE/5 + (e11?5:6);
 		AS = Math.floor( logHS*5 );
 		newTP = 25 - 23*Math.exp( -0.0003*AS );
-		ancientLevels = Math.floor( logHS*3.284 ) + 11;
-		kuma = (e11?-8:-100)*( 1 - Math.exp( -0.0025*ancientLevels ) );
+		ancientLevels = Math.floor( logHS/Math.log10(2) ) - 1;
+		kuma = e11
+		? -8*( 1 - Math.exp( -0.0025*ancientLevels ) )
+		: -100*( 1 - Math.exp( -0.01*ancientLevels ) );
 		atman = 75*( 1 - Math.exp( -0.013*ancientLevels ) );
 		bubos = -5*( 1 - Math.exp( -0.002*ancientLevels ) );
 		chronos = 30*( 1 - Math.exp( -0.034*ancientLevels ) );
