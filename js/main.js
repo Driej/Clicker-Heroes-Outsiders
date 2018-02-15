@@ -238,8 +238,8 @@ function calculateClick() {
 		newTP = 25 - 23*Math.exp( -0.0003*AS );
 		ancientLevels = Math.floor( logHS/Math.log10(2) ) - 1;
 		kuma = e11
-		? -8*( 1 - Math.exp( -0.0025*ancientLevels ) )
-		: -100*( 1 - Math.exp( -0.01*ancientLevels ) );
+		? -8*( 1 - Math.exp( -0.01*ancientLevels ) )
+		: -100*( 1 - Math.exp( -0.0025*ancientLevels ) );
 		atman = 75*( 1 - Math.exp( -0.013*ancientLevels ) );
 		bubos = -5*( 1 - Math.exp( -0.002*ancientLevels ) );
 		chronos = 30*( 1 - Math.exp( -0.034*ancientLevels ) );
