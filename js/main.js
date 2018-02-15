@@ -293,7 +293,7 @@ function refresh(test=false, ancientSouls=0, useBeta) {
 		let stringHeroSouls = ( newLogHeroSouls>=6 )
 			? Math.pow(10,newLogHeroSouls%1).toFixed(3) + "e+" + Math.floor(newLogHeroSouls)
 			: Math.round(Math.pow(10,newLogHeroSouls));
-		console.log(JSON.stringify({
+		return (JSON.stringify({
 			ancientSouls: ancientSouls,
 			useBeta: useBeta,
 			expectedLevels: [xyliqilLevel,chorLevel,phanLevel,ponyLevel,borbLevel,rhageistLevel,kariquaLevel,orphalasLevel,senakhanLevel],
@@ -303,7 +303,6 @@ function refresh(test=false, ancientSouls=0, useBeta) {
 			newAncientSouls: this.newAncientSouls,
 			newTranscendentPower: this.newTranscendentPower*100
 		}));
-		return
 	}
 	
 	// Display the results
@@ -381,13 +380,16 @@ function refresh(test=false, ancientSouls=0, useBeta) {
 
 function test() {
 	var cases = [0,1,10,100,1000,10000,100000];
+		readout = "[\n";
 	for (i=0;i<cases.length;i++) {
-		refresh(true,cases[i],false);
+		readout += "	" + refresh(true,cases[i],false) + ",\n";
 	}
-	console.log();
+	readout += "\n";
 	for (i=0;i<cases.length;i++) {
-		refresh(true,cases[i],true);
+		readout += "	" + refresh(true,cases[i],true) + ",\n";
 	}
+	readout += "]";
+	console.log(readout);
 }
 
 $("#ancient_souls").keyup(function(ev) {
