@@ -321,23 +321,23 @@ function refresh(test=false, ancientSouls=0, useBeta) {
 	//Unbuffed Stats
 	var zone = Math.floor(this.newHze/500)*500;
 		nerfs = zone/500;
-		unbuffedMPZ = 10 + nerfs*(useBeta?0.1:1);
+		unbuffedMPZ = 10 + nerfs*(this.useBeta?0.1:1);
 		unbuffedTCC = Math.exp( -0.006*nerfs );
 		unbuffedBossHP = 10 + nerfs*0.4;
 		unbuffedTimer = 30 - nerfs*2;
 		unbuffedPBC = 25 - nerfs*2;
-	$("#unbuffedMPZ").html( "Monsters per Zone: " + unbuffedMPZ.toFixed(1) );
+	$("#unbuffedMPZ").html( "Monsters per Zone: " + unbuffedMPZ.toFixed(2) );
 	$("#unbuffedTCC").html( "Treasure Chests: " + unbuffedTCC.toFixed(6) + "x" );
 	$("#unbuffedBossHP").html( "Boss Health: " + unbuffedBossHP.toFixed(1) + "x" );
 	$("#unbuffedTimer").html( "Boss Timer: " + unbuffedTimer + "s" );
 	$("#unbuffedPBC").html( "Primal Chance: " + unbuffedPBC + "%" );
 	//Buffed Stats
-	var buffedMPZ = Math.max( 2, unbuffedMPZ + kuma*( 1 + borbLevel/(e11?8:10) ) );
+	var buffedMPZ = unbuffedMPZ + kuma*( 1 + borbLevel/(this.useBeta?8:10) );
 		buffedTCC = Math.max( 1, ( dora*( 1 + senakhanLevel)/100 + 1 )*unbuffedTCC );
 		buffedBossHP = Math.floor( Math.max( 5, unbuffedBossHP + bubos*( 1 + kariquaLevel*0.5 ) ) );
 		buffedTimer = Math.max( 2, unbuffedTimer + chronos*( 1 + orphalasLevel*0.75 ) );
 		buffedPBC = Math.max( 5, unbuffedPBC + atman*( 1 + rhageistLevel*0.25 ) );
-	$("#buffedMPZ").html( "Monsters per Zone: " + buffedMPZ.toFixed(2) );
+	$("#buffedMPZ").html( "Monsters per Zone: " + buffedMPZ.toFixed(2) + (buffedMPZ<2?" (2)":"") );
 	$("#buffedTCC").html( "Treasure Chests: " + buffedTCC.toFixed() + "%" );
 	$("#buffedBossHP").html( "Boss Health: " + buffedBossHP.toFixed() + "x" );
 	$("#buffedTimer").html( "Boss Timer: " + buffedTimer.toFixed() + "s" );
