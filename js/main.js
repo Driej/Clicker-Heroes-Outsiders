@@ -303,11 +303,12 @@ function refresh(test=false, ancientSouls=0, useBeta) {
 	}
 	
 	// Display the results
+	$("#TP").html("TP: " + (transcendentPower*100).toFixed(4) + "%" );
 	//End of Transcension
 	$("#predictedHZE").html("Highest Zone: " + this.newHze.toLocaleString() );
 	$("#predictedHS").html("logHS: " + newLogHeroSouls.toFixed(2).toLocaleString() );
 	$("#predictedAS").html("AncientSouls: " + this.newAncientSouls.toLocaleString() + " (+" + this.ancientSoulsDiff.toLocaleString() + ")");
-	$("#predictedTP").html("TP: " + this.newTranscendentPower.toFixed(4) + "%" );
+	$("#predictedTP").html("TP: " + (this.newTranscendentPower*100).toFixed(4) + "%" );
 	$("#predictedAncients").html("Ancient Levels: " + ancientLevels.toLocaleString() );
 	$("#kuma").html( kuma.toFixed(2) + " monsters per zone" );
 	$("#atman").html( atman.toFixed(2) + "% chance of primal" );
