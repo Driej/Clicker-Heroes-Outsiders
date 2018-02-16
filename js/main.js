@@ -290,16 +290,13 @@ function refresh(test=false, ancientSouls=0, useBeta) {
 	//test log
 	var unspent = this.remainingAncientSouls + (unspentAncientSouls||0);
 	if (test) {
-		let stringHeroSouls = ( newLogHeroSouls>=6 )
-			? Math.pow(10,newLogHeroSouls%1).toFixed(3) + "e+" + Math.floor(newLogHeroSouls)
-			: Math.round(Math.pow(10,newLogHeroSouls));
 		return (JSON.stringify({
 			ancientSouls: ancientSouls,
 			useBeta: useBeta,
 			expectedLevels: [xyliqilLevel,chorLevel,phanLevel,ponyLevel,borbLevel,rhageistLevel,kariquaLevel,orphalasLevel,senakhanLevel],
 			expectedRemaining: unspent,
 			newHze: this.newHze,
-			newHeroSouls: stringHeroSouls,
+			newLogHeroSouls: newLogHeroSouls,
 			newAncientSouls: this.newAncientSouls,
 			newTranscendentPower: this.newTranscendentPower*100
 		}));
@@ -379,16 +376,16 @@ function refresh(test=false, ancientSouls=0, useBeta) {
 }
 
 function test() {
-	var cases = [0,1,10,100,1000,10000,100000];
+	var cases = [0,1,10,100,1000,10000,12500,15000,17500,20000,50000,100000];
 		readout = "[\n";
 	for (i=0;i<cases.length;i++) {
 		readout += "	" + refresh(true,cases[i],false) + ",\n";
 	}
-	readout += "\n";
 	for (i=0;i<cases.length;i++) {
 		readout += "	" + refresh(true,cases[i],true) + ",\n";
 	}
-	readout += "]";
+	readout = readout.slice(0, -2);
+	readout += "\n]";
 	console.log(readout);
 }
 
