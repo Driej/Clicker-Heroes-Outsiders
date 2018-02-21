@@ -3,7 +3,12 @@ function readSave() {
 	let data;
 	if (txt.indexOf("Fe12NAfA3R6z4k0z") > -1 || txt.substring(0, 32) == "7a990d405d2c6fb93aa8fbb0ec1a3b23") {
 		if (txt.substring(0, 32) == "7a990d405d2c6fb93aa8fbb0ec1a3b23") {
-			data = JSON.parse(pako.inflate(atob(txt.substring(32)), {to: 'string'}));
+			try {
+				data = JSON.parse(pako.inflate(atob(txt.substring(32)), {to: 'string'}));
+			} catch(e) {
+				$("#savegame").val("");
+				return;
+			}
 		} else {
 			var result = txt.split("Fe12NAfA3R6z4k0z");
 			txt = "";
