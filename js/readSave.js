@@ -17,7 +17,7 @@ function readSave() {
 			}
 			data = JSON.parse(atob(txt));
 		}
-		let ancientSouls = data.ancientSoulsTotal + data.ancientSouls;
+		let ancientSouls = data.ancientSoulsTotal;
 		$("#ancient_souls").val(ancientSouls);
 		refresh();
 	} else if (txt)
