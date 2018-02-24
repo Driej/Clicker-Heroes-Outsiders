@@ -54,7 +54,7 @@ function nOS( ancientSouls, transcendentPower, zone ) {
 
 		let damageIncrease = (phan + 2) / (phan + 1);
 		let zoneIncrease = Math.log(damageIncrease) / dpsToZones;
-		let phanBuff = Math.pow(hsMultiplier, zoneIncrease);
+		let phanBuff = Math.pow(hsMultiplier, zoneIncrease/5);
 
 		if (phan < 5) {
 			phanBuff *= 1.3;
@@ -327,9 +327,9 @@ function refresh(test=false, ancientSouls=0, useBeta) {
 	$("#buffedPBC").html( "Primal Chance: " + buffedPBC.toFixed() + "%" );
 	//Zone Breakpoints
 	if( this.useBeta ) {
-		$("#3mpz").html( "3 monsters per zone: " + ( -35000 - Math.floor( kuma*( 1 + borbLevel/8 )*10 )*500 ).toLocaleString() );
+		$("#HighMpz").html( "2.1 monsters per zone: " + ( -30500 - Math.floor( kuma*( 1 + borbLevel/8 )*10 )*500 ).toLocaleString() );
 	}else {
-		$("#3mpz").html( "3 monsters per zone: " + ( -3500 - Math.floor( kuma*( 1 + borbLevel/10 ) )*500 ).toLocaleString() );
+		$("#HighMpz").html( "3 monsters per zone: " + ( -3500 - Math.floor( kuma*( 1 + borbLevel/10 ) )*500 ).toLocaleString() );
 	}
 	$("#5PBC").html( "5% primal chance: " + ( 5500 + Math.floor( atman*( 1 + rhageistLevel/4 )/2)*500 ).toLocaleString() );
 	$("#90BHP").html( "90% boss health: " + ( Math.ceil( ( bubos*( 1 + kariquaLevel/2 )*-10 - 10 )/0.4 )*500 ).toLocaleString() );
