@@ -53,9 +53,9 @@ function nOS( ancientSouls, transcendentPower, zone ) {
 		}
 
 		let damageIncrease = (phan + 2) / (phan + 1);
-		let zoneIncrease = Math.log(damageIncrease) / dpsToZones;
-		let phanBuff = Math.pow(hsMultiplier, zoneIncrease/5);
-
+		let zoneIncrease = Math.log10(damageIncrease) / dpsToZones;
+		let phanBuff = Math.pow(hsMultiplier, zoneIncrease);
+console.log(dpsToZones);
 		if (phan < 5) {
 			phanBuff *= 1.3;
 		}
