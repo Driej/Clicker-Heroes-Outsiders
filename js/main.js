@@ -143,7 +143,7 @@ function refresh(test=false, ancientSouls=0, useBeta) {
 		this.newHze = b * 5000 + (this.useBeta?0:46500);
 	} else {
 		let b = this.spendAS(1, ancientSouls - 15000);
-		this.newHze = Math.min(4.5e6, b * 5000 + (this.useBeta?0:46500));
+		this.newHze = Math.min(5e6, b * 5000 + (this.useBeta?0:46500));
 	}}
 	
 	this.newHze = Math.floor(this.newHze);
