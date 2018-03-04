@@ -162,7 +162,7 @@ function getInputs() {
     return [Math.floor(ancientSouls), zoneOverride];
 }
 
-function refresh(test=false, ancientSouls=0, useBeta) {
+function refresh(test=false, ancientSouls=0, useBeta=false) {
     //Inputs
     this.useBeta = test ? useBeta : $("#beta").is(":checked");
     if (!test) {
@@ -201,12 +201,15 @@ function refresh(test=false, ancientSouls=0, useBeta) {
     }}
 
     // Push beyond 2mpz
-    if (this.newHze > 4e6) {
-        this.borbTarget = this.newHze;
-        this.newHze *= 1.02 + (this.newHze - 4e6) / 5e7;
-    } else if (this.newHze > 1e6) {
-        this.borbTarget = this.newHze;
-        this.newHze *= 1.02;
+    this.borbTarget = false;
+    if (this.useBeta) {
+        if (this.newHze > 4e6) {
+            this.borbTarget = this.newHze;
+            this.newHze *= 1.02 + (this.newHze - 4e6) / 5e7;
+        } else if (this.newHze > 1e6) {
+            this.borbTarget = this.newHze;
+            this.newHze *= 1.02;
+        }
     }
 
     this.newHze = Math.floor(this.newHze);
@@ -232,7 +235,7 @@ function refresh(test=false, ancientSouls=0, useBeta) {
 
     // Outsider Caps
     let borbCap = this.borbTarget
-        ? (this.borbTarget - 500) / 5000
+        ? Math.ceil((this.borbTarget - 500) / 5000)
         : Math.max(0, Math.ceil(((unbuffedMonstersPerZone - 2.1) / - kuma - 1) / (this.useBeta ? 0.125 : 0.1)));
     let rhageistCap = Math.ceil(((100 - unbuffedPrimalBossChance) / atman - 1) / 0.25);
     let kariquaCap = Math.ceil(((unbuffedBossHealth - 5) / -bubos - 1) / 0.5);
@@ -334,7 +337,7 @@ function refresh(test=false, ancientSouls=0, useBeta) {
     if (test) {
         return (JSON.stringify({
             ancientSouls: ancientSouls,
-            useBeta: useBeta,
+            useBeta: this.useBeta,
             expectedLevels: [xyliqilLevel,chorLevel,phanLevel,ponyLevel,borbLevel,rhageistLevel,kariquaLevel,orphalasLevel,senakhanLevel],
             expectedRemaining: unspent,
             newHze: this.newHze,
