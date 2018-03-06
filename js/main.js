@@ -190,13 +190,9 @@ function refresh(test=false, ancientSouls=0, useBeta=false) {
     } else if (ancientSouls < 27000 ) {
         // +100% Ancient Souls
         this.newHze =  ancientSouls*20.68;
-    } else if (ancientSouls < 60000) {
-        // 25% Non-borb (7k-15k)
-        let b = this.spendAS(1, ancientSouls * 0.75);
-        this.newHze = b * 5000 + (this.useBeta?500:46500);
     } else {
-        // 15k Non-borb
-        let b = this.spendAS(1, ancientSouls - 15000);
+        // 4.5k Non-borb
+        let b = this.spendAS(1, ancientSouls - 4500);
         this.newHze = Math.min(5.5e6, b * 5000 + (this.useBeta?500:46500));
     }}
 
@@ -205,10 +201,10 @@ function refresh(test=false, ancientSouls=0, useBeta=false) {
     if (this.useBeta) {
         if (this.newHze > 4e6) {
             this.borbTarget = this.newHze;
-            this.newHze *= 1.02 + (this.newHze - 4e6) / 5e7;
+            this.newHze *= Math.min(5.5e6, 1.01 + (this.newHze - 4e6) / 5e5 * 0.013);
         } else if (this.newHze > 1e6) {
             this.borbTarget = this.newHze;
-            this.newHze *= 1.02;
+            this.newHze *= 1.01;
         }
     }
 
@@ -260,10 +256,10 @@ function refresh(test=false, ancientSouls=0, useBeta=false) {
         orphalasRatio = 0.05;
         senakhanRatio = 0.05;
     } else {
-        rhageistRatio = 0.0015;
-        kariquaRatio = 0.0005;
-        orphalasRatio = 0.0015;
-        senakhanRatio = 0.015;
+        rhageistRatio = 0;
+        kariquaRatio = 0;
+        orphalasRatio = 0;
+        senakhanRatio = 0;
     }
 
     // Outsider Leveling
