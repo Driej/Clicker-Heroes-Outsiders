@@ -145,6 +145,44 @@ function nOS( ancientSouls, transcendentPower, zone ) {
     return [chor, phan, pony];
 }//function nOS
 
+function findNumTranscensions(ancientSouls, nonBorb, zonePush, targetZone) {
+    let transcensions = 0;
+    let currentZone = 0;
+    let borb;
+    while(currentZone < targetZone) {
+        borb = spendAS(1, ancientSouls - nonBorb);
+        currentZone = borb * 5000 + 500;
+        currentZone = Math.floor(currentZone * (1 + zonePush / 100));
+        ancientSouls = Math.log10(1.25) * currentZone;
+        transcensions++;
+    }
+    return transcensions;
+}
+
+function findStrategy(ancientSouls) {
+    if(ancientSouls < 340000) {
+        let targetZone = 4.5e6;
+        let nonBorb = 4500;
+        let zonePush = 1;
+        let numTranscensions = findNumTranscensions(ancientSouls, nonBorb, zonePush, targetZone);
+        let newNumTranscensions = numTranscensions;
+        while(zonePush > 0) {
+            zonePush -= 0.1;
+            newNumTranscensions = findNumTranscensions(ancientSouls, nonBorb, zonePush, targetZone);
+            if (newNumTranscensions > numTranscensions) {
+                return [nonBorb, zonePush + 0.1];
+            }
+        }
+        while(newNumTranscensions === numTranscensions) {
+            nonBorb += 500;
+            newNumTranscensions = findNumTranscensions(ancientSouls, nonBorb, zonePush, targetZone);
+        }
+        return [nonBorb - 500, 0];
+    } else {
+        return [2000, 2.5];
+    }
+}
+
 function getInputs() {
     var ancientSouls = parseFloat( $("#ancient_souls").val() || 0 );
     if( !(ancientSouls>=0) ) {
@@ -175,37 +213,32 @@ function refresh(test=false, ancientSouls=0, useBeta=false) {
 
     // Figure out goals for this transcendence
     this.newHze = Math.floor(zoneOverride||0);
+    let nonBorb;
+    let zonePush = 0;
     if(this.newHze==0){
     if (ancientSouls < 100) {
         let a = ancientSouls + 42;
         this.newHze = (a / 5 - 6) * 51.8 * Math.log(1.25) / Math.log(1 + transcendentPower);
     } else if (ancientSouls < 10500) {
         this.newHze = (1 - Math.exp(-ancientSouls / 3900)) * 200000 + 4800;
-    } else if (ancientSouls < 14500) {
-        // ~ +8000 Ancient Souls
-        this.newHze = ancientSouls*10.32 + 90000;
-    } else if (ancientSouls < 18000 ) {
-        // 27k Ancient Souls
-        this.newHze = 284000;
+    } else if (ancientSouls < 20000) {
+        // 20k or +8000 Ancient Souls
+        this.newHze = Math.max(215000, ancientSouls*10.32 + 90000);
     } else if (ancientSouls < 27000 ) {
-        // +100% Ancient Souls
-        this.newHze =  ancientSouls*20.68;
+        // 43.3k Ancient Souls
+        this.newHze =  458000;
     } else {
-        // 4.5k Non-borb
-        let b = this.spendAS(1, ancientSouls - 4500);
+        // End Game
+        [nonBorb, zonePush] = findStrategy(ancientSouls);
+        let b = this.spendAS(1, ancientSouls - nonBorb);
         this.newHze = Math.min(5.5e6, b * 5000 + (this.useBeta?500:46500));
     }}
 
     // Push beyond 2mpz
     this.borbTarget = false;
-    if (this.useBeta) {
-        if (this.newHze > 4e6) {
-            this.borbTarget = this.newHze;
-            this.newHze *= Math.min(5.5e6, 1.01 + (this.newHze - 4e6) / 5e5 * 0.013);
-        } else if (this.newHze > 1e6) {
-            this.borbTarget = this.newHze;
-            this.newHze *= 1.01;
-        }
+    if (zonePush > 0) {
+        this.borbTarget = this.newHze;
+        this.newHze = Math.min(5.5e6, (1 + zonePush / 100) * this.newHze);
     }
 
     this.newHze = Math.floor(this.newHze);
