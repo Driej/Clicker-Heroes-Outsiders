@@ -236,9 +236,13 @@ function refresh(test=false, ancientSouls=0, useBeta=false) {
 
     // Push beyond 2mpz
     this.borbTarget = false;
+    let versionZoneDiff;
     if (ancientSouls >= 27000) {
-        this.borbTarget = this.newHze - (this.useBeta?0:46000);
-        this.newHze = Math.min(5.5e6, (1 + zonePush / 100) * this.newHze);
+        versionZoneDiff = (this.useBeta?0:46000);
+        this.borbTarget = this.newHze - versionZoneDiff;
+        this.newHze = this.useBeta
+            ? Math.min(5.5e6, (1 + zonePush / 100) * this.newHze)
+            : Math.min(5.5e6, this.newHze);
     }
 
     this.newHze = Math.floor(this.newHze);
