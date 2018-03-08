@@ -236,8 +236,8 @@ function refresh(test=false, ancientSouls=0, useBeta=false) {
 
     // Push beyond 2mpz
     this.borbTarget = false;
-    if (zonePush > 0) {
-        this.borbTarget = this.newHze;
+    if (ancientSouls >= 27000) {
+        this.borbTarget = this.newHze - (this.useBeta?0:46000);
         this.newHze = Math.min(5.5e6, (1 + zonePush / 100) * this.newHze);
     }
 
