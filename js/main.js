@@ -269,7 +269,9 @@ function refresh(test=false, ancientSouls=0, useBeta=false) {
     // Outsider Caps
     let borbCap = this.borbTarget
         ? Math.ceil((this.borbTarget - 500) / 5000)
-        : Math.max(0, Math.ceil(((unbuffedMonstersPerZone - 2.1) / - kuma - 1) / (this.useBeta ? 0.125 : 0.1)));
+        : ancientSouls >= 10500
+            ? Math.ceil((this.newHze - 500) / 5000)
+            : Math.max(0, Math.ceil(((unbuffedMonstersPerZone - 2.1) / - kuma - 1) / (this.useBeta ? 0.125 : 0.1)));
     let rhageistCap = Math.ceil(((100 - unbuffedPrimalBossChance) / atman - 1) / 0.25);
     let kariquaCap = Math.ceil(((unbuffedBossHealth - 5) / -bubos - 1) / 0.5);
     let orphalasCap = Math.max(1, Math.ceil(((2 - unbuffedBossTimer) / chronos - 1) / 0.75)) + 2;
@@ -303,7 +305,7 @@ function refresh(test=false, ancientSouls=0, useBeta=false) {
     this.remainingAncientSouls = ancientSouls;
 
     let borbLevel;
-    if (this.useBeta) {
+    if (this.useBeta || ancientSouls >= 10500) {
         let borb15 = Math.min(15, this.spendAS(0.5, this.remainingAncientSouls));
         let borb10pc = this.spendAS(0.1, this.remainingAncientSouls);
         let borbLate = this.remainingAncientSouls >= 10000 ? borbCap : 0;
