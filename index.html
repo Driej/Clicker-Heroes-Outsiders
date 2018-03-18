@@ -6,7 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>CH Outsider Calculator</title>
 	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/main-v001.css">
+	<link rel="stylesheet" href="css/main-v002.css">
+    <link id="theme" rel="stylesheet" href="css/light-theme-v001.css">
 	<link rel="icon" type="image/png" href="Ruby.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
@@ -34,6 +35,7 @@
 							<div id="TP">TP: 2.0000%</div>
 							<br><input type="checkbox" id="reserveAS" class="checkbox" onclick="refresh()">Reserve Ancient Souls
 							<br><input type="checkbox" id="beta" class="checkbox" checked onclick="refresh()">e11 (web/steam)
+                            <br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()">Dark Theme
 							<br><button id="calculateButton" onclick="refresh()">Calculate</button>
 							<textarea id="savegame" placeholder="Paste your save game here" autofocus onclick="this.focus();this.select()" onblur="readSave()"></textarea>
 							<br><button id="readSaveButton" onclick="readSave()">Read Save</button>

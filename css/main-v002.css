@@ -17,8 +17,6 @@
 
 .boxes > div > div {
 	border-style: solid;
-	//border-color: #a0b0c0;
-	border-color: #7080a0;
 	border-radius: 6px;
 	border-width: 1px;
 	box-sizing: border-box;
@@ -26,15 +24,11 @@
 }
 
 .title {
-	//background-color: #d0e0f0;
-	background-color: #7080a0;
-	color: white;
 	padding: 12px;
 }
 
 .content {
 	padding: 12px;
-	color: #405070;
 }
 
 @media (max-width: 630px) {
@@ -71,16 +65,6 @@ input {
 	width: 48px;
 	text-align: center;
 	font-size: 14px;
-	background-color: #eee;
-	transition: background-color 0.3s;
-}
-
-input:hover {
-	background-color: #d0e0f0;
-}
-
-input:focus {
-	background-color: #c0d0ff;
 }
 
 .checkbox {
@@ -89,29 +73,14 @@ input:focus {
 }
 
 #calculateButton, #defaultButton, #readSaveButton {
-	background-color: white;
 	border-style: solid;
 	border-width: 2px;
 	border-radius: 4px;
-	border-color: #7080a0;
 	padding: 6px;
 	width: 100%;
-	transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-	color: #405070;
 	font-size: 16px;
 	font-weight: bold;
 	text-decoration: none;
-}
-
-#calculateButton:hover, #defaultButton:hover, #readSaveButton:hover {
-	background-color: #7080a0;
-	color: white;
-}
-
-#calculateButton:active, #defaultButton:active, #readSaveButton:active {
-	border-color: #405070;
-	background-color: #405070;
-	color: white;
 }
 
 #defaultButton {
@@ -120,10 +89,8 @@ input:focus {
 }
 
 #showAdvanced {
-	background-color: white;
 	border: none;
 	width: 100%;
-	color: #405070;
 }
 
 #advancedSettings {
@@ -158,12 +125,6 @@ h1 {
 	margin: 0;
 	font-size: 18px;
 	text-decoration: underline;
-}
-
-hr {
-	border: 0;
-	height: 2px;
-	background: #7080a0;
 }
 
 table {
