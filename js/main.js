@@ -474,4 +474,5 @@ function changeTheme() {
     );
 }
 
-$(setDefaults)
+$(setDefaults);
+$(changeTheme);
