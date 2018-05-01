@@ -468,11 +468,18 @@ $("#ancient_souls").keyup(function(ev) {
 });
 
 function changeTheme() {
-    $("#theme").attr("href", $("#dark").is(":checked")
-        ? "css/dark-theme-v001.css"
-        : "css/light-theme-v001.css"
-    );
+    if ($("#dark").is(":checked")) {
+        $("#theme-light").prop("disabled", true);
+        $("#theme-dark").prop("disabled", false);
+    } else {
+        $("#theme-light").prop("disabled", false);
+        $("#theme-dark").prop("disabled", true);
+    }
+    if (localStorage) localStorage.setItem("darkmode", $("#dark").is(":checked"));
 }
 
 $(setDefaults);
+if (localStorage) {
+    $("#dark").prop("checked", localStorage.getItem("darkmode")==="true");
+}
 $(changeTheme);
