@@ -264,7 +264,7 @@ function refresh(test, ancientSouls) {
     if (isNaN(senakhanCap)) senakhanCap = spendAS(ancientSouls, 1);
 
     // Outsider Ratios
-    let xyliqilRatio = 0.05;
+    let xyliqilRatio = 0.2;
     let rhageistRatio = 0.4;
     let kariquaRatio = 0.02;
     let orphalasRatio = 0.01;
@@ -276,7 +276,8 @@ function refresh(test, ancientSouls) {
     this.remainingAncientSouls = ancientSouls - this.getCostFromLevel(borbLevel);
     let xyliqilLevel = Math.max(1, spendAS(this.remainingAncientSouls, xyliqilRatio));
     if (this.remainingAncientSouls === 0) xyliqilLevel = 0;
-    if (xyliqilLevel > 156) xyliqilLevel = 156;
+    if (xyliqilLevel > 196) xyliqilLevel = 196;
+    else if (xyliqilLevel > 156) xyliqilLevel = 156;
     let rhageistLevel = Math.min(spendAS(this.remainingAncientSouls, rhageistRatio), rhageistCap, 530);
     let kariquaLevel = Math.min(spendAS(this.remainingAncientSouls, kariquaRatio), kariquaCap);
     let senakhanLevel = Math.min(spendAS(this.remainingAncientSouls, senakhanRatio), senakhanCap, 530);
