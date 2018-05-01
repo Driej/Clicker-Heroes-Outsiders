@@ -25,11 +25,9 @@
 			<div class="boxes">
 				<div class="box-12">
 					<div>
-						<div class="title">Info</div>
+						<div class="title">CH root 2 Outsider Recommender</div>
 						<div class="content">
-							<p>Info/Feedback: <a href="https://redd.it/7on5it">https://redd.it/7on5it</a></p>
 							<p>This calculator works for Active and Hybrid playstyles.</p>
-							<p>1.0e11 Update: numbers are automatically adjusted in end game to minimize the number of transcensions you need to do first and maximizing chor/pony second.</p>
 						</div>
 					</div>
 				</div>
@@ -42,20 +40,10 @@
 								<input value="0" id="ancient_souls" type="text">
 							</div>
 							<div id="TP">TP: 2.0000%</div>
-							<br><input type="checkbox" id="reserveAS" class="checkbox" onclick="refresh()">Reserve Ancient Souls
                             <br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()">Dark Theme
 							<br><button id="calculateButton" onclick="refresh()">Calculate</button>
 							<textarea id="savegame" placeholder="Paste your save game here" autofocus onclick="this.focus();this.select()" onblur="readSave()"></textarea>
 							<br><button id="readSaveButton" onclick="readSave()">Read Save</button>
-							<hr>
-							<button id="showAdvanced" onclick="showAdvancedClick()">Show Advanced Settings</button>
-							<div id="advancedSettings">
-								<div class="numberInput">
-									<p>Zone override:</p>
-									<input id="zoneOverride" type="text" style="font-size:12px;">
-								</div>
-								<button id="defaultButton" onclick="defaultClick()">Set to Default</button>
-							</div>
 						</div>
 					</div>
 				</div>
@@ -99,46 +87,6 @@
 						</div>
 					</div>
 				</div>
-				<div class="box-4">
-					<div>
-						<div class="title">Unbuffed stats at HZE</div>
-						<div class="content">
-							<div id="unbuffedMPZ"></div>
-							<div id="unbuffedTCC"></div>
-							<div id="unbuffedBossHP"></div>
-							<div id="unbuffedTimer"></div>
-							<div id="unbuffedPBC"></div>
-						</div>
-					</div>
-				</div>
-				<div class="box-4">
-					<div>
-						<div class="title">Buffed stats at HZE</div>
-						<div class="content">
-							<div id="buffedMPZ"></div>
-							<div id="buffedTCC"></div>
-							<div id="buffedBossHP"></div>
-							<div id="buffedTimer"></div>
-							<div id="buffedPBC"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="boxes">
-				<div class="box-4">
-					<div>
-						<div class="title">Zone Breakpoints</div>
-						<div class="content">
-							<div id="HighMpz"></div>
-							<div id="5PBC"></div>
-							<div id="90BHP"></div>
-							<div id="2sTimer"></div>
-							<div id="99TTC"></div>
-							<div id="1TTC"></div>
-						</div>
-					</div>
-				</div>
-			</div>
 		</div>
 		<script src="js/pako.min.js"></script>
 		<script src="js/readSave.js"></script>

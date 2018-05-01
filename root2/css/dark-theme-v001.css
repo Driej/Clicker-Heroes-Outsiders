@@ -1,0 +1,63 @@
+body {
+    background-color: #333;
+}
+
+a {
+    color: #e7b;
+}
+
+.boxes > div > div {
+	//border-color: #a0b0c0;
+	border-color: #888;
+    background-color: #555;
+}
+
+.title {
+	//background-color: #d0e0f0;
+	background-color: #506080;
+	color: #eee;
+}
+
+.content {
+	color: #cde;
+}
+
+input {
+	background-color: #eee;
+	transition: background-color 0.3s;
+}
+
+input:hover {
+	background-color: #d0e0f0;
+}
+
+input:focus {
+	background-color: #c0d0ff;
+}
+
+#calculateButton, #defaultButton, #readSaveButton {
+	background-color: #555;
+	border-color: #cde;
+	transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+	color: #cde;
+}
+
+#calculateButton:hover, #defaultButton:hover, #readSaveButton:hover {
+	background-color: #506080;
+	color: #eee;
+}
+
+#calculateButton:active, #defaultButton:active, #readSaveButton:active {
+	border-color: #405070;
+	background-color: #405070;
+	color: #eee;
+}
+
+#showAdvanced {
+	background-color: #555;
+	color: #cde;
+}
+
+hr {
+	background: #000;
+}
