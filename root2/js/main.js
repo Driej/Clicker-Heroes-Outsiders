@@ -330,7 +330,7 @@ function refresh(test, ancientSouls) {
     $("#TP").html("TP: " + (transcendentPower*100).toFixed(4) + "%" );
     //End of Transcension
     $("#predictedHZE").html("Highest Zone: " + this.newHze.toLocaleString() );
-    $("#predictedHS").html("logHS: " + newLogHeroSouls.toFixed(2).toLocaleString() );
+    $("#predictedHS").html("logHS: " + newLogHeroSouls.toLocaleString() );
     $("#predictedAS").html("AncientSouls: " + this.newAncientSouls.toLocaleString() + " (+" + this.ancientSoulsDiff.toLocaleString() + ")");
     $("#predictedTP").html("TP: " + this.newTranscendentPower + "%" );
     $("#predictedAncients").html("Ancient Levels: " + ancientLevels.toLocaleString() );
