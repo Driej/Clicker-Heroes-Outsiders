@@ -266,10 +266,10 @@ function refresh(test, ancientSouls) {
     if (isNaN(senakhanCap)) senakhanCap = spendAS(ancientSouls, 1);
 
     // Outsider Ratios
-    let xyliqilRatio = 0.2;
-    let rhageistRatio = 0.4;
-    let kariquaRatio = 0.02;
-    let orphalasRatio = 0.01;
+    let xyliqilRatio = 0.15;
+    let rhageistRatio = 0.3;
+    let kariquaRatio = 0.04;
+    let orphalasRatio = 0.002;
     let senakhanRatio = 0.05;
 
     // Outsider Leveling
