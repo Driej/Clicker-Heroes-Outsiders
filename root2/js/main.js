@@ -302,7 +302,7 @@ function refresh(test, ancientSouls) {
     this.remainingAncientSouls -= this.getCostFromLevel(ponyLevel);
 
     // End of transcension estimates
-    let ponyBonus = Math.pow(ponyLevel, 2) * 10;
+    let ponyBonus = Math.pow(ponyLevel, 2);
     let series = 1 / (1 - 1 / (1 + transcendentPower));
     atmanExp = 7 + 2 * (1 - Math.exp(-0.01 * rhageistLevel));
     let buffedPrimalBossChance = Math.pow(Math.log(ancientLevels + 2.719), atmanExp) * chancemult;
