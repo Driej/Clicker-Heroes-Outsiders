@@ -267,9 +267,9 @@ function refresh(test, ancientSouls) {
 
     // Outsider Ratios
     let xyliqilRatio = 0.15;
-    let rhageistRatio = 0.3;
-    let kariquaRatio = 0.04;
-    let orphalasRatio = 0.002;
+    let rhageistRatio = 0.2;
+    let kariquaRatio = 0.05;
+    let orphalasRatio = 0.15;
     let senakhanRatio = 0.05;
 
     // Outsider Leveling
@@ -283,7 +283,7 @@ function refresh(test, ancientSouls) {
     let rhageistLevel = Math.min(spendAS(this.remainingAncientSouls, rhageistRatio), rhageistCap, 530);
     let kariquaLevel = Math.min(spendAS(this.remainingAncientSouls, kariquaRatio), kariquaCap);
     let senakhanLevel = Math.min(spendAS(this.remainingAncientSouls, senakhanRatio), senakhanCap, 530);
-    let orphalasLevel = spendAS(this.remainingAncientSouls, orphalasRatio);
+    let orphalasLevel = Math.min(spendAS(this.remainingAncientSouls, orphalasRatio), 860);
 
     this.remainingAncientSouls -= this.getCostFromLevel(xyliqilLevel);
     this.remainingAncientSouls -= this.getCostFromLevel(rhageistLevel);
