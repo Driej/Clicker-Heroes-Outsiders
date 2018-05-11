@@ -282,7 +282,7 @@ function refresh(test, ancientSouls) {
     let rhageistLevel = Math.min(spendAS(this.remainingAncientSouls, rhageistRatio), rhageistCap, 530);
     let kariquaLevel = Math.min(spendAS(this.remainingAncientSouls, kariquaRatio), kariquaCap);
     let senakhanLevel = Math.min(spendAS(this.remainingAncientSouls, senakhanRatio), senakhanCap, 530);
-    let orphalasLevel = Math.min(spendAS(this.remainingAncientSouls, orphalasRatio), 860);
+    let orphalasLevel = Math.min(spendAS(this.remainingAncientSouls, orphalasRatio), 864);
 
     this.remainingAncientSouls -= this.getCostFromLevel(xyliqilLevel);
     this.remainingAncientSouls -= this.getCostFromLevel(rhageistLevel);
