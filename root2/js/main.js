@@ -279,7 +279,6 @@ function refresh(test, ancientSouls) {
     let xyliqilLevel = Math.max(1, spendAS(this.remainingAncientSouls, xyliqilRatio));
     if (this.remainingAncientSouls === 0) xyliqilLevel = 0;
     if (xyliqilLevel > 196) xyliqilLevel = 196;
-    else if (xyliqilLevel > 156) xyliqilLevel = 156;
     let rhageistLevel = Math.min(spendAS(this.remainingAncientSouls, rhageistRatio), rhageistCap, 530);
     let kariquaLevel = Math.min(spendAS(this.remainingAncientSouls, kariquaRatio), kariquaCap);
     let senakhanLevel = Math.min(spendAS(this.remainingAncientSouls, senakhanRatio), senakhanCap, 530);
