@@ -60,7 +60,7 @@ function getTP(ancientSouls) {
 }
 
 // Breakpoint skips
-let goals = [
+let goalsSkip = [
     [0,75],
     [70,300],
     [300,1250],
@@ -83,10 +83,9 @@ let goals = [
     [840000,'push']
 ];
 
-/*
 // No Breakpoint skips
-let goals = [
-    [0,70],
+let goalsNoSkip = [
+    [0,75],
     [70,300],
     [300,1250],
     [1250,2550],
@@ -108,9 +107,10 @@ let goals = [
     [1950000,2850000],
     [2850000,'push']
 ];
-*/
 
 function getASGoal(ancientSouls) {
+    let skipBPs = $("#bpSkip").is(":checked");
+    let goals = skipBPs ? goalsSkip : goalsNoSkip;
     for(let i = goals.length - 1; i >= 0; i--) {
         let goal = goals[i];
         if(ancientSouls >= goal[0]) return goal[1];
