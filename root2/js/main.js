@@ -389,7 +389,13 @@ function changeTheme() {
     if (localStorage) localStorage.setItem("darkmode", $("#dark").is(":checked"));
 }
 
+function skipCB() {
+    if (localStorage) localStorage.setItem("bpSkip", $("#bpSkip").is(":checked"));
+    refresh();
+}
+
 if (localStorage) {
     $("#dark").prop("checked", localStorage.getItem("darkmode")==="true");
+    $("#bpSkip").prop("checked", localStorage.getItem("bpSkip")==="true");
 }
 $(changeTheme);
