@@ -396,6 +396,7 @@ function skipCB() {
 
 if (localStorage) {
     $("#dark").prop("checked", localStorage.getItem("darkmode")==="true");
-    $("#bpSkip").prop("checked", localStorage.getItem("bpSkip")==="true");
+    if (localStorage.getItem("bpSkip")!==null)
+        $("#bpSkip").prop("checked", localStorage.getItem("bpSkip")==="true");
 }
 $(changeTheme);
