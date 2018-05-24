@@ -273,7 +273,7 @@ function refresh(test, ancientSouls) {
 
     // Outsider Leveling
     let borbLevel = Math.max(0, borbCap);
-    if (this.getCostFromLevel(borbLevel) >= ancientSouls) borbLevel = spendAS(ancientSouls - 1, 1);
+    if (this.getCostFromLevel(borbLevel) >= ancientSouls * 0.99) borbLevel = spendAS(ancientSouls * 0.99, 1);
     this.remainingAncientSouls = ancientSouls - this.getCostFromLevel(borbLevel);
     let xyliqilLevel = Math.max(1, spendAS(this.remainingAncientSouls, xyliqilRatio));
     if (this.remainingAncientSouls === 0) xyliqilLevel = 0;
