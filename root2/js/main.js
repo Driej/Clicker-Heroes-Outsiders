@@ -107,8 +107,7 @@ let goalsNoSkip = [
     [2850000,'push']
 ];
 
-function getASGoal(ancientSouls) {
-    let skipBPs = $("#bpSkip").is(":checked");
+function getASGoal(ancientSouls, skipBPs) {
     let goals = skipBPs ? goalsSkip : goalsNoSkip;
     for(let i = goals.length - 1; i >= 0; i--) {
         let goal = goals[i];
@@ -196,6 +195,29 @@ function nOS( ancientSouls, transcendentPower, zone ) {
     return [chor, phan, pony];
 }//function nOS
 
+function getBorbFant( ancientSouls, transcendentPower ) {
+    let IEsucks = nOS( ancientSouls * 0.3, transcendentPower, 100 );
+    let chor = IEsucks[0];
+    let phan = IEsucks[1];
+    let pony = IEsucks[2];
+    let ponyBonus = Math.pow(pony, 2) + 1;
+    let chorBonus = Math.pow(1 / 0.95, chor);
+    let tp = 1 + transcendentPower;
+    let s = tp * tp;
+    let a = s;
+    s *= s;
+    a += s;
+    s *= s;
+    a += s;
+    let HSFant = 20 * ponyBonus * a;
+    let logHSFant = Math.log10(Math.max(1, HSFant));
+    logHSFant += Math.log10(chorBonus);
+    let kumaFant = Math.max(1, Math.floor(logHSFant / Math.log10(2) - 3 / Math.log(2)) - 1);
+    let kumaCoeff = 8.4 / Math.log(kumaFant + 2.719);
+    let borbRequired = Math.ceil((-0.1 + Math.pow(kumaCoeff / 3125 + 0.0092, 0.5)) * 6250);
+    return borbRequired;
+}
+
 function getInputs() {
     var ancientSouls = parseFloat( $("#ancient_souls").val() || 0 );
     if( !(ancientSouls>=0) ) {
@@ -211,14 +233,16 @@ function refresh(test, ancientSouls) {
     if (test === undefined || test === null) test = false;
     if (ancientSouls === undefined || ancientSouls === null) ancientSouls = 0;
     //Inputs
+    let skipBPs = true;
     if (!test) {
         ancientSouls = getInputs();
         if( ancientSouls==-1 ) return;
+        skipBPs = $("#bpSkip").is(":checked");
     }
 
     let transcendentPower = getTP(ancientSouls) / 100;
     let tp = 1 + transcendentPower;
-    let targetAS = getASGoal(ancientSouls);
+    let targetAS = getASGoal(ancientSouls, skipBPs);
     
     // Find next HZE
     if (targetAS === 'push') {
@@ -272,7 +296,10 @@ function refresh(test, ancientSouls) {
     let senakhanRatio = 0.05;
 
     // Outsider Leveling
-    let borbLevel = Math.max(0, borbCap);
+    let borbFant = ancientSouls < 1250
+        ? Math.min(getBorbFant( ancientSouls, transcendentPower ), spendAS(0.5, ancientSouls))
+        : 0;
+    let borbLevel = Math.max(0, borbCap, borbFant);
     if (this.getCostFromLevel(borbLevel) >= ancientSouls * 0.99) borbLevel = spendAS(ancientSouls * 0.99, 1);
     this.remainingAncientSouls = ancientSouls - this.getCostFromLevel(borbLevel);
     let xyliqilLevel = Math.max(1, spendAS(this.remainingAncientSouls, xyliqilRatio));
@@ -361,7 +388,7 @@ function refresh(test, ancientSouls) {
 }
 
 function test() {
-    var cases = [0,1,10,100,500,1000,5000,10000,12500,15000,17500,20000,50000,100000,200000,300000,400000,500000];
+    var cases = [0,10,20,70,300,800,1240,2550,4000,6400,18000,40000,65000,102000,145000,190000,240000,350000,485000,666000,840000,1200000,1950000,2850000];
         readout = "[\n";
     for (i=0;i<cases.length;i++) {
         readout += "    " + refresh(true,cases[i]) + ",\n";
