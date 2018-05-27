@@ -264,7 +264,7 @@ function refresh(test, ancientSouls) {
     let newLogHeroSouls = Math.log10(tp) * this.newHze / 5 - 2;
 
     // Ancient effects
-    let ancientLevels = Math.floor(newLogHeroSouls / Math.log10(2) - 3 / Math.log(2)) - 1;
+    let ancientLevels = Math.floor(newLogHeroSouls * 0.9 / Math.log10(2) - 3 / Math.log(2)) - 1;
     let nerfs = Math.floor(this.newHze / 500);
     let baseMPZ = 10 + nerfs * 0.1;
     let chancemult = Math.pow(nerfs + 1, -2);
@@ -275,12 +275,21 @@ function refresh(test, ancientSouls) {
     let doraExp = Math.log(1 / chancemult * 100 - 25) / Math.log(Math.log(ancientLevels + 2.719));
     
     // Outsider Caps
-    let borbCap = Math.ceil((-0.1 + Math.pow(kumaCoeff / 3125 + 0.0092, 0.5)) * 6250 + 1);
+    let borbCap = Math.ceil((-0.1 + Math.pow(kumaCoeff / 3125 + 0.0092, 0.5)) * 6250);
     let rhageistCap = Math.ceil(-100 * Math.log(-(atmanExp - 7) / 2 + 1));
     let kariquaCap = Math.ceil((-0.4 + Math.pow(bubosCoeff * 0.00128 + 0.1568, 0.5)) / 0.00064);
     let senakhanCap = Math.ceil(-100 * Math.log(-(doraExp - 6.75) / 2 + 1));
     let orphalasCap = 0;
     
+    // Problematic BP Skips
+    if (skipBPs) {
+        switch (transcendentPower) {
+            case 0.4:
+                borbCap += 2;
+        }
+    }
+    
+    // Broken at high levels
     if (isNaN(rhageistCap)) rhageistCap = spendAS(ancientSouls, 1);
     if (isNaN(senakhanCap)) senakhanCap = spendAS(ancientSouls, 1);
 
