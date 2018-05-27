@@ -275,7 +275,7 @@ function refresh(test, ancientSouls) {
     let doraExp = Math.log(1 / chancemult * 100 - 25) / Math.log(Math.log(ancientLevels + 2.719));
     
     // Outsider Caps
-    let borbCap = Math.ceil((-0.1 + Math.pow(kumaCoeff / 3125 + 0.0092, 0.5)) * 6250);
+    let borbCap = Math.ceil((-0.1 + Math.pow(kumaCoeff / 3125 + 0.0092, 0.5)) * 6250 + 1);
     let rhageistCap = Math.ceil(-100 * Math.log(-(atmanExp - 7) / 2 + 1));
     let kariquaCap = Math.ceil((-0.4 + Math.pow(bubosCoeff * 0.00128 + 0.1568, 0.5)) / 0.00064);
     let senakhanCap = Math.ceil(-100 * Math.log(-(doraExp - 6.75) / 2 + 1));
