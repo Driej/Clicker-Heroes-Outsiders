@@ -204,11 +204,7 @@ function getBorbFant( ancientSouls, transcendentPower ) {
     let chorBonus = Math.pow(1 / 0.95, chor);
     let tp = 1 + transcendentPower;
     let s = tp * tp;
-    let a = s;
-    s *= s;
-    a += s;
-    s *= s;
-    a += s;
+    let a = s + s * s + s * s * s;
     let HSFant = 20 * ponyBonus * a;
     let logHSFant = Math.log10(Math.max(1, HSFant));
     logHSFant += Math.log10(chorBonus);
