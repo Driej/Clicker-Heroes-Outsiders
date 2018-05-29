@@ -1,53 +1,28 @@
 //Polyfill for Internet Explorer
 Math.log10 = function (x) { return Math.log(x) / Math.LN10; };
 
-(function() {
-    /**
-    * Decimal adjustment of a number.
-    *
-    * @param {String}  type  The type of adjustment.
-    * @param {Number}  value The number.
-    * @param {Integer} exp   The exponent (the 10 logarithm of the adjustment base).
-    * @returns {Number} The adjusted value.
-    */
-    function decimalAdjust(type, value, exp) {
-        // If the exp is undefined or zero...
-        if (typeof exp === 'undefined' || +exp === 0) {
-            return Math[type](value);
-        }
-        value = +value;
-        exp = +exp;
-        // If the value is not a number or the exp is not an integer...
-        if (value === null || isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
-            return NaN;
-        }
-        // Shift
-        value = value.toString().split('e');
-        value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
-        // Shift back
-        value = value.toString().split('e');
-        return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+function decimalAdjust(type, value, exp) {
+    // If the exp is undefined or zero...
+    if (typeof exp === 'undefined' || +exp === 0) {
+        return Math[type](value);
     }
+    value = +value;
+    exp = +exp;
+    // If the value is not a number or the exp is not an integer...
+    if (value === null || isNaN(value) || !(typeof exp === 'number' && exp % 1 === 0)) {
+        return NaN;
+    }
+    // Shift
+    value = value.toString().split('e');
+    value = Math[type](+(value[0] + 'e' + (value[1] ? (+value[1] - exp) : -exp)));
+    // Shift back
+    value = value.toString().split('e');
+    return +(value[0] + 'e' + (value[1] ? (+value[1] + exp) : exp));
+}
 
-        // Decimal round
-        if (!Math.round10) {
-            Math.round10 = function(value, exp) {
-                return decimalAdjust('round', value, exp);
-            };
-        }
-        // Decimal floor
-        if (!Math.floor10) {
-            Math.floor10 = function(value, exp) {
-                return decimalAdjust('floor', value, exp);
-            };
-        }
-        // Decimal ceil
-        if (!Math.ceil10) {
-            Math.ceil10 = function(value, exp) {
-            return decimalAdjust('ceil', value, exp);
-        };
-    }
-})();
+Math.round10 = function(value, exp) {
+    return decimalAdjust('round', value, exp);
+}
 
 var settingsVisible = false;
 
@@ -200,11 +175,16 @@ function getInputs() {
     return [Math.floor(ancientSouls), zoneOverride];
 }
 
-function refresh(test=false, ancientSouls=0, useBeta=false) {
+function refresh(test, ancientSouls, useBeta) {
+    //IE sucks
+    if (test === undefined || test === null) test = false;
+    if (ancientSouls === undefined || ancientSouls === null) ancientSouls = 0;
     //Inputs
     this.useBeta = test ? useBeta : $("#beta").is(":checked");
     if (!test) {
-        var [ancientSouls, zoneOverride] = getInputs();
+        let IEsucks = getInputs();
+        ancientSouls = IEsucks[0];
+        var zoneOverride = IEsucks[1];
         if( ancientSouls==-1 ) return;
         this.reserve = $("#reserveAS").is(":checked");
     }
@@ -225,11 +205,13 @@ function refresh(test=false, ancientSouls=0, useBeta=false) {
         // 20k or +8000 Ancient Souls
         this.newHze = Math.max(215000, ancientSouls*10.32 + 90000);
     } else if (ancientSouls < 27000 ) {
-        // 43.3k Ancient Souls
+        // 44.3k Ancient Souls
         this.newHze =  458000;
     } else {
         // End Game
-        [nonBorb, zonePush] = findStrategy(ancientSouls);
+        let IEsucks = findStrategy(ancientSouls);
+        nonBorb = IEsucks[0];
+        zonePush = IEsucks[1];
         let b = this.spendAS(1, ancientSouls - nonBorb);
         this.newHze = Math.min(5.5e6, b * 5000 + (this.useBeta?500:46500));
     }}
@@ -350,7 +332,10 @@ function refresh(test=false, ancientSouls=0, useBeta=false) {
     this.remainingAncientSouls -= this.getCostFromLevel(senakhanLevel);
 
     // Chor, Phan, and Pony
-    let [chorLevel, phanLevel, ponyLevel] = this.nOS(this.remainingAncientSouls, transcendentPower, this.newHze);
+    let IEsucks = this.nOS(this.remainingAncientSouls, transcendentPower, this.newHze);
+    let chorLevel = IEsucks[0];
+    let phanLevel = IEsucks[1];
+    let ponyLevel = IEsucks[2];
 
     this.remainingAncientSouls -= this.getCostFromLevel(chorLevel);
     this.remainingAncientSouls -= phanLevel;
