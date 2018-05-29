@@ -158,8 +158,9 @@ function nOS( ancientSouls, transcendentPower, zone ) {
         let zoneIncrease = Math.log10(damageIncrease) / dpsToZones;
         let phanBuff = Math.pow(hsMultiplier, zoneIncrease);
 
-        if (phan < 5) {
-            phanBuff *= 1.3;
+        // Boost Phandoryss for FANT
+        if (phan < 50) {
+            phanBuff *= Math.pow(1.1, 1 / phan);
         }
 
         if (chor < ancientSouls && chor < 150) {
@@ -302,7 +303,7 @@ function refresh(test, ancientSouls) {
 
     // Outsider Leveling
     let borbFant = ancientSouls < 1250
-        ? Math.min(getBorbFant( ancientSouls, transcendentPower ), spendAS(0.5, ancientSouls))
+        ? Math.min(getBorbFant( ancientSouls, transcendentPower ), spendAS(0.35, ancientSouls))
         : 0;
     let borbLevel = Math.max(0, borbCap, borbFant);
     if (this.getCostFromLevel(borbLevel) >= ancientSouls * 0.99) borbLevel = spendAS(ancientSouls * 0.99, 1);
