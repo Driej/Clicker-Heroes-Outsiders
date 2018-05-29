@@ -298,7 +298,7 @@ function refresh(test, ancientSouls) {
     let xyliqilRatio = 0.15;
     let rhageistRatio = 0.2;
     let kariquaRatio = 0.05;
-    let orphalasRatio = 0.15;
+    let orphalasRatio = ancientSouls < 70 ? 0 : 0.15;
     let senakhanRatio = 0.05;
 
     // Outsider Leveling
@@ -307,6 +307,7 @@ function refresh(test, ancientSouls) {
         : 0;
     let borbLevel = Math.max(0, borbCap, borbFant);
     if (this.getCostFromLevel(borbLevel) >= ancientSouls * 0.99) borbLevel = spendAS(ancientSouls * 0.99, 1);
+    if (this.getCostFromLevel(borbLevel) >= ancientSouls - 5) borbLevel = spendAS(ancientSouls - 5, 1);
     this.remainingAncientSouls = ancientSouls - this.getCostFromLevel(borbLevel);
     let xyliqilLevel = Math.max(1, spendAS(this.remainingAncientSouls, xyliqilRatio));
     if (this.remainingAncientSouls === 0) xyliqilLevel = 0;
