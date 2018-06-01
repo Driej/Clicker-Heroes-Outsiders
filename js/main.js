@@ -253,7 +253,7 @@ function refresh(test, ancientSouls) {
     let newLogHeroSouls = Math.log10(1 + transcendentPower) * this.newHze / 5 + 6;
 
     // Ancient effects
-    let ancientLevels = Math.floor(newLogHeroSouls / Math.log10(2) - 3 /Math.log(2)) - 1;
+    let ancientLevels = Math.floor(newLogHeroSouls / Math.log10(2) - 3 / Math.log10(2)) - 1;
     let kuma = -8 * (1 - Math.exp(-0.025 * ancientLevels));
     let atman = 75 * (1 - Math.exp(-0.013 * ancientLevels));
     let bubos = -5 * (1 - Math.exp(-0.002 * ancientLevels));
