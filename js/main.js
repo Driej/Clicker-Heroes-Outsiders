@@ -3,8 +3,6 @@ Math.log10 = function(x) {
     return Math.log(x) / Math.LN10;
 }
 
-
-
 function decimalAdjust(type, value, exp) {
     // If the exp is undefined or zero...
     if (typeof exp === 'undefined' || +exp === 0) {
@@ -26,8 +24,7 @@ function decimalAdjust(type, value, exp) {
 
 Math.round10 = function(value, exp) {
     return decimalAdjust('round', value, exp);
-};
-
+}
 
 var settingsVisible = false;
 
