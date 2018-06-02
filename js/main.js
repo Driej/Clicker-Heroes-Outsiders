@@ -1,5 +1,7 @@
-//Polyfill for Internet Explorer
-Math.log10 = function (x) { return Math.log(x) / Math.LN10; };
+// Polyfill for Internet Explorer
+Math.log10 = function(x) {
+    return Math.log(x) / Math.LN10;
+}
 
 function decimalAdjust(type, value, exp) {
     // If the exp is undefined or zero...
@@ -59,8 +61,8 @@ function nOS( ancientSouls, transcendentPower, zone ) {
     }
     let hpMultiplier = Math.min(1.545, 1.145 + zone / 500000);
     let hsMultiplier = Math.pow(1 + transcendentPower, 0.2);
-    let heroDamageMultiplier = (zone > 1.23e6) ? 1000 : ((zone > 168000) ? 4.5 : 4);
-    let heroCostMultiplier = (zone > 1.23e6) ? 1.22 : 1.07;
+    let heroDamageMultiplier = (zone > 1.2e6) ? 1000 : ((zone > 168000) ? 4.5 : 4);
+    let heroCostMultiplier = (zone > 1.2e6) ? 1.22 : 1.07;
     let goldToDps = Math.log10(heroDamageMultiplier) / Math.log10(heroCostMultiplier) / 25;
     let dpsToZones = Math.log10(hpMultiplier) - Math.log10(1.15) * goldToDps;
     let chor = 0;
@@ -83,8 +85,9 @@ function nOS( ancientSouls, transcendentPower, zone ) {
         let zoneIncrease = Math.log10(damageIncrease) / dpsToZones;
         let phanBuff = Math.pow(hsMultiplier, zoneIncrease);
 
-        if (phan < 5) {
-            phanBuff *= 1.3;
+        // Boost Phandoryss for FANT
+        if (phan < 50) {
+            phanBuff *= Math.pow(1.1, 1 / phan);
         }
 
         if (chor < ancientSouls && chor < 150) {
@@ -119,6 +122,26 @@ function nOS( ancientSouls, transcendentPower, zone ) {
 
     return [chor, phan, pony];
 }//function nOS
+
+function getBorbFant( ancientSouls, transcendentPower ) {
+    transcendentPower = transcendentPower || (25 - 23 * Math.exp(-0.0003 * ancientSouls)) / 100;
+    let IEsucks = nOS( ancientSouls * 0.5, transcendentPower, 100 );
+    let chor = IEsucks[0];
+    let phan = IEsucks[1];
+    let pony = IEsucks[2];
+    let ponyBonus = Math.pow(pony, 2) * 10 + 1;
+    let chorBonus = Math.pow(1 / 0.95, chor);
+    let tp = 1 + transcendentPower;
+    let s = tp * tp;
+    let a = s + s * s + s * s * s;
+    let HSFant = 20 * ponyBonus * a;
+    let logHSFant = Math.log10(Math.max(1, HSFant));
+    logHSFant += Math.log10(chorBonus);
+    let kumaFant = Math.max(1, Math.floor(logHSFant / Math.log10(2) - 3 / Math.log(2)) - 1);
+    let kumaEffect = 8 * (1 - Math.exp(-0.025 * kumaFant));
+    let borbRequired = Math.ceil((8 / kumaEffect - 1) * 8);
+    return borbRequired;
+}
 
 function findNumTranscensions(ancientSouls, nonBorb, zonePush, targetZone) {
     let transcensions = 0;
@@ -175,20 +198,20 @@ function getInputs() {
     return [Math.floor(ancientSouls), zoneOverride];
 }
 
-function refresh(test, ancientSouls, useBeta) {
+function refresh(test, ancientSouls) {
     //IE sucks
     if (test === undefined || test === null) test = false;
     if (ancientSouls === undefined || ancientSouls === null) ancientSouls = 0;
     //Inputs
-    this.useBeta = test ? useBeta : $("#beta").is(":checked");
+    let zoneOverride = 0;
     if (!test) {
         let IEsucks = getInputs();
         ancientSouls = IEsucks[0];
-        var zoneOverride = IEsucks[1];
+        zoneOverride = IEsucks[1];
         if( ancientSouls==-1 ) return;
         this.reserve = $("#reserveAS").is(":checked");
     }
-
+    
     var transcendentPower = (25 - 23 * Math.exp(-0.0003 * ancientSouls)) / 100;
 
     // Figure out goals for this transcendence
@@ -213,28 +236,22 @@ function refresh(test, ancientSouls, useBeta) {
         nonBorb = IEsucks[0];
         zonePush = IEsucks[1];
         let b = this.spendAS(1, ancientSouls - nonBorb);
-        this.newHze = Math.min(5.5e6, b * 5000 + (this.useBeta?500:46500));
+        this.newHze = Math.min(5.5e6, b * 5000 + 500);
     }}
 
     // Push beyond 2mpz
     this.borbTarget = false;
-    let versionZoneDiff;
     if (ancientSouls >= 27000) {
-        versionZoneDiff = (this.useBeta?0:46000);
-        this.borbTarget = this.newHze - versionZoneDiff;
-        this.newHze = this.useBeta
-            ? Math.min(5.5e6, (1 + zonePush / 100) * this.newHze)
-            : Math.min(5.5e6, this.newHze);
+        this.borbTarget = this.newHze;
+        this.newHze = Math.min(5.5e6, (1 + zonePush / 100) * this.newHze);
     }
 
     this.newHze = Math.floor(this.newHze);
     let newLogHeroSouls = Math.log10(1 + transcendentPower) * this.newHze / 5 + 6;
 
     // Ancient effects
-    let ancientLevels = Math.floor(newLogHeroSouls / Math.log10(2) - Math.log(25)/Math.log(2)) + -1;
-    let kuma = this.useBeta
-        ? -8 * (1 - Math.exp(-0.025 * ancientLevels))
-        : -100 * (1 - Math.exp(-0.0025 * ancientLevels));
+    let ancientLevels = Math.floor(newLogHeroSouls / Math.log10(2) - 3 / Math.log10(2)) - 1;
+    let kuma = -8 * (1 - Math.exp(-0.025 * ancientLevels));
     let atman = 75 * (1 - Math.exp(-0.013 * ancientLevels));
     let bubos = -5 * (1 - Math.exp(-0.002 * ancientLevels));
     let chronos = 30 * (1 - Math.exp(-0.034 * ancientLevels));
@@ -242,7 +259,7 @@ function refresh(test, ancientSouls, useBeta) {
 
     // Unbuffed Stats
     let nerfs = Math.floor(this.newHze / 500);
-    let unbuffedMonstersPerZone = Math.round10(10 + nerfs * (this.useBeta ? 0.1 : 1), -2);
+    let unbuffedMonstersPerZone = Math.round10(10 + nerfs * 0.1, -2);
     let unbuffedTreasureChestChance = Math.exp(-0.006 * nerfs);
     let unbuffedBossHealth = 10 + nerfs * 0.4;
     let unbuffedBossTimer = 30 - nerfs * 2;
@@ -253,7 +270,7 @@ function refresh(test, ancientSouls, useBeta) {
         ? Math.ceil((this.borbTarget - 500) / 5000)
         : ancientSouls >= 10500
             ? Math.ceil((this.newHze - 500) / 5000)
-            : Math.max(0, Math.ceil(((unbuffedMonstersPerZone - 2.1) / - kuma - 1) / (this.useBeta ? 0.125 : 0.1)));
+            : Math.max(0, Math.ceil(((unbuffedMonstersPerZone - 2.1) / - kuma - 1) / 0.125));
     let rhageistCap = Math.ceil(((100 - unbuffedPrimalBossChance) / atman - 1) / 0.25);
     let kariquaCap = Math.ceil(((unbuffedBossHealth - 5) / -bubos - 1) / 0.5);
     let orphalasCap = Math.max(1, Math.ceil(((2 - unbuffedBossTimer) / chronos - 1) / 0.75)) + 2;
@@ -285,16 +302,14 @@ function refresh(test, ancientSouls, useBeta) {
 
     // Outsider Leveling
     this.remainingAncientSouls = ancientSouls;
-
-    let borbLevel;
-    if (this.useBeta || ancientSouls >= 10500) {
-        let borb15 = Math.min(15, this.spendAS(0.5, this.remainingAncientSouls));
-        let borb10pc = this.spendAS(0.1, this.remainingAncientSouls);
-        let borbLate = this.remainingAncientSouls >= 10000 ? borbCap : 0;
-        borbLevel = Math.max(borb15, borb10pc, borbLate);
-    } else {
-        borbLevel = Math.max((this.remainingAncientSouls >= 300) ? 15 : this.spendAS(0.4, this.remainingAncientSouls), borbCap);
-    }
+    
+    let borbFant = ancientSouls <= 2000
+        ? Math.min(this.spendAS(0.35, this.remainingAncientSouls), getBorbFant(ancientSouls, transcendentPower))
+        : 0;
+    let borbHze = this.remainingAncientSouls >= 27000
+        ? borbCap
+        : Math.min(this.spendAS(0.5, this.remainingAncientSouls), borbCap + 1);
+    let borbLevel = Math.max(borbFant, borbHze);
 
     if (this.getCostFromLevel(borbLevel) > (this.remainingAncientSouls - 5)) {
         borbLevel = this.spendAS(1, this.remainingAncientSouls - 5);
@@ -347,7 +362,7 @@ function refresh(test, ancientSouls, useBeta) {
     let buffedPrimalBossChance = Math.max(5, unbuffedPrimalBossChance + atman * (1 + rhageistLevel * 0.25));
     let pbcm = Math.min(buffedPrimalBossChance, 100) / 100;
 
-    newLogHeroSouls = Math.log10(1 + transcendentPower) * (this.newHze - 105) / 5 + Math.log10(ponyBonus + 1) + Math.log10(20 * series * pbcm);
+    newLogHeroSouls = Math.log10(1 + transcendentPower) * (this.newHze - 100) / 5 + Math.log10(ponyBonus + 1) + Math.log10(20 * series * pbcm);
     this.newAncientSouls = Math.max(ancientSouls, Math.floor(newLogHeroSouls * 5));
     this.ancientSoulsDiff = this.newAncientSouls - ancientSouls;
     this.newTranscendentPower = (25 - 23 * Math.exp(-0.0003 * this.newAncientSouls)) / 100;
@@ -357,7 +372,6 @@ function refresh(test, ancientSouls, useBeta) {
     if (test) {
         return (JSON.stringify({
             ancientSouls: ancientSouls,
-            useBeta: this.useBeta,
             expectedLevels: [xyliqilLevel,chorLevel,phanLevel,ponyLevel,borbLevel,rhageistLevel,kariquaLevel,orphalasLevel,senakhanLevel],
             expectedRemaining: unspent,
             newHze: this.newHze,
@@ -387,7 +401,7 @@ function refresh(test, ancientSouls, useBeta) {
     $("#unbuffedTimer").html( "Boss Timer: " + unbuffedBossTimer + "s" );
     $("#unbuffedPBC").html( "Primal Chance: " + unbuffedPrimalBossChance + "%" );
     //Buffed Stats
-    var buffedMPZ = unbuffedMonstersPerZone + kuma*( 1 + borbLevel/(this.useBeta?8:10) );
+    var buffedMPZ = unbuffedMonstersPerZone + kuma*( 1 + borbLevel/8 );
         buffedTCC = Math.max( 1, ( dora*( 1 + senakhanLevel)/100 + 1 )*unbuffedTreasureChestChance );
         buffedBossHP = Math.floor( Math.max( 5, unbuffedBossHealth + bubos*( 1 + kariquaLevel*0.5 ) ) );
         buffedTimer = Math.max( 2, unbuffedBossTimer + chronos*( 1 + orphalasLevel*0.75 ) );
@@ -398,11 +412,7 @@ function refresh(test, ancientSouls, useBeta) {
     $("#buffedTimer").html( "Boss Timer: " + buffedTimer.toFixed() + "s" );
     $("#buffedPBC").html( "Primal Chance: " + buffedPBC.toFixed() + "%" );
     //Zone Breakpoints
-    if( this.useBeta ) {
-        $("#HighMpz").html( "2.1 monsters per zone: " + ( -39500 - Math.floor( kuma*( 1 + borbLevel/8 )*10 )*500 ).toLocaleString() );
-    }else {
-        $("#HighMpz").html( "3 monsters per zone: " + ( -3500 - Math.floor( kuma*( 1 + borbLevel/10 ) )*500 ).toLocaleString() );
-    }
+    $("#HighMpz").html( "2.1 monsters per zone: " + ( -39500 - Math.floor( kuma*( 1 + borbLevel/8 )*10 )*500 ).toLocaleString() );
     $("#5PBC").html( "5% primal chance: " + ( 5500 + Math.floor( atman*( 1 + rhageistLevel/4 )/2)*500 ).toLocaleString() );
     $("#90BHP").html( "90% boss health: " + ( Math.ceil( ( bubos*( 1 + kariquaLevel/2 )*-10 - 10 )/0.4 )*500 ).toLocaleString() );
     $("#2sTimer").html( "2s boss timer: " + ( 7000 + Math.floor( chronos*( 1 + orphalasLevel*0.75 )/2 )*500 ).toLocaleString() );
@@ -435,22 +445,21 @@ function refresh(test, ancientSouls, useBeta) {
 }
 
 function test() {
-    var cases = [0,1,10,100,1000,10000,12500,15000,17500,20000,50000,100000,200000,300000,400000,500000];
+    var cases = [0,1,10,100,500,1000,5000,10000,12500,15000,17500,20000,50000,100000,200000,300000,400000,500000];
         readout = "[\n";
     for (i=0;i<cases.length;i++) {
-        readout += "    " + refresh(true,cases[i],false) + ",\n";
-    }
-    for (i=0;i<cases.length;i++) {
-        readout += "    " + refresh(true,cases[i],true) + ",\n";
+        readout += "    " + refresh(true,cases[i]) + ",\n";
     }
     readout = readout.slice(0, -2);
     readout += "\n]";
     console.log(readout);
 }
 
-$("#ancient_souls").keyup(function(ev) {
+function enterKey(ev) {
     if (ev.which === 13) refresh();
-});
+}
+
+$("#ancient_souls").keyup(enterKey);
 
 function changeTheme() {
     if ($("#dark").is(":checked")) {
