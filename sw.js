@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v3';
+var CACHE_NAME = 'my-site-cache-v4';
 var urlsToCache = [
     '.',
     'css/dark-theme-v001.css',
@@ -7,7 +7,18 @@ var urlsToCache = [
     'css/normalize.css',
     'js/main.js',
     'js/pako.min.js',
-    'js/readSave.js'
+    'js/readSave.js',
+    'root2',
+    'root2/css/dark-theme-v001.css',
+    'root2/css/light-theme-v001.css',
+    'root2/css/main-v002.css',
+    'root2/css/normalize.css',
+    'root2/js/main.js',
+    'root2/js/pako.min.js',
+    'root2/js/readSave.js',
+    'root2/swf',
+    'root2/swf/HeroClickerroot2.swf'
+    
 ];
 
 self.addEventListener('install', function(event) {
