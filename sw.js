@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v7';
+var CACHE_NAME = 'my-site-cache-v8';
 var urlsToCache = [
     '.',
     'css/dark-theme-v001.css',
