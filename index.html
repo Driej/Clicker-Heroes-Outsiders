@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;">
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
 	<title>CH Outsider Calculator</title>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/main-v002.css">
@@ -15,6 +15,15 @@
                 document.getElementById("theme-light").disabled = true;
                 document.getElementById("theme-dark").disabled = false;
             }
+        }
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js').then(function(registration) {
+                
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
         }
     </script>
 	<link rel="icon" type="image/png" href="Ruby.png">
@@ -59,7 +68,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="box-8">
+				<div class="box-8" id="results">
 					<div>
 						<div class="title">Outsider Recommendations</div>
 						<div class="content">

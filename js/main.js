@@ -181,6 +181,7 @@ function findStrategy(ancientSouls) {
 }
 
 function getInputs() {
+    $("#ancient_souls").val($("#ancient_souls").val().replace(/,/g, ''));
     var ancientSouls = parseFloat( $("#ancient_souls").val() || 0 );
     if( !(ancientSouls>=0) ) {
         alert("Calculation failed. Ancient Souls must be a non-negative number.");
@@ -441,6 +442,10 @@ function refresh(test, ancientSouls) {
         senakhanLevel
     );
     $("#unspentAS").html( "Unspent: " + unspent );
+    
+    $('html, body').animate({
+        scrollTop: ($('#results').offset().top)
+    },200);
 }
 
 function test() {
