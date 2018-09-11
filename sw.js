@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v4';
+var CACHE_NAME = 'my-site-cache-v5';
 var urlsToCache = [
     '.',
     'css/dark-theme-v001.css',
@@ -16,8 +16,7 @@ var urlsToCache = [
     'root2/js/main.js',
     'root2/js/pako.min.js',
     'root2/js/readSave.js',
-    'root2/swf',
-    'root2/swf/HeroClickerroot2.swf'
+    'root2/swf'
     
 ];
 
