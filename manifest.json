@@ -1,0 +1,21 @@
+{
+  "short_name": "CHO",
+  "name": "Clicker Heroes Outsiders",
+  "icons": [
+    {
+      "src": "/icons/ruby192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/ruby512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/Clicker-Heroes-Outsiders/",
+  "background_color": "#333",
+  "display": "standalone",
+  "scope": "/Clicker-Heroes-Outsiders/",
+  "theme_color": "#506080"
+}
