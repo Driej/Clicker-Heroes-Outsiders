@@ -4,13 +4,13 @@
 	<meta http-equiv="content-type" content="text/html;">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
-    <meta name="theme-color" content="#506080">
+    <meta name="theme-color" content="#5060b0">
     <meta name="Description" content="Get Outsider Suggestions for Clicker Heroes version e10 or e11.">
 	<title>CH Outsider Calculator</title>
 	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/main-v002.css">
-    <link rel="stylesheet" href="css/light-theme-v001.css" id="theme-light" title="Light">
-    <link rel="stylesheet" href="css/dark-theme-v001.css" id="theme-dark" title="Dark" disabled>
+	<link rel="stylesheet" href="css/main-v003.css">
+    <link rel="stylesheet" href="css/light-theme-v002.css" id="theme-light" title="Light">
+    <link rel="stylesheet" href="css/dark-theme-v002.css" id="theme-dark" title="Dark" disabled>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" sizes="192x192" href="icons/ruby192.png">
     <script>
@@ -34,7 +34,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" defer></script>
 </head>
 	<body>
-		<div class="container">
+		<main class="container" role="main">
 			<div class="boxes">
 				<div class="box-12 collapsible">
 					<div>
@@ -51,20 +51,22 @@
 						<div class="title">Inputs</div>
 						<div class="content">
 							<div class="numberInput">
-								<p>Ancient Souls:</p>
+								<label for="ancient_souls">Ancient Souls:</label>
 								<input value="0" id="ancient_souls" type="text">
 							</div>
 							<div id="TP">TP: 2.0000%</div>
-							<br><input type="checkbox" id="reserveAS" class="checkbox" onclick="refresh()">Reserve Ancient Souls
-                            <br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()">Dark Theme
+							<br><input type="checkbox" id="reserveAS" class="checkbox" onclick="refresh()"><label for="reserveAS">Reserve Ancient Souls</label>
+                            <br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()"><label for="dark">Dark Theme</label>
 							<br><button id="calculateButton" onclick="refresh()">Calculate</button>
+                            <br><br>
+                            <label for="savegame">Import your save</label>
 							<textarea id="savegame" placeholder="Paste your save game here" autofocus onclick="this.focus();this.select()" onblur="readSave()"></textarea>
-							<br><button id="readSaveButton" onclick="readSave()">Read Save</button>
+							<button id="readSaveButton" onclick="readSave()">Read Save</button>
 							<hr>
 							<button id="showAdvanced" onclick="showAdvancedClick()">Show Advanced Settings</button>
 							<div id="advancedSettings">
 								<div class="numberInput">
-									<p>Zone override:</p>
+									<label for="zoneOverride">Zone override:</label>
 									<input id="zoneOverride" type="text" style="font-size:12px;">
 								</div>
 								<button id="defaultButton" onclick="defaultClick()">Set to Default</button>

@@ -102,7 +102,7 @@ input {
 	padding: 2px;
 }
 
-.numberInput > p {
+.numberInput > label {
 	display: inline-block;
 	margin: 0;
 	width: 100px;

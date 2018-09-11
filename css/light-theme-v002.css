@@ -1,25 +1,18 @@
-body {
-    background-color: #333;
-}
-
 a {
-    color: #e7b;
+    color: #00e;
 }
 
 .boxes > div > div {
-	//border-color: #a0b0c0;
-	border-color: #888;
-    background-color: #555;
+	border-color: #7080a0;
 }
 
 .title {
-	//background-color: #d0e0f0;
-	background-color: #506080;
-	color: #eee;
+	background-color: #5060b0;
+	color: white;
 }
 
 .content {
-	color: #cde;
+	color: black;
 }
 
 input {
@@ -36,28 +29,28 @@ input:focus {
 }
 
 #calculateButton, #defaultButton, #readSaveButton {
-	background-color: #555;
-	border-color: #cde;
+	background-color: white;
+	border-color: #333;
 	transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-	color: #cde;
+	color: #333;
 }
 
 #calculateButton:hover, #defaultButton:hover, #readSaveButton:hover {
-	background-color: #506080;
-	color: #eee;
+	background-color: #5060b0;
+	color: white;
 }
 
 #calculateButton:active, #defaultButton:active, #readSaveButton:active {
 	border-color: #405070;
 	background-color: #405070;
-	color: #eee;
+	color: white;
 }
 
 #showAdvanced {
-	background-color: #555;
-	color: #cde;
+	background-color: white;
+	color: black;
 }
 
 hr {
-	background: #000;
+	background: black;
 }
