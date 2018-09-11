@@ -44,8 +44,9 @@ self.addEventListener('activate', function(event) {
         caches.keys().then(function(cacheNames) {
             return Promise.all(
                 cacheNames.map(function(cacheName) {
-                    if (cacheName !== CACHE_NAME)
-                        return caches.delete(cacheName);
+                    if (cacheName.slice(0,15) == "outsiders-cache") {
+                        if (cacheName !== CACHE_NAME) return caches.delete(cacheName);
+                    }
                 })
             );
         })
