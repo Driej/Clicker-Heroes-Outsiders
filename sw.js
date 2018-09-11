@@ -1,4 +1,4 @@
-var CACHE_NAME = 'my-site-cache-v5';
+var CACHE_NAME = 'my-site-cache-v6';
 var urlsToCache = [
     '.',
     'css/dark-theme-v001.css',
@@ -44,7 +44,8 @@ self.addEventListener('activate', function(event) {
         caches.keys().then(function(cacheNames) {
             return Promise.all(
                 cacheNames.map(function(cacheName) {
-                    return caches.delete(cacheName);
+                    if (cacheName !== CACHE_NAME)
+                        return caches.delete(cacheName);
                 })
             );
         })
