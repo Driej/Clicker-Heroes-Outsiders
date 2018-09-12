@@ -1,4 +1,4 @@
-var CACHE_NAME = 'outsiders-cache-v6';
+var CACHE_NAME = 'outsiders-cache-v7';
 var urlsToCache = [
     '.',
     'css/dark-theme-v002.css',
@@ -7,17 +7,7 @@ var urlsToCache = [
     'css/normalize.css',
     'js/main.js',
     'js/pako.min.js',
-    'js/readSave.js'/*,
-    'root2',
-    'root2/css/dark-theme-v001.css',
-    'root2/css/light-theme-v001.css',
-    'root2/css/main-v002.css',
-    'root2/css/normalize.css',
-    'root2/js/main.js',
-    'root2/js/pako.min.js',
-    'root2/js/readSave.js',
-    'root2/swf'*/
-    
+    'js/readSave.js'/    
 ];
 
 self.addEventListener('install', function(event) {
@@ -30,11 +20,22 @@ self.addEventListener('install', function(event) {
 
 self.addEventListener('fetch', function(event) {
     event.respondWith(
-        caches.match(event.request).then(function(response) {
-            if (response) {
-                return response;
-            }
-            return fetch(event.request);
+        caches.has(CACHE_NAME)
+        .then(function(exists) {
+            if (exists) return exists
+            else throw 'Cache does not exist';
+        })
+        .catch(function(error) {
+            return caches.open(CACHE_NAME).then(function(cache) {
+                return cache.addAll(urlsToCache);
+            });
+        })
+        .then(function(cache) {
+            return caches.match(event.request);
+        })
+        .then(function(response) {
+            if (response) return response
+            else return fetch(event.request);
         })
     );
 });
