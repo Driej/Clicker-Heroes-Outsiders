@@ -7,7 +7,7 @@ var urlsToCache = [
     'css/normalize.css',
     'js/main.js',
     'js/pako.min.js',
-    'js/readSave.js'/    
+    'js/readSave.js'
 ];
 
 self.addEventListener('install', function(event) {
