@@ -151,16 +151,40 @@ function post4mStrategy(ancientSouls) {
     let efficiency = zonesGained / zonesTraveled;
     let zoneAdd = 0;
     let addMPZ = 256;
+    
+    let zoneAddA = 0;
+    let efficiencyA = efficiency;
+    let zoneAddB = 0;
+    let efficiencyB = efficiency;
+    
     do {
         zonesTraveled = getZonesTraveled(borbLimit, zoneAdd + addMPZ * 500);
         zonesGained = borbLimit + zoneAdd + addMPZ * 500 - oldHZE;
-        let newEfficiency = zonesGained / zonesTraveled;
+        let newEfficiency = zonesTraveled === Infinity 
+            ? - Infinity
+            : zonesGained / zonesTraveled;
         if (newEfficiency > efficiency) {
+            
+            zoneAddA = zoneAddB;
+            efficiencyA = efficiencyB;
+            zoneAddB = zoneAdd;
+            efficiencyB = efficiency;
+            
             efficiency = newEfficiency;
             zoneAdd += addMPZ * 500;
         } else {
+            
+            zoneAdd = zoneAddA;
+            efficiency = efficiencyA;
+            zoneAddB = zoneAddA;
+            efficiencyB = efficiencyA;
+            if (addMPZ > 2) {
+                addMPZ /= 2;
+            }
+            
             addMPZ = Math.floor(addMPZ / 2);
         }
+        console.log(borbLimit + zoneAdd, zoneAdd, efficiency);
     } while (addMPZ > 0);
     return zoneAdd;
 }
@@ -184,7 +208,7 @@ let simulatedAscensions = [
 
 function getZonesTraveled(borbLimit, zoneAdd) {
     let targetZone = borbLimit + zoneAdd;
-    let zonesTraveled = 33600000;
+    let zonesTraveled = 45000000;
     for (let i = 0; i < simulatedAscensions.length; i++) {
         let ascZone = simulatedAscensions[i];
         if (ascZone > targetZone) {
@@ -204,7 +228,7 @@ function getZonesTraveled(borbLimit, zoneAdd) {
     }
     if (targetZone >= 4811634) {
         let ascZone = 4811634;
-        let zoneIncrease = 53355;
+        let zoneIncrease = 49283;
         do {
             if (ascZone > targetZone) {
                 zonesTraveled += targetZone - Math.round(ascZone * 0.9) + 30000;
@@ -220,7 +244,10 @@ function getZonesTraveled(borbLimit, zoneAdd) {
                 }
             }
             ascZone += zoneIncrease;
-            zoneIncrease = Math.round(zoneIncrease * 0.923685);
+            zoneIncrease = zoneIncrease * 0.923989;
+            if (zoneIncrease < 10) {
+                return Infinity;
+            }
         } while (ascZone <= targetZone);
     }
     return zonesTraveled;
@@ -278,17 +305,17 @@ function refresh(test, ancientSouls) {
         // End Game
         if (ancientSouls < 27000) nonBorb = 3000 + (27000 - ancientSouls) * 1.2;
         else nonBorb = 3000;
-        zonePush = ancientSouls * ancientSouls / 3e10;
+        zonePush = ancientSouls / 16e4;
         let b = this.spendAS(1, ancientSouls - nonBorb);
-        this.newHze = Math.min(5.5e6, b * 5000 + 500);
+        this.newHze = Math.min(5.46e6, b * 5000 + 500);
     } else if (ancientSouls < 530000) {
         // Post zone 4m
         nonBorb = 2000;
         zoneAdd = post4mStrategy(ancientSouls);
         let b = this.spendAS(1, ancientSouls - nonBorb);
-        this.newHze = Math.min(5.5e6, b * 5000 + 500);
+        this.newHze = Math.min(5.46e6, b * 5000 + 500);
     } else {
-        this.newHze = 5.5e6;
+        this.newHze = 5.46e6;
     }}
 
     // Push beyond 2mpz
