@@ -184,7 +184,6 @@ function post4mStrategy(ancientSouls) {
             
             addMPZ = Math.floor(addMPZ / 2);
         }
-        console.log(borbLimit + zoneAdd, zoneAdd, efficiency);
     } while (addMPZ > 0);
     return zoneAdd;
 }
@@ -323,6 +322,7 @@ function refresh(test, ancientSouls) {
     if (ancientSouls >= 21000) {
         this.borbTarget = this.newHze;
         this.newHze = Math.min(5.5e6, (1 + zonePush / 100) * this.newHze + zoneAdd);
+        this.newHze--;
         this.newHze += 500 - this.newHze % 500;
     }
 
@@ -397,6 +397,19 @@ function refresh(test, ancientSouls) {
 
     this.remainingAncientSouls -= this.getCostFromLevel(borbLevel);
 
+    // logging
+    if (this.newHze > 4e6) {
+        console.clear();
+        console.log("Durations for " + ancientSouls + " Ancient Souls:");
+        let borbLimit = borbLevel * 5000 + 500;
+        let endMpz = Math.floor((this.newHze - borbLimit) / 500) / 10 + 2;
+        console.log(Math.ceil(getZonesTraveled(borbLimit, this.newHze - borbLimit) / 192000) + " days to reach zone " + this.newHze + " (" + endMpz + " mpz)");
+        endMpz = Math.floor((5.45e6 - borbLimit) / 500) / 10 + 2;
+        console.log(Math.ceil(getZonesTraveled(borbLimit, 5.45e6 - borbLimit) / 192000) + " days to reach zone " + 5.45e6 + " (" + endMpz + " mpz)");
+        endMpz = Math.floor((5.459e6 - borbLimit) / 500) / 10 + 2;
+        console.log(Math.ceil(getZonesTraveled(borbLimit, 5.459e6 - borbLimit) / 192000) + " days to reach zone " + 5.459e6 + " (" + endMpz + " mpz)");
+    }
+    
     // Xyl sucks
     let xyliqilLevel = 0;
     this.remainingAncientSouls -= this.getCostFromLevel(xyliqilLevel);
