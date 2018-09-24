@@ -1,9 +1,9 @@
-var CACHE_NAME = 'outsiders-cache-v11';
+var CACHE_NAME = 'outsiders-cache-v12';
 var urlsToCache = [
     '.',
-    'css/dark-theme-v002.css',
-    'css/light-theme-v002.css',
-    'css/main-v003.css',
+    'css/dark-theme-v003.css',
+    'css/light-theme-v003.css',
+    'css/main-v004.css',
     'css/normalize.css',
     'js/main.js',
     'js/pako.min.js',
