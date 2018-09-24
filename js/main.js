@@ -302,14 +302,14 @@ function refresh(test, ancientSouls) {
         this.newHze = Math.max(225000, ancientSouls*10.32 + 90000);
     } else if (ancientSouls < 333000) {
         // End Game
-        if (ancientSouls < 27000) nonBorb = 3000 + (27000 - ancientSouls) * 1.2;
-        else nonBorb = 3000;
+        if (ancientSouls < 27000) nonBorb = 1000 + (27000 - ancientSouls);
+        else nonBorb = 1000;
         zonePush = ancientSouls / 16e4;
         let b = this.spendAS(1, ancientSouls - nonBorb);
         this.newHze = Math.min(5.46e6, b * 5000 + 500);
     } else if (ancientSouls < 530000) {
         // Post zone 4m
-        nonBorb = 2000;
+        nonBorb = 500;
         zoneAdd = post4mStrategy(ancientSouls);
         let b = this.spendAS(1, ancientSouls - nonBorb);
         this.newHze = Math.min(5.46e6, b * 5000 + 500);
