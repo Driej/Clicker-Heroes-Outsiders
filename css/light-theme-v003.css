@@ -1,14 +1,9 @@
-body {
-    background-color: #333;
-}
-
 a {
-    color: #f55;
+    color: #00e;
 }
 
-.boxes > div > div {
-	border-color: #888;
-    background-color: #555;
+.panel {
+	border-color: #7080a0;
 }
 
 .title {
@@ -17,11 +12,11 @@ a {
 }
 
 .content {
-	color: white;
+	color: black;
 }
 
 input {
-	background-color: #fff;
+	background-color: #eee;
 	transition: background-color 0.3s;
 }
 
@@ -34,10 +29,10 @@ input:focus {
 }
 
 #calculateButton, #defaultButton, #readSaveButton {
-	background-color: #555;
-	border-color: white;
+	background-color: white;
+	border-color: #333;
 	transition: background-color 0.2s, color 0.2s, border-color 0.2s;
-	color: white;
+	color: #333;
 }
 
 #calculateButton:hover, #defaultButton:hover, #readSaveButton:hover {
@@ -52,8 +47,8 @@ input:focus {
 }
 
 #showAdvanced {
-	background-color: #555;
-	color: white;
+	background-color: white;
+	color: black;
 }
 
 hr {

@@ -8,9 +8,9 @@
     <meta name="Description" content="Get Outsider Suggestions for Clicker Heroes version e10 or e11.">
 	<title>CH Outsider Calculator</title>
 	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/main-v003.css">
-    <link rel="stylesheet" href="css/light-theme-v002.css" id="theme-light" title="Light">
-    <link rel="stylesheet" href="css/dark-theme-v002.css" id="theme-dark" title="Dark" disabled>
+	<link rel="stylesheet" href="css/main-v004.css">
+    <link rel="stylesheet" href="css/light-theme-v003.css" id="theme-light" title="Light">
+    <link rel="stylesheet" href="css/dark-theme-v003.css" id="theme-dark" title="Dark" disabled>
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" sizes="192x192" href="icons/ruby192.png">
     <script>
@@ -37,7 +37,7 @@
 		<main class="container" role="main">
 			<div class="boxes">
 				<div class="box-12 collapsible">
-					<div>
+					<div class="panel">
 						<div class="title">Info</div>
 						<div class="content">
 							<p>Info/Feedback: <a href="https://redd.it/7on5it">https://redd.it/7on5it</a></p>
@@ -46,8 +46,13 @@
 						</div>
 					</div>
 				</div>
+                <div class="box-12 info">
+                    <div id="checkResults">
+                        test
+                    </div>
+                </div>
 				<div class="box-4">
-					<div>
+					<div class="panel">
 						<div class="title">Inputs</div>
 						<div class="content">
 							<div class="numberInput">
@@ -68,6 +73,7 @@
 								<div class="numberInput">
 									<label for="zoneOverride">Zone override:</label>
 									<input id="zoneOverride" type="text" style="font-size:12px;">
+                                    <br><input type="checkbox" id="helpText" class="checkbox" onclick="refresh()" checked><label for="helpText">Help Text</label>
 								</div>
 								<button id="defaultButton" onclick="defaultClick()">Set to Default</button>
 							</div>
@@ -75,7 +81,7 @@
 					</div>
 				</div>
 				<div class="box-8" id="results">
-					<div>
+					<div class="panel">
 						<div class="title">Outsider Recommendations</div>
 						<div class="content">
 							<table id="OutsidersTable" cellspacing="0">
@@ -96,7 +102,7 @@
 			</div>
 			<div class="boxes">
 				<div class="box-4">
-					<div>
+					<div class="panel">
 						<div class="title">End of Transcension Estimates</div>
 						<div class="content">
 							<div id="predictedHZE"></div>
@@ -115,7 +121,7 @@
 					</div>
 				</div>
 				<div class="box-4">
-					<div>
+					<div class="panel">
 						<div class="title">Unbuffed stats at HZE</div>
 						<div class="content">
 							<div id="unbuffedMPZ"></div>
@@ -127,7 +133,7 @@
 					</div>
 				</div>
 				<div class="box-4">
-					<div>
+					<div class="panel">
 						<div class="title">Buffed stats at HZE</div>
 						<div class="content">
 							<div id="buffedMPZ"></div>
@@ -141,7 +147,7 @@
 			</div>
 			<div class="boxes">
 				<div class="box-4">
-					<div>
+					<div class="panel">
 						<div class="title">Zone Breakpoints</div>
 						<div class="content">
 							<div id="HighMpz"></div>
