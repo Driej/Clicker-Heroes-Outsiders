@@ -550,7 +550,7 @@ function refresh(test, ancientSouls) {
             infoMessage += " Borb may be leveled higher for earlier ascensions. Ascend at zone 130 the first time to have faster transcensions. <br>";
         }
         if (ancientSouls < 10500) {
-            infoMessage += "Ascend after 3 or 4 ascensions that give new Ancient Souls. <b>Not the total amount of ascensions, only ascensions that give you AS counts!</b>";
+            infoMessage += "Transcend after 3 or 4 ascensions that give new Ancient Souls. <b>Not the total amount of ascensions, only ascensions that give you AS counts!</b>";
             infoMessage += " The Highest Zone below is an estimate and you should be within a few thousand zones if you play correctly."
         } else {
             if (ancientSouls < 27000) {
