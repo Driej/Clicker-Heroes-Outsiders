@@ -3,12 +3,12 @@
   "name": "Clicker Heroes Outsiders",
   "icons": [
     {
-      "src": "/icons/ruby192.png",
+      "src": "/Clicker-Heroes-Outsiders/icons/ruby192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "/icons/ruby512.png",
+      "src": "/Clicker-Heroes-Outsiders/icons/ruby512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
