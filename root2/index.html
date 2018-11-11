@@ -3,18 +3,31 @@
 <head>
 	<meta http-equiv="content-type" content="text/html;">
 	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
+    <meta name="theme-color" content="#47296b">
+    <meta name="Description" content="Get Outsider Suggestions for the root2 mod of Clicker Heroes.">
 	<title>CH Outsider Calculator</title>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/main-v002.css">
-    <link rel="stylesheet" href="css/light-theme-v001.css" id="theme-light" title="Light">
-    <link rel="stylesheet" href="css/dark-theme-v001.css" id="theme-dark" title="Dark" disabled>
+    <link rel="stylesheet" href="css/light-theme-v002.css" id="theme-light" title="Light">
+    <link rel="stylesheet" href="css/dark-theme-v002.css" id="theme-dark" title="Dark" disabled>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/ruby192.png">
     <script>
         if (localStorage) {
             if (localStorage.getItem("darkmode")==="true") {
                 document.getElementById("theme-light").disabled = true;
                 document.getElementById("theme-dark").disabled = false;
             }
+        }
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js').then(function(registration) {
+                
+                }, function(err) {
+                    console.log('ServiceWorker registration failed: ', err);
+                });
+            });
         }
     </script>
 	<link rel="icon" type="image/png" href="Ruby.png">
@@ -87,6 +100,18 @@
 							<div id="chronos"></div>
 							<div id="dora"></div>
 							
+						</div>
+					</div>
+				</div>
+                <div class="box-4">
+					<div class="panel">
+						<div class="title">Buffed stats at HZE</div>
+						<div class="content">
+							<div id="buffedMPZ"></div>
+							<div id="buffedTCC"></div>
+							<div id="buffedBossHP"></div>
+							<div id="buffedTimer"></div>
+							<div id="buffedPBC"></div>
 						</div>
 					</div>
 				</div>

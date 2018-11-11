@@ -1,0 +1,21 @@
+{
+  "short_name": "CHOr2",
+  "name": "Clicker Heroes Outsiders Root2",
+  "icons": [
+    {
+      "src": "/Clicker-Heroes-Outsiders/root2/icons/ruby192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/Clicker-Heroes-Outsiders/root2/icons/ruby512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/Clicker-Heroes-Outsiders/root2/",
+  "background_color": "#333",
+  "display": "standalone",
+  "scope": "/Clicker-Heroes-Outsiders/root2/",
+  "theme_color": "#47296b"
+}

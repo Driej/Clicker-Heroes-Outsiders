@@ -52,6 +52,31 @@ let breakpoints = [
     [2850000,100]
 ];
 
+//Infinite Ascension HS requirements
+let infAscHS = {
+    0.02: 65,
+    0.03: 160,
+    0.04: 236,
+    0.06: 7463,
+    0.07: 7462,
+    0.08: 7462,
+    0.10: 14184,
+    0.15: 43413,
+    0.20: 163532,
+    0.25: 285442,
+    0.30: 383350,
+    0.35: 463600,
+    0.40: 530799,
+    0.45: 612052,
+    0.50: 696185,
+    0.55: 746451,
+    0.60: 801517,
+    0.70: 873851,
+    0.80: 919765,
+    0.90: 955619,
+    1.00: 992703
+}
+
 function getTP(ancientSouls) {
     for(let i = breakpoints.length - 1; i >= 0; i--) {
         let bp = breakpoints[i];
@@ -368,6 +393,43 @@ function refresh(test, ancientSouls) {
     $("#predictedAS").html("AncientSouls: " + this.newAncientSouls.toLocaleString() + " (+" + this.ancientSoulsDiff.toLocaleString() + ")");
     $("#predictedTP").html("TP: " + this.newTranscendentPower + "%" );
     $("#predictedAncients").html("Ancient Levels: " + ancientLevels.toLocaleString() );
+    //Buffed Stats
+    let borbCoeff = 0.00008 * borbLevel * borbLevel + 0.1 * borbLevel + 2.5;
+        kariquaCoeff = 0.00032 * kariquaLevel * kariquaLevel + 0.4 * kariquaLevel + 2.5;
+        rhageistCoeff = 2 * (1 - Math.exp(rhageistLevel * -0.01)) + 7;
+        senakhanCoeff = 2 * (1 - Math.exp(senakhanLevel * -0.01)) + 6.75;
+        nerfs = Math.floor(this.newHze / 500);
+        unbuffedMonstersPerZone = 10 + nerfs * 0.1;
+        unbuffedTreasureChestChance = 1 / Math.pow(nerfs, 2);
+        unbuffedBossHealth = 10 + nerfs * 0.4;
+        unbuffedBossTimer = 30 - nerfs / 200;
+        unbuffedPrimalBossChance = 1 / Math.pow(nerfs, 2);
+        alpha = Math.log(ancientLevels + 2.719);
+        buffedMPZfinal = unbuffedMonstersPerZone - alpha * borbCoeff;
+        buffedTCCfinal = unbuffedTreasureChestChance * (1 + Math.pow(alpha, senakhanCoeff));
+        buffedBossHPfinal = unbuffedBossHealth - alpha * kariquaCoeff;
+        buffedTimerfinal = Math.max(2, unbuffedBossTimer + alpha * 10);
+        buffedPBCfinal = unbuffedPrimalBossChance * (25 + Math.pow(alpha, rhageistCoeff));
+        lowestHS = infAscHS[transcendentPower];
+    $("#buffedMPZ").html( "Monsters per Zone: " + buffedMPZfinal.toFixed(2) + (buffedMPZfinal<2?" (2)":"") );
+    $("#buffedTCC").html( "Treasure Chests: " + buffedTCCfinal.toFixed() + "%" );
+    $("#buffedBossHP").html( "Boss Health: " + buffedBossHPfinal.toFixed() + "x" );
+    $("#buffedTimer").html( "Boss Timer: " + buffedTimerfinal.toFixed() + "s" );
+    $("#buffedPBC").html( "Primal Chance: " + buffedPBCfinal.toFixed() + "%" );
+    if (lowestHS < newLogHeroSouls * 0.9) {
+        let ancientLevels = Math.floor(lowestHS * 0.9 / Math.log10(2) - 3 / Math.log(2)) - 1;
+            alpha = Math.log(ancientLevels + 2.719);
+            buffedMPZ = unbuffedMonstersPerZone - alpha * borbCoeff;
+            buffedTCC = unbuffedTreasureChestChance * (1 + Math.pow(alpha, senakhanCoeff));
+            buffedBossHP = unbuffedBossHealth - alpha * kariquaCoeff;
+            buffedTimer = Math.max(2, unbuffedBossTimer + alpha * 10);
+            buffedPBC = unbuffedPrimalBossChance * (25 + Math.pow(alpha, rhageistCoeff));
+        $("#buffedMPZ").append( " to " + buffedMPZ.toFixed(2) + (buffedMPZ<2?" (2)":"") );
+        $("#buffedTCC").append( " to " + buffedTCC.toFixed() + "%" );
+        $("#buffedBossHP").append( " to " + buffedBossHP.toFixed() + "x" );
+        $("#buffedTimer").append( " to " + buffedTimer.toFixed() + "s" );
+        $("#buffedPBC").append( " to " + buffedPBC.toFixed() + "%" );
+    }
     //Outsiders Table
     $("#OutsidersTable tbody").html(
         "<tr><td>Xyliqil</td><td>"+xyliqilLevel.toLocaleString()+"</td><td>"+getCostFromLevel(xyliqilLevel).toLocaleString()+"</td><td>"+
