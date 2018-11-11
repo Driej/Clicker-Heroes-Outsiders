@@ -34,7 +34,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
 	<body>
-		<div class="container">
+		<main class="container">
 			<div class="boxes">
 				<div class="box-12">
 					<div>
@@ -42,7 +42,7 @@
 						<div class="content">
 							<p>This is for the root2 mod of CH. Visit the <a href="https://discordapp.com/invite/jT7zH9g">CH Discord</a> for more info about root2.</p>
                             <p>Download the <a href="https://www.dropbox.com/s/b85db73f7z3zdfn/HeroClickerroot2.swf?dl=0">Standalone Game</a> or play it from your <a href="swf">Browser</a>.</p>
-                            <p>Looking for regular CH recommendations? <a href="..">Click Here</a></p>
+                            <p>For unmodded Clicker Heroes, use the regular <a href="..">CH Outsider Calculator</a>.</p>
 						</div>
 					</div>
 				</div>
@@ -51,13 +51,14 @@
 						<div class="title">Inputs</div>
 						<div class="content">
 							<div class="numberInput">
-								<p>Ancient Souls:</p>
+								<label for="ancient_souls">Ancient Souls:</label>
 								<input value="0" id="ancient_souls" type="text">
 							</div>
 							<div id="TP">TP: 2.0000%</div>
-                            <br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()">Dark Theme
-                            <br><input type="checkbox" id="bpSkip" class="checkbox" onclick="skipCB()" checked>Skip Breakpoints
+                            <br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()"><label for="dark">Dark Theme</label>
+                            <br><input type="checkbox" id="bpSkip" class="checkbox" onclick="skipCB()" checked><label for="bpSkip">Skip Breakpoints</label>
 							<br><button id="calculateButton" onclick="refresh()">Calculate</button>
+                            <label for="savegame">Import your save</label>
 							<textarea id="savegame" placeholder="Paste your save game here" autofocus onclick="this.focus();this.select()" onblur="readSave()"></textarea>
 							<br><button id="readSaveButton" onclick="readSave()">Read Save</button>
 						</div>
@@ -115,7 +116,7 @@
 						</div>
 					</div>
 				</div>
-		</div>
+		</main>
 		<script src="js/pako.min.js"></script>
 		<script src="js/readSave.js"></script>
 		<script src="js/main.js"></script>
