@@ -1,4 +1,4 @@
-var CACHE_NAME = 'outsiders-root2-cache-v5';
+var CACHE_NAME = 'outsiders-root2-cache-v6';
 var urlsToCache = [
     '.',
     'css/dark-theme-v002.css',
@@ -45,7 +45,7 @@ self.addEventListener('activate', function(event) {
         caches.keys().then(function(cacheNames) {
             return Promise.all(
                 cacheNames.map(function(cacheName) {
-                    if (cacheName.slice(0,15) == "outsiders-cache") {
+                    if (cacheName.slice(0,21) == "outsiders-root2-cache") {
                         if (cacheName !== CACHE_NAME) return caches.delete(cacheName);
                     }
                 })
