@@ -278,7 +278,7 @@ function refresh(test, ancientSouls) {
             kumaEffect = a * Math.log(kumaLevel + 2.719);
             let nextZone = (kumaEffect - 8) * 5000 + 500;
             if (nextZone === zone) {
-                this.newHze = nextZone;
+                this.newHze = Math.min(Math.pow(2, 31) - 1, Math.ceil(nextZone / 500) * 500 + 756000);
                 break;
             }
         }
@@ -290,7 +290,7 @@ function refresh(test, ancientSouls) {
     let newLogHeroSouls = Math.log10(tp) * this.newHze / 5 - 2;
 
     // Ancient effects
-    let ancientLevels = Math.floor(newLogHeroSouls * 0.9 / Math.log10(2) - 3 / Math.log(2)) - 1;
+    let ancientLevels = Math.floor(newLogHeroSouls * (targetAS === 'push' ? 1 : 0.9) / Math.log10(2) - 3 / Math.log(2)) - 1;
     let nerfs = Math.floor(this.newHze / 500);
     let baseMPZ = 10 + nerfs * 0.1;
     let chancemult = Math.pow(nerfs + 1, -2);
@@ -331,7 +331,8 @@ function refresh(test, ancientSouls) {
         ? Math.min(getBorbFant( ancientSouls, transcendentPower ), spendAS(0.35, ancientSouls))
         : 0;
     let borbLevel = Math.max(0, borbCap, borbFant);
-    if (this.getCostFromLevel(borbLevel) >= ancientSouls * 0.99) borbLevel = spendAS(ancientSouls * 0.99, 1);
+    let treshold = targetAS === 'push' ? 0.9 : 0.99;
+    if (this.getCostFromLevel(borbLevel) >= ancientSouls * treshold) borbLevel = spendAS(ancientSouls * treshold, 1);
     if (this.getCostFromLevel(borbLevel) >= ancientSouls - 5) borbLevel = spendAS(ancientSouls - 5, 1);
     this.remainingAncientSouls = ancientSouls - this.getCostFromLevel(borbLevel);
     let xyliqilLevel = Math.max(1, spendAS(this.remainingAncientSouls, xyliqilRatio));
@@ -400,30 +401,30 @@ function refresh(test, ancientSouls) {
         senakhanCoeff = 2 * (1 - Math.exp(senakhanLevel * -0.01)) + 6.75;
         nerfs = Math.floor(this.newHze / 500);
         unbuffedMonstersPerZone = 10 + nerfs * 0.1;
-        unbuffedTreasureChestChance = 1 / Math.pow(nerfs, 2);
+        unbuffedTreasureChestChance = 1 / Math.pow(nerfs + 1, 2);
         unbuffedBossHealth = 10 + nerfs * 0.4;
         unbuffedBossTimer = 30 - nerfs / 200;
-        unbuffedPrimalBossChance = 1 / Math.pow(nerfs, 2);
+        unbuffedPrimalBossChance = 1 / Math.pow(nerfs + 1, 2);
         alpha = Math.log(ancientLevels + 2.719);
         buffedMPZfinal = unbuffedMonstersPerZone - alpha * borbCoeff;
-        buffedTCCfinal = unbuffedTreasureChestChance * (1 + Math.pow(alpha, senakhanCoeff));
+        buffedTCCfinal = Math.max(1, unbuffedTreasureChestChance * (1 + Math.pow(alpha, senakhanCoeff)));
         buffedBossHPfinal = unbuffedBossHealth - alpha * kariquaCoeff;
         buffedTimerfinal = Math.max(2, unbuffedBossTimer + alpha * 10);
-        buffedPBCfinal = unbuffedPrimalBossChance * (25 + Math.pow(alpha, rhageistCoeff));
+        buffedPBCfinal = Math.max(5, unbuffedPrimalBossChance * (25 + Math.pow(alpha, rhageistCoeff)));
         lowestHS = infAscHS[transcendentPower];
     $("#buffedMPZ").html( "Monsters per Zone: " + buffedMPZfinal.toFixed(2) + (buffedMPZfinal<2?" (2)":"") );
     $("#buffedTCC").html( "Treasure Chests: " + buffedTCCfinal.toFixed() + "%" );
     $("#buffedBossHP").html( "Boss Health: " + buffedBossHPfinal.toFixed() + "x" );
     $("#buffedTimer").html( "Boss Timer: " + buffedTimerfinal.toFixed() + "s" );
     $("#buffedPBC").html( "Primal Chance: " + buffedPBCfinal.toFixed() + "%" );
-    if (lowestHS < newLogHeroSouls * 0.9) {
-        let ancientLevels = Math.floor(lowestHS * 0.9 / Math.log10(2) - 3 / Math.log(2)) - 1;
+    if (lowestHS < newLogHeroSouls * (targetAS === 'push' ? 1 : 0.9)) {
+        let ancientLevels = Math.floor(lowestHS / Math.log10(2) - 3 / Math.log(2)) - 1;
             alpha = Math.log(ancientLevels + 2.719);
             buffedMPZ = unbuffedMonstersPerZone - alpha * borbCoeff;
-            buffedTCC = unbuffedTreasureChestChance * (1 + Math.pow(alpha, senakhanCoeff));
+            buffedTCC = Math.max(1, unbuffedTreasureChestChance * (1 + Math.pow(alpha, senakhanCoeff)));
             buffedBossHP = unbuffedBossHealth - alpha * kariquaCoeff;
             buffedTimer = Math.max(2, unbuffedBossTimer + alpha * 10);
-            buffedPBC = unbuffedPrimalBossChance * (25 + Math.pow(alpha, rhageistCoeff));
+            buffedPBC = Math.max(5, unbuffedPrimalBossChance * (25 + Math.pow(alpha, rhageistCoeff)));
         $("#buffedMPZ").append( " to " + buffedMPZ.toFixed(2) + (buffedMPZ<2?" (2)":"") );
         $("#buffedTCC").append( " to " + buffedTCC.toFixed() + "%" );
         $("#buffedBossHP").append( " to " + buffedBossHP.toFixed() + "x" );
