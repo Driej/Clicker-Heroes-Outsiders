@@ -1,4 +1,4 @@
-var CACHE_NAME = 'outsiders-root2-cache-v6';
+var CACHE_NAME = 'outsiders-root2-cache-v7';
 var urlsToCache = [
     '.',
     'css/dark-theme-v002.css',
