@@ -1,4 +1,4 @@
-var CACHE_NAME = 'outsiders-root2-cache-v7';
+var CACHE_NAME = 'outsiders-root2-cache-v8';
 var urlsToCache = [
     '.',
     'css/dark-theme-v002.css',
@@ -7,7 +7,8 @@ var urlsToCache = [
     'css/normalize.css',
     'js/main.js',
     'js/pako.min.js',
-    'js/readSave.js'
+    'js/readSave.js',
+    'js/autolevel.js'
 ];
 
 self.addEventListener('install', function(event) {
