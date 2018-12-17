@@ -4,32 +4,32 @@
 	<meta http-equiv="content-type" content="text/html;">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1 user-scalable=0">
-    <meta name="theme-color" content="#47296b">
-    <meta name="Description" content="Get Outsider Suggestions for the root2 mod of Clicker Heroes.">
+	<meta name="theme-color" content="#47296b">
+	<meta name="Description" content="Get Outsider Suggestions for the root2 mod of Clicker Heroes.">
 	<title>CH Outsider Calculator</title>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/main-v002.css">
-    <link rel="stylesheet" href="css/light-theme-v002.css" id="theme-light" title="Light">
-    <link rel="stylesheet" href="css/dark-theme-v002.css" id="theme-dark" title="Dark" disabled>
-    <link rel="manifest" href="manifest.json">
-    <link rel="apple-touch-icon" sizes="192x192" href="icons/ruby192.png">
-    <script>
-        if (localStorage) {
-            if (localStorage.getItem("darkmode")==="true") {
-                document.getElementById("theme-light").disabled = true;
-                document.getElementById("theme-dark").disabled = false;
-            }
-        }
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                navigator.serviceWorker.register('sw.js').then(function(registration) {
-                
-                }, function(err) {
-                    console.log('ServiceWorker registration failed: ', err);
-                });
-            });
-        }
-    </script>
+	<link rel="stylesheet" href="css/light-theme-v002.css" id="theme-light" title="Light">
+	<link rel="stylesheet" href="css/dark-theme-v002.css" id="theme-dark" title="Dark" disabled>
+	<link rel="manifest" href="manifest.json">
+	<link rel="apple-touch-icon" sizes="192x192" href="icons/ruby192.png">
+	<script>
+		if (localStorage) {
+			if (localStorage.getItem("darkmode")==="true") {
+				document.getElementById("theme-light").disabled = true;
+				document.getElementById("theme-dark").disabled = false;
+			}
+		}
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', function() {
+				navigator.serviceWorker.register('sw.js').then(function(registration) {
+				
+				}, function(err) {
+					console.log('ServiceWorker registration failed: ', err);
+				});
+			});
+		}
+	</script>
 	<link rel="icon" type="image/png" href="Ruby.png">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </head>
@@ -41,8 +41,8 @@
 						<div class="title">CH root 2 Outsider Recommender</div>
 						<div class="content">
 							<p>This is for the root2 mod of CH. Visit the <a href="https://discordapp.com/invite/jT7zH9g">CH Discord</a> for more info about root2.</p>
-                            <p>Download the <a href="https://www.dropbox.com/s/b85db73f7z3zdfn/HeroClickerroot2.swf?dl=0">Standalone Game</a> or play it from your <a href="swf">Browser</a>.</p>
-                            <p>For unmodded Clicker Heroes, use the regular <a href="..">CH Outsider Calculator</a>.</p>
+							<p>Download the <a href="https://www.dropbox.com/s/b85db73f7z3zdfn/HeroClickerroot2.swf?dl=0">Standalone Game</a> or play it from your <a href="swf">Browser</a>.</p>
+							<p>For unmodded Clicker Heroes, use the regular <a href="..">CH Outsider Calculator</a>.</p>
 						</div>
 					</div>
 				</div>
@@ -55,11 +55,16 @@
 								<input value="0" id="ancient_souls" type="text">
 							</div>
 							<div id="TP">TP: 2.0000%</div>
-                            <br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()"><label for="dark">Dark Theme</label>
-                            <br><input type="checkbox" id="bpSkip" class="checkbox" onclick="skipCB()" checked><label for="bpSkip">Skip Breakpoints</label>
-							<br><button id="calculateButton" onclick="refresh()">Calculate</button>
-                            <label for="savegame">Import your save</label>
+							<br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()"><label for="dark">Dark Theme</label>
+							<br><input type="checkbox" id="bpSkip" class="checkbox" onclick="skipCB()" checked><label for="bpSkip">Skip Breakpoints</label>
+							<br><button id="calculateButton" onclick="clearOutput();refresh()">Calculate</button>
+							<label for="savegame">Input Save</label>
 							<textarea id="savegame" placeholder="Paste your save game here" autofocus onclick="this.focus();this.select()" onblur="readSave()"></textarea>
+							<div id="autoLevelDiv" style="display:none;">
+								<label for="outputsave">Output Save</label>
+								<textarea id="outputsave" placeholder="Import this save into your game" onclick="this.select()"></textarea>
+							</div>
+							<input type="checkbox" id="autolevel" class="checkbox" onclick="changeAutoLevel()"><label for="autolevel">Autolevel</label>
 							<br><button id="readSaveButton" onclick="readSave()">Read Save</button>
 						</div>
 					</div>
@@ -104,7 +109,7 @@
 						</div>
 					</div>
 				</div>
-                <div class="box-4">
+				<div class="box-4">
 					<div class="panel">
 						<div class="title">Buffed stats at HZE</div>
 						<div class="content">
@@ -120,5 +125,6 @@
 		<script src="js/pako.min.js"></script>
 		<script src="js/readSave.js"></script>
 		<script src="js/main.js"></script>
+		<script src="js/autolevel.js"></script>
 	</body>
 </html>

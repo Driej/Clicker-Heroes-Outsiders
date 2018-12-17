@@ -19,7 +19,10 @@ function readSave() {
 		}
 		let ancientSouls = data.ancientSoulsTotal;
 		$("#ancient_souls").val(ancientSouls);
-		refresh();
+        let outsiders = refresh();
+		if (outsiders && autolevelEnabled) {
+            generateNewSave(data, outsiders);
+        }
 	} else if (txt)
 		$("#savegame").val("");
 }

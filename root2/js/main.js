@@ -462,6 +462,11 @@ function refresh(test, ancientSouls) {
         senakhanLevel
     );
     $("#unspentAS").html( "Unspent: " + unspent );
+    
+    $("#outputsave").html("");
+    if (autolevelEnabled) {
+        return [xyliqilLevel, chorLevel, phanLevel, ponyLevel, borbLevel, rhageistLevel, kariquaLevel, orphalasLevel, senakhanLevel, unspent];
+    }
 }
 
 function test() {
@@ -476,7 +481,10 @@ function test() {
 }
 
 function enterKey(ev) {
-    if (ev.which === 13) refresh();
+    if (ev.which === 13) {
+        clearOutput();
+        refresh();
+    }
 }
 
 $("#ancient_souls").keyup(enterKey);
@@ -494,6 +502,7 @@ function changeTheme() {
 
 function skipCB() {
     if (localStorage) localStorage.setItem("bpSkip", $("#bpSkip").is(":checked"));
+    clearOutput();
     refresh();
 }
 
