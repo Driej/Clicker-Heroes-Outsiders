@@ -60,12 +60,17 @@
 								<input value="0" id="ancient_souls" type="text">
 							</div>
 							<div id="TP">TP: 2.0000%</div>
-							<br><input type="checkbox" id="reserveAS" class="checkbox" onclick="refresh()"><label for="reserveAS">Reserve Ancient Souls</label>
+							<br><input type="checkbox" id="reserveAS" class="checkbox" onclick="clearOutput();refresh()"><label for="reserveAS">Reserve Ancient Souls</label>
                             <br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()"><label for="dark">Dark Theme</label>
-							<br><button id="calculateButton" onclick="refresh()">Calculate</button>
+							<br><button id="calculateButton" onclick="clearOutput();refresh()">Calculate</button>
                             <br><br>
-                            <label for="savegame">Import your save</label>
+                            <label for="savegame">Input Save</label>
 							<textarea id="savegame" placeholder="Paste your save game here" autofocus onclick="this.focus();this.select()" onblur="readSave()"></textarea>
+                            <div id="autoLevelDiv" style="display:none;">
+                                <label for="outputsave">Output Save</label>
+                                <textarea id="outputsave" placeholder="Import this save into your game" onclick="this.select()"></textarea>
+                            </div>
+                            <input type="checkbox" id="autolevel" class="checkbox" onclick="changeAutoLevel()"><label for="autolevel">Autolevel</label>
 							<button id="readSaveButton" onclick="readSave()">Read Save</button>
 							<hr>
 							<button id="showAdvanced" onclick="showAdvancedClick()">Show Advanced Settings</button>
@@ -73,7 +78,8 @@
 								<div class="numberInput">
 									<label for="zoneOverride">Zone override:</label>
 									<input id="zoneOverride" type="text" style="font-size:12px;">
-                                    <br><input type="checkbox" id="helpText" class="checkbox" onclick="refresh()" checked><label for="helpText">Help Text</label>
+                                    <br><input type="checkbox" id="helpText" class="checkbox" onclick="clearOutput();refresh()" checked><label for="helpText">Help Text</label>
+                                    <br><input type="checkbox" id="levelOrphalas" class="checkbox" onclick="clearOutput();refresh()" checked><label for="levelOrphalas">Level Orphalas</label>
 								</div>
 								<button id="defaultButton" onclick="defaultClick()">Set to Default</button>
 							</div>
@@ -164,5 +170,6 @@
 		<script src="js/pako.min.js" defer></script>
 		<script src="js/readSave.js" defer></script>
 		<script src="js/main.js" defer></script>
+        <script src="js/autolevel.js" defer></script>
 	</body>
 </html>

@@ -379,6 +379,10 @@ function refresh(test, ancientSouls) {
         orphalasRatio = 0;
         senakhanRatio = 0;
     }
+    
+    if(!$("#levelOrphalas").is(":checked")) {
+        orphalasRatio = 0;
+    }
 
     // Outsider Leveling
     this.remainingAncientSouls = ancientSouls;
@@ -538,43 +542,47 @@ function refresh(test, ancientSouls) {
     
     if (!$("#helpText").is(":checked")) {
         $('#checkResults').parent().hide();
-        return;
-    }
-    
-    let infoMessage = "";
-    if (ancientSouls === 0) {
-        infoMessage += "You need to have ancient souls for this to work. Transcend as soon as you unlock transcendence at zone 300. It's worth it.";
     } else {
-        if(ancientSouls < 2000 && ancientSouls >= 50) {
-            infoMessage += "Only " + borbHze + " Borb is needed to have 2 monsters per zone on your final ascension.";
-            infoMessage += " Borb may be leveled higher for earlier ascensions. Ascend at zone 130 the first time to have faster transcensions. <br>";
-        }
-        if (ancientSouls < 10500) {
-            infoMessage += "Transcend after 3 or 4 ascensions that give new Ancient Souls. <b>Not the total amount of ascensions, only ascensions that give you AS counts!</b>";
-            infoMessage += " The Highest Zone below is an estimate and you should be within a few thousand zones if you play correctly."
+        let infoMessage = "";
+        if (ancientSouls === 0) {
+            infoMessage += "You need to have ancient souls for this to work. Transcend as soon as you unlock transcendence at zone 300. It's worth it.";
         } else {
-            if (ancientSouls < 27000) {
-                infoMessage += "The guideline that states '3 or 4 ascensions that give AS' <b>does not apply beyond 24% Transcendent Power!</b>";
-                infoMessage += " Keep ascending until you reach at least the estimated Highest Zone shown below. This will take longer (more ascensions) than you are used to.<br>";
+            if(ancientSouls < 2000 && ancientSouls >= 50) {
+                infoMessage += "Only " + borbHze + " Borb is needed to have 2 monsters per zone on your final ascension.";
+                infoMessage += " Borb may be leveled higher for earlier ascensions. Ascend at zone 130 the first time to have faster transcensions. <br>";
             }
-            if (ancientSouls >= 21000 && this.newHze <= 5e6) {
-                if (ancientSouls < 50000) {
-                    infoMessage += "You have enough TP to reach any hero. Borb is the single most important Outsider for reducing transcension time.";
-                    infoMessage += " The last 4 Outsiders are impractical/impossible to maintain at high zones so they are kept at 0. <b>This is not a bug!</b><br>";
-                } else {
-                    infoMessage += "You should push past 2 mpz. The higher your HZE, the higher past 2 mpz you should push.";
-                    infoMessage += " The extra time you spend pushing past 2 mpz is not unreasonable when compared to how long a transcension can take just to beat your previous HZE.<br>";
+            if (ancientSouls < 10500) {
+                infoMessage += "Transcend after 3 or 4 ascensions that give new Ancient Souls. <b>Not the total amount of ascensions, only ascensions that give you AS counts!</b>";
+                infoMessage += " The Highest Zone below is an estimate and you should be within a few thousand zones if you play correctly."
+            } else {
+                if (ancientSouls < 27000) {
+                    infoMessage += "The guideline that states '3 or 4 ascensions that give AS' <b>does not apply beyond 24% Transcendent Power!</b>";
+                    infoMessage += " Keep ascending until you reach at least the estimated Highest Zone shown below. This will take longer (more ascensions) than you are used to.<br>";
+                }
+                if (ancientSouls >= 21000 && this.newHze <= 5e6) {
+                    if (ancientSouls < 50000) {
+                        infoMessage += "You have enough TP to reach any hero. Borb is the single most important Outsider for reducing transcension time.";
+                        infoMessage += " The last 4 Outsiders are impractical/impossible to maintain at high zones so they are kept at 0. <b>This is not a bug!</b><br>";
+                    } else {
+                        infoMessage += "You should push past 2 mpz. The higher your HZE, the higher past 2 mpz you should push.";
+                        infoMessage += " The extra time you spend pushing past 2 mpz is not unreasonable when compared to how long a transcension can take just to beat your previous HZE.<br>";
+                    }
+                }
+                if (this.newHze >= 5e6) {
+                    infoMessage += "This calculator is not optimized beyond zone 5 million. Make sure you are pushing at least 200k zones from last transcension ";
+                    infoMessage += "if not reaching the softcap (around zone 5.46m).<br>";
+                    infoMessage += "Use the 'Zone override' under Advanced Settings and check your browser's console to see the estimated transcension time.";
                 }
             }
-            if (this.newHze >= 5e6) {
-                infoMessage += "This calculator is not optimized beyond zone 5 million. Make sure you are pushing at least 200k zones from last transcension ";
-                infoMessage += "if not reaching the softcap (around zone 5.46m).<br>";
-                infoMessage += "Use the 'Zone override' under Advanced Settings and check your browser's console to see the estimated transcension time.";
-            }
         }
+        $('#checkResults').html(infoMessage);
+        $('#checkResults').parent().show();
     }
-    $('#checkResults').html(infoMessage);
-    $('#checkResults').parent().show();
+    
+    $("#outputsave").html("");
+    if (autolevelEnabled) {
+        return [xyliqilLevel, chorLevel, phanLevel, ponyLevel, borbLevel, rhageistLevel, kariquaLevel, orphalasLevel, senakhanLevel, unspent];
+    }
 }
 
 function test() {
@@ -589,7 +597,10 @@ function test() {
 }
 
 function enterKey(ev) {
-    if (ev.which === 13) refresh();
+    if (ev.which === 13) {
+        clearOutput();
+        refresh();
+    }
 }
 
 $("#ancient_souls").keyup(enterKey);
@@ -607,6 +618,7 @@ function changeTheme() {
 }
 
 $(setDefaults);
+
 
 $(function() {
     if (localStorage) {
