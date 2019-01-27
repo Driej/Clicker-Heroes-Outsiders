@@ -340,7 +340,7 @@ function refresh(test, ancientSouls) {
     // Unbuffed Stats
     let nerfs = Math.floor(this.newHze / 500);
     let unbuffedMonstersPerZone = Math.round10(10 + nerfs * 0.1, -2);
-    let unbuffedTreasureChestChance = Math.exp(-0.006 * nerfs);
+    let unbuffedTreasureChestChance = 1 - 0.99999999 * (1 - Math.exp(-0.006 * nerfs));
     let unbuffedBossHealth = 10 + nerfs * 0.4;
     let unbuffedBossTimer = 30 - nerfs * 2;
     let unbuffedPrimalBossChance = 25 - nerfs * 2;
