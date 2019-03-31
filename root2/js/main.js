@@ -101,14 +101,14 @@ let goalsSkip = [
     [145000,350000],
     [190000,350000],
     [240000,350000],
-    [350000,893000],
-    [485000,893000],
-    [666000,893000],
-    [840000,893000],
-    [893000, 4910000],
-    [4910000, 27500000],
-    [27500000,140000000],
-    [140000000,'push']
+    [350000,840000],
+    [485000,840000],
+    [666000,840000],
+    [840000,1200000],
+    [1200000,4500000],
+    [4367000,24760000],
+    [24760000,126400000],
+    [126400000,'cap']
 ];
 
 // No Breakpoint skips
@@ -133,10 +133,10 @@ let goalsNoSkip = [
     [840000,1200000],
     [1200000,1950000],
     [1950000,2850000],
-    [2850000,4910000],
-    [4910000, 27500000],
-    [27500000,140000000],
-    [140000000,'push']
+    [2850000,4500000],
+    [4367000,24760000],
+    [24760000,126400000],
+    [126400000,'cap']
 ];
 
 function getASGoal(ancientSouls, skipBPs) {
@@ -274,7 +274,7 @@ function refresh(test, ancientSouls) {
     let targetAS = getASGoal(ancientSouls, skipBPs);
     
     // Find next HZE
-    if (targetAS === 'push') {
+    /*if (targetAS === 'push') {
         let kumaLevel = (ancientSouls / 5) / Math.log10(2);
         let borbLevel = spendAS(ancientSouls, 0.9);
         let a = 2.5 + borbLevel * 0.1 + 0.00008 * borbLevel * borbLevel;
@@ -289,6 +289,9 @@ function refresh(test, ancientSouls) {
                 break;
             }
         }
+    }*/
+    if (targetAS === 'cap') {
+        this.newHze = 2**31-1;
     } else {
         this.newHze = (targetAS / 5 - Math.log10(20 * tp / transcendentPower)) / Math.log10(tp) * 5 + 100;
     }
@@ -297,7 +300,7 @@ function refresh(test, ancientSouls) {
     let newLogHeroSouls = Math.log10(tp) * this.newHze / 5 - 2;
 
     // Ancient effects
-    let ancientLevels = Math.floor(newLogHeroSouls * (targetAS === 'push' ? 1 : 0.9) / Math.log10(2) - 3 / Math.log(2)) - 1;
+    let ancientLevels = Math.floor(newLogHeroSouls * (targetAS === 'cap' ? 1 : 0.9) / Math.log10(2) - 3 / Math.log(2)) - 1;
     let nerfs = Math.floor(this.newHze / 500);
     let baseMPZ = 10 + nerfs * 0.1;
     let chancemult = Math.pow(nerfs + 1, -2);
@@ -338,8 +341,7 @@ function refresh(test, ancientSouls) {
         ? Math.min(getBorbFant( ancientSouls, transcendentPower ), spendAS(0.35, ancientSouls))
         : 0;
     let borbLevel = Math.max(0, borbCap, borbFant);
-    let treshold = targetAS === 'push' ? 0.9 : 0.99;
-    if (this.getCostFromLevel(borbLevel) >= ancientSouls * treshold) borbLevel = spendAS(ancientSouls * treshold, 1);
+    if (this.getCostFromLevel(borbLevel) >= ancientSouls * 0.99) borbLevel = spendAS(ancientSouls * 0.99, 1);
     if (this.getCostFromLevel(borbLevel) >= ancientSouls - 5) borbLevel = spendAS(ancientSouls - 5, 1);
     this.remainingAncientSouls = ancientSouls - this.getCostFromLevel(borbLevel);
     let xyliqilLevel = Math.max(1, spendAS(this.remainingAncientSouls, xyliqilRatio));
@@ -424,7 +426,7 @@ function refresh(test, ancientSouls) {
     $("#buffedBossHP").html( "Boss Health: " + buffedBossHPfinal.toFixed() + "x" );
     $("#buffedTimer").html( "Boss Timer: " + buffedTimerfinal.toFixed() + "s" );
     $("#buffedPBC").html( "Primal Chance: " + buffedPBCfinal.toFixed() + "%" );
-    if (lowestHS < newLogHeroSouls * (targetAS === 'push' ? 1 : 0.9)) {
+    if (lowestHS < newLogHeroSouls * (targetAS === 'cap' ? 1 : 0.9)) {
         let ancientLevels = Math.floor(lowestHS / Math.log10(2) - 3 / Math.log(2)) - 1;
             alpha = Math.log(ancientLevels + 2.719);
             buffedMPZ = unbuffedMonstersPerZone - alpha * borbCoeff;
