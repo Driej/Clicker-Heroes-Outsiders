@@ -6,7 +6,7 @@ a {
     color: #eb98ff;
 }
 
-.boxes > div > div {
+.panel {
 	//border-color: #a0b0c0;
 	border-color: #888;
     background-color: #555;

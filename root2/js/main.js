@@ -103,12 +103,12 @@ let goalsSkip = [
     [240000,350000],
     [350000,840000],
     [485000,840000],
-    [666000,840000],
+    [666000,1200000],
     [840000,1200000],
-    [1200000,4500000],
-    [4367000,24760000],
-    [24760000,126400000],
-    [126400000,'cap']
+    [1200000,4390000],
+    [4385000,24770000],
+    [24766000,126400000],
+    [126393000,'cap']
 ];
 
 // No Breakpoint skips
@@ -132,11 +132,11 @@ let goalsNoSkip = [
     [666000,840000],
     [840000,1200000],
     [1200000,1950000],
-    [1950000,2850000],
-    [2850000,4500000],
-    [4367000,24760000],
-    [24760000,126400000],
-    [126400000,'cap']
+    [1950000,4390000],
+    [2850000,4390000],
+    [4385000,24770000],
+    [24766000,126400000],
+    [126393000,'cap']
 ];
 
 function getASGoal(ancientSouls, skipBPs) {
@@ -465,6 +465,78 @@ function refresh(test, ancientSouls) {
     );
     $("#unspentAS").html( "Unspent: " + unspent );
     
+    if (!$("#helpText").is(":checked")) {
+        $('#checkResults').parent().hide();
+    } else {
+        let hardCap = (2**31-1).toLocaleString();
+        let infoMessage = "<ul>";
+        if (ancientSouls == 0) {
+            infoMessage += "<li>You need to have ancient souls for this to work. Transcend as soon as you unlock transcendence at zone 300.</li>";
+        } else {
+            if (skipBPs && ancientSouls < 1950000) {
+                infoMessage += "<li>It is sometimes (but not always) possible to skip breakpoints and not all skips save time. The calculator will only tell you to do practical skips.</li>";
+                if (ancientSouls < 300) {
+                    infoMessage += "<li>You will not be skipping breakpoints this time.</li>";
+                } else if (ancientSouls < 800) {
+                    infoMessage += "<li>You do <b>not</b> want to reach the next breakpoint yet! Make sure you do not reach 1250 total Ancient Souls. (no more than +"
+                    + (1249 - ancientSouls) + ") gained.</li>";
+                    infoMessage += "<li>The purpose of this run is to get more levels into borb in preparation for several skips, not to reach the next breakpoint.</li>";
+                } else if (ancientSouls < 1250) {
+                    infoMessage += "<li>You will be skipping the 6%, 7% and 8% breakpoints and heading straight for 10% (6,400 AS). High mpz is normal, it is still a lot faster this way.</li>";
+                } else if (ancientSouls < 40000) {
+                    infoMessage += "<li>You will not be skipping breakpoints this time.</li>";
+                } else if (ancientSouls < 65000) {
+                    infoMessage += "<li>You will be skipping the 25% and 30% breakpoints and heading straight for 35% (145,000 AS).";
+                } else if (ancientSouls < 102000) {
+                    infoMessage += "<li>You will be skipping the 30% breakpoint and heading straight for 35% (145,000 AS).</li>";
+                } else if (ancientSouls < 145000) {
+                    infoMessage += "<li>You will not be skipping breakpoints this time.</li>";
+                } else if (ancientSouls < 190000) {
+                    infoMessage += "<li>You will be skipping the 40% and 45% breakpoints and heading straight for 50% (350,000 AS).</li>";
+                } else if (ancientSouls < 240000) {
+                    infoMessage += "<li>You will be skipping the 45% breakpoint and heading straight for 50% (350,000 AS).</li>";
+                } else if (ancientSouls < 350000) {
+                    infoMessage += "<li>You will not be skipping breakpoints this time.</li>";
+                } else if (ancientSouls < 485000) {
+                    infoMessage += "<li>You will be skipping the 55% and 60% breakpoints and heading straight for 70% (840,000 AS).</li>";
+                } else if (ancientSouls < 666000) {
+                    infoMessage += "<li>You will be skipping the 60% breakpoint and heading straight for 70% (840,000 AS).</li>";
+                } else if (ancientSouls < 840000) {
+                    infoMessage += "<li>You will be skipping the 70% breakpoint and heading straight for 80% (1,200,000 AS).</li>";
+                } else if (ancientSouls < 1200000) {
+                    infoMessage += "<li>You will not be skipping breakpoints this time.</li>";
+                } else if (ancientSouls < 1950000) {
+                    infoMessage += "<li>You will be skipping the 90% breakpoint and heading past 100% (2,850,000)</li>";
+                }
+            }
+            if (!skipBPs && ancientSouls < 1950000) {
+                infoMessage += "<li>You are playing the intended way by not skipping breakpoints. You can enable Skip Breakpoints for a much faster game, but you will skip a lot of the game.</li>";
+            }
+            if (ancientSouls < 1200000) {
+                if (!(skipBPs && ancientSouls >= 300 && ancientSouls < 800)) {
+                    infoMessage += "<li>In this version, TP only goes up at specific AS amounts called breakpoints. There is no reason to transcend anywhere but just after reaching a new breakpoint except in special cases;"
+                    + " performing the 4% to 10% skip, and pushing past the last breakpoint.</li>"
+                }
+            } else if (ancientSouls < 2850000) {
+                infoMessage += "<li>You can stop at the 100% breakpoint (the last breakpoint) at 2,850,000 AS and be finished, or continue playing until the game breaks.</li>";
+                infoMessage += "<li>You need to transcend 3 more times to be able to reach the hard cap (zone " + hardCap + ")</il>";
+            } else if (ancientSouls < 4385000) {
+                infoMessage += "<li>You need to transcend 3 more times to be able to reach the hard cap (zone " + hardCap + ")</il>";
+            } else if (ancientSouls < 24766000) {
+                infoMessage += "<li>You need to transcend 2 more times to be able to reach the hard cap (zone " + hardCap + ")</il>";
+            } else if (ancientSouls < 126393000) {
+                infoMessage += "<li>You need to transcend 1 more times to be able to reach the hard cap (zone " + hardCap + ")</il>";
+            } else {
+                infoMessage += "<li>You can reach the hard cap (zone " + hardCap + ") this run!</il>";
+            }
+            if (ancientSouls >= 4385000) {
+                infoMessage += "<li>Take advantage of the fact that Timelapses use your <i>current</i> mpz. Use a 168h Timelapse between 500k and 756k below your final zone. Ascend and try again if you mess this up.</li>"
+            }
+        }
+        $('#checkResults').html(infoMessage+"</ul>");
+        $('#checkResults').parent().show();
+    }
+    
     $("#outputsave").html("");
     if (autolevelEnabled) {
         return [xyliqilLevel, chorLevel, phanLevel, ponyLevel, borbLevel, rhageistLevel, kariquaLevel, orphalasLevel, senakhanLevel, unspent];
@@ -512,5 +584,8 @@ if (localStorage) {
     $("#dark").prop("checked", localStorage.getItem("darkmode")==="true");
     if (localStorage.getItem("bpSkip")!==null)
         $("#bpSkip").prop("checked", localStorage.getItem("bpSkip")==="true");
+    $('.collapsible .title').click(function(){
+        $(this).parent().find('.content').toggle();
+    });
 }
 $(changeTheme);

@@ -8,9 +8,9 @@
 	<meta name="Description" content="Get Outsider Suggestions for the root2 mod of Clicker Heroes.">
 	<title>CH Outsider Calculator</title>
 	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/main-v002.css">
-	<link rel="stylesheet" href="css/light-theme-v002.css" id="theme-light" title="Light">
-	<link rel="stylesheet" href="css/dark-theme-v002.css" id="theme-dark" title="Dark" disabled>
+	<link rel="stylesheet" href="css/main-v003.css">
+	<link rel="stylesheet" href="css/light-theme-v003.css" id="theme-light" title="Light">
+	<link rel="stylesheet" href="css/dark-theme-v003.css" id="theme-dark" title="Dark" disabled>
 	<link rel="manifest" href="manifest.json">
 	<link rel="apple-touch-icon" sizes="192x192" href="icons/ruby192.png">
 	<script>
@@ -36,8 +36,8 @@
 	<body>
 		<main class="container">
 			<div class="boxes">
-				<div class="box-12">
-					<div>
+				<div class="box-12 collapsible">
+					<div class="panel">
 						<div class="title">CH root 2 Outsider Recommender</div>
 						<div class="content">
 							<p>This is for the root2 mod of CH. Visit the <a href="https://discordapp.com/invite/jT7zH9g">CH Discord</a> for more info about root2.</p>
@@ -46,8 +46,13 @@
 						</div>
 					</div>
 				</div>
+                <div class="box-12 info">
+                    <div id="checkResults">
+                        test
+                    </div>
+                </div>
 				<div class="box-4">
-					<div>
+					<div class="panel">
 						<div class="title">Inputs</div>
 						<div class="content">
 							<div class="numberInput">
@@ -56,7 +61,7 @@
 							</div>
 							<div id="TP">TP: 2.0000%</div>
 							<br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()"><label for="dark">Dark Theme</label>
-							<br><input type="checkbox" id="bpSkip" class="checkbox" onclick="skipCB()" checked><label for="bpSkip">Skip Breakpoints</label>
+							<br><input type="checkbox" id="bpSkip" class="checkbox" onclick="skipCB()"><label for="bpSkip">Skip Breakpoints</label>
 							<br><button id="calculateButton" onclick="clearOutput();refresh()">Calculate</button>
 							<br><br>
 							<label for="savegame">Input Save</label>
@@ -66,12 +71,13 @@
 								<textarea id="outputsave" placeholder="Import this save into your game" onclick="this.select()"></textarea>
 							</div>
 							<input type="checkbox" id="autolevel" class="checkbox" onclick="changeAutoLevel()"><label for="autolevel">Autolevel</label>
+                            <br><input type="checkbox" id="helpText" class="checkbox" onclick="clearOutput();refresh()" checked><label for="helpText">Help Text</label>
 							<br><button id="readSaveButton" onclick="readSave()">Read Save</button>
 						</div>
 					</div>
 				</div>
 				<div class="box-8">
-					<div>
+					<div class="panel">
 						<div class="title">Outsider Recommendations</div>
 						<div class="content">
 							<table id="OutsidersTable" cellspacing="0">
@@ -92,7 +98,7 @@
 			</div>
 			<div class="boxes">
 				<div class="box-4">
-					<div>
+					<div class="panel">
 						<div class="title">End of Transcension Estimates</div>
 						<div class="content">
 							<div id="predictedHZE"></div>

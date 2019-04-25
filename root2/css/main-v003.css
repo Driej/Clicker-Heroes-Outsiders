@@ -15,7 +15,7 @@
 	overflow: hidden;
 }
 
-.boxes > div > div {
+.panel {
 	border-style: solid;
 	border-radius: 6px;
 	border-width: 1px;
@@ -149,4 +149,19 @@ td {
 
 //tr:nth-child(even) {
 	background-color: #f2f2f2;
+}
+
+.info {
+    display: none;
+}
+
+.info > div {
+    background-color: #ffda69;
+    color: rgb(045, 008, 103);
+    border-color: rgb(145, 098, 103);
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+    margin: 6px;
+    padding: 12px;
 }
