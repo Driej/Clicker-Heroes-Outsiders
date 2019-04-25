@@ -387,8 +387,9 @@ function refresh(test, ancientSouls) {
     // Outsider Leveling
     this.remainingAncientSouls = ancientSouls;
     
+    let borbFantR = getBorbFant(ancientSouls, transcendentPower);
     let borbFant = ancientSouls <= 2000
-        ? Math.min(this.spendAS(0.35, this.remainingAncientSouls), getBorbFant(ancientSouls, transcendentPower))
+        ? Math.min(this.spendAS(0.35, this.remainingAncientSouls), borbFantR)
         : 0;
     let borbHze = this.remainingAncientSouls >= 21000
         ? borbCap
@@ -543,39 +544,46 @@ function refresh(test, ancientSouls) {
     if (!$("#helpText").is(":checked")) {
         $('#checkResults').parent().hide();
     } else {
-        let infoMessage = "";
+        let infoMessage = "<ul>";
         if (ancientSouls === 0) {
-            infoMessage += "You need to have ancient souls for this to work. Transcend as soon as you unlock transcendence at zone 300. It's worth it.";
+            infoMessage += "<li>You need to have ancient souls for this to work. Transcend as soon as you unlock transcendence at zone 300. It's worth it.</li>";
         } else {
-            if(ancientSouls < 2000 && ancientSouls >= 50) {
-                infoMessage += "Only " + borbHze + " Borb is needed to have 2 monsters per zone on your final ascension.";
-                infoMessage += " Borb may be leveled higher for earlier ascensions. Ascend at zone 130 the first time to have faster transcensions. <br>";
+            if(ancientSouls < 2000) {
+                infoMessage += "<li>Your first ascension should be at zone 130, so that you can unlock Borb as soon as possible. This will speed up your ascensions a lot.</li>"
+                if (borbHze < borbLevel && ancientSouls > 50) {
+                    infoMessage += "<li>Only " + borbHze + " Borb is needed to have 2 monsters per zone on your final ascension, but " + borbFantR
+                    + " is needed to have 2 monsters per zone after ascending for the first time at zone 130.</li>";
+                    infoMessage += "<li>There are more ascensions than the last one. Borb is leveled higher to speed up earlier ascensions.</li>"
+                }
             }
             if (ancientSouls < 10500) {
-                infoMessage += "Transcend after 3 or 4 ascensions that give new Ancient Souls. <b>Not the total amount of ascensions, only ascensions that give you AS counts!</b>";
-                infoMessage += " The Highest Zone below is an estimate and you should be within a few thousand zones if you play correctly."
+                infoMessage += "<li>Transcend after 3 or 4 ascensions that give <b>new</b> Ancient Souls. The ascension needs to earn you more HS than your last transcend to count.</li>";
+                infoMessage += "<li>The Highest Zone below is an estimate and assumes you play active, which you should do as soon as you have 2 autoclickers.</li>"
             } else {
                 if (ancientSouls < 27000) {
-                    infoMessage += "The guideline that states '3 or 4 ascensions that give AS' <b>does not apply beyond 24% Transcendent Power!</b>";
-                    infoMessage += " Keep ascending until you reach at least the estimated Highest Zone shown below. This will take longer (more ascensions) than you are used to.<br>";
+                    infoMessage += "<li>The guideline that states '3 or 4 ascensions that give AS' <b>does not apply beyond 24% Transcendent Power!</b></li>";
+                    infoMessage += "<li>Keep ascending until you reach at least the estimated Highest Zone shown below. This will take longer (more ascensions) than you are used to.</li>";
+                    infoMessage += "<li>You are getting close to 25% Transcendent Power, therefore transcending won't give you as much of a boost like it did before.</li>"
                 }
                 if (ancientSouls >= 21000 && this.newHze <= 5e6) {
                     if (ancientSouls < 50000) {
-                        infoMessage += "You have enough TP to reach any hero. Borb is the single most important Outsider for reducing transcension time.";
-                        infoMessage += " The last 4 Outsiders are impractical/impossible to maintain at high zones so they are kept at 0. <b>This is not a bug!</b><br>";
+                        infoMessage += "<li>You have enough TP to reach any hero. You are limited only by your Borb level. You only transcend to put more levels into Borb.</li>";
+                        infoMessage += "<li>The last 4 Outsiders are impractical/impossible to maintain at high zones so they are kept at 0. <b>This is not a bug!</b></li>";
+                    }
+                    if (this.newHze < 3e6) {
+                        infoMessage += "<li>Once you go over 2 monsters per zone, finish your ascension and transcend. It is too early for you to be pushing past 2 mpz.</li>"
                     } else {
-                        infoMessage += "You should push past 2 mpz. The higher your HZE, the higher past 2 mpz you should push.";
-                        infoMessage += " The extra time you spend pushing past 2 mpz is not unreasonable when compared to how long a transcension can take just to beat your previous HZE.<br>";
+                        infoMessage += "<li>Once you go over 2 monsters per zone, finish your ascension then do a few more ascensions before transcending. You should generally push higher mpz each transcend.</li>"
                     }
                 }
                 if (this.newHze >= 5e6) {
-                    infoMessage += "This calculator is not optimized beyond zone 5 million. Make sure you are pushing at least 200k zones from last transcension ";
-                    infoMessage += "if not reaching the softcap (around zone 5.46m).<br>";
-                    infoMessage += "Use the 'Zone override' under Advanced Settings and check your browser's console to see the estimated transcension time.";
+                    infoMessage += "<li>This calculator is not optimized beyond zone 5 million. Make sure you are pushing at least 200k zones from last transcension ";
+                    infoMessage += "if not reaching the softcap (around zone 5.46m).</li>";
+                    infoMessage += "<li>Use the 'Zone override' under Advanced Settings and check your browser's console to see the estimated transcension time.</li>";
                 }
             }
         }
-        $('#checkResults').html(infoMessage);
+        $('#checkResults').html(infoMessage+"</ul>");
         $('#checkResults').parent().show();
     }
     
