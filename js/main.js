@@ -549,7 +549,7 @@ function refresh(test, ancientSouls) {
             infoMessage += "<li>You need to have ancient souls for this to work. Transcend as soon as you unlock transcendence at zone 300. It's worth it.</li>";
         } else {
             if(ancientSouls < 2000) {
-                infoMessage += "<li>Your first ascension should be at zone 130, so that you can unlock Borb as soon as possible. This will speed up your ascensions a lot.</li>"
+                infoMessage += "<li>Your first ascension should be at zone 130, so that you can unlock Kuma and a few other ancients as soon as possible. This will speed up your ascensions a lot.</li>"
                 if (borbHze < borbLevel && ancientSouls > 50) {
                     infoMessage += "<li>Only " + borbHze + " Borb is needed to have 2 monsters per zone on your final ascension, but " + borbFantR
                     + " is needed to have 2 monsters per zone after ascending for the first time at zone 130.</li>";
@@ -557,7 +557,7 @@ function refresh(test, ancientSouls) {
                 }
             }
             if (ancientSouls < 10500) {
-                infoMessage += "<li>Transcend after 3 or 4 ascensions that give <b>new</b> Ancient Souls. The ascension needs to earn you more HS than your last transcend to count.</li>";
+                infoMessage += "<li>Transcend after 3 or 4 ascensions that give <b>new</b> Ancient Souls. The ascension needs to earn you more HS than your previous transcend to count.</li>";
                 infoMessage += "<li>The Highest Zone below is an estimate and assumes you play active, which you should do as soon as you have 2 autoclickers.</li>"
             } else {
                 if (ancientSouls < 27000) {
