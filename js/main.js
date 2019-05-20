@@ -480,12 +480,12 @@ function refresh(test, ancientSouls) {
     }
 
     // Display the results
-    $("#TP").html("TP: " + (transcendentPower*100).toFixed(4) + "%" );
+    $("#TP").html("TP: " + tpDisplay(ancientSouls));
     //End of Transcension
     $("#predictedHZE").html("Highest Zone: " + this.newHze.toLocaleString() );
     $("#predictedHS").html("logHS: " + newLogHeroSouls.toFixed(2).toLocaleString() );
     $("#predictedAS").html("AncientSouls: " + this.newAncientSouls.toLocaleString() + " (+" + this.ancientSoulsDiff.toLocaleString() + ")");
-    $("#predictedTP").html("TP: " + (this.newTranscendentPower*100).toFixed(4) + "%" );
+    $("#predictedTP").html("TP: " + tpDisplay(this.newAncientSouls));
     $("#predictedAncients").html("Ancient Levels: " + ancientLevels.toLocaleString() );
     $("#kuma").html( kuma.toFixed(2) + " monsters per zone" );
     $("#atman").html( atman.toFixed(2) + "% chance of primal" );
@@ -591,6 +591,17 @@ function refresh(test, ancientSouls) {
     if (autolevelEnabled) {
         return [xyliqilLevel, chorLevel, phanLevel, ponyLevel, borbLevel, rhageistLevel, kariquaLevel, orphalasLevel, senakhanLevel, unspent];
     }
+}
+
+function tpDisplay(ancientSouls) {
+    if (ancientSouls >= 124767) {
+        return "25%"
+    }
+    let tp = (25 - 23 * Math.exp(-0.0003 * ancientSouls));
+    if (tp === 25) {
+        return "24.9999%"
+    }
+    return tp.toString().substring(0,tp<10?6:7) + "%";
 }
 
 function test() {
