@@ -3,6 +3,10 @@ Math.log10 = function(x) {
     return Math.log(x) / Math.LN10;
 }
 
+let borbToZone = [];
+borbToZone[184] = null;
+borbToZone = borbToZone.concat([966409,966409,993248,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1000000,1021394,1021394,1021394,1021394,1021394,1021394,1021394,1021394,1021394,1021394,1021394,1021394,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,1057319,2162970,2162970,2162970,2181024,2181024,2181024,2181024,2181024,2181024,2181024,2181024,2181024,2197700,2213104,2213104,2213104,2227333,2227333,2227333,2227333,2240475,2240475,2240475,2240475,2240475,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2252615,2548016,2548016,2548016,2548016,2548016,2548016,2548016,2548016,2548016,2580568,2580568,2580568,2580568,2580568,2580568,2580568,2580568,2580568,2580568,2638410,2638410,2638410,2638410,2638410,2638410,2638410,2638410,2638410,2638410,2638410,2664064,2664064,2664064,2664064,2664064,2664064,2687761,2709649,2709649,2709649,2709649,2709649,2741425,2741425,2741425,2741425,2770777,2770777,2770777,2770777,2770777,2770777,2770777,2797889,2797889,2797889,2797889,2797889,2822931,2822931,2822931,2822931,2846063,2846063,2867430,2887167,2887167,2887167,2887167,2887167,2887167,2887167,2887167,2887167,2887167,2905397,2905397,2905397,2905397,2984499,2984499,2984499,2984499,3027644,3027644,3027644,3027644,3027644,3027644,3027644,3027644,3027644,3027644,3027644,3027644,3027644,3027644,3067496,3067496,3067496,3067496,3067496,3067496,3067496,3067496,3067496,3067496,3115846,3115846,3115846,3115846,3115846,3115846,3115846,3160506,3160506,3160506,3160506,3160506,3160506,3160506,3160506,3160506,3160506,3160506,3160506,3239863,3239863,3275060,3275060,3275060,3275060,3275060,3275060,3275060,3275060,3275060,3275060,3275060,3275060,3275060,3275060,3307571,3307571,3349159,3349159,3349159,3349159,3349159,3349159,3349159,3349159,3349159,3349159,3349159,3349159,3349159,3387573,3387573,3387573,3387573,3387573,3387573,3387573,3387573,3387573,3387573,3423056,3423056,3423056,3423056,3423056,3423056,3423056,3423056,3423056,3455832,3455832,3455832,3455832,3455832,3455832,3455832,3497655,3497655,3497655,3557080,3557080,3557080,3557080,3557080,3557080,3557080,3557080,3557080,3557080,3557080,3611970,3611970,3611970,3611970,3611970,3611970,3611970,3611970,3611970,3611970,3611970,3611970,3611970,3611970,3611970,3611970,3662671,3662671,3662671,3662671,3662671,3662671,3662671,3662671,3662671,3662671,3662671,3721042,3721042,3721042,3721042,3721042,3721042,3721042,3721042,3774959,3774959,3774959,3774959,3774959,3774959,3774959,3774959,3774959,3774959,3824761,3824761,3870763,3870763,3870763,3870763,3870763,3870763,3870763,3870763,3870763,3870763,3870763,3870763,3924813,3924813,3924813,3924813,3924813,3924813,3924813,3974738,3974738,3974738,3974738,3974738,3974738,3974738,3974738,3974738,3974738,3974738,3974738,3974738,3974738,4020854,4020854,4020854,4020854,4020854,4020854,4020854,4020854,4020854,4020854,4020854,4020854,4102797,4102797,4171482,4171482,4171482,4171482,4171482,4171482,4171482,4171482,4171482,4171482,4171482,4171482,4171482,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4234925,4305066,4305066,4305066,4305066,4305066,4305066,4305066,4305066,4305066,4305066,4305066,4305066,4369855,4369855,4369855,4369855,4369855,4369855,4369855,4369855,4369855,4369855,4369855,4369855,4369855,4369855,4369855,4369855,4429700,4429700,4429700,4429700,4429700,4429700,4429700,4429700,4429700,4496536,4496536,4558272,4558272,4558272,4558272,4558272,4558272,4558272,4558272,4558272,4558272,4558272,4558272,4558272,4615296,4615296,4615296,4615296,4615296,4615296,4615296,4615296,4615296,4615296,4615296,4615296,4615296,4667970,4667970,4667970,4728173,4728173,4728173,4728173,4728173,4728173,4728173,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4783781,4835147,4835147,4835147,4835147,4835147,4835147,4835147,4835147,4835147,4835147,4882593,4882593,4882593,4882593,4882593,4882593,4882593,4882593,4882593,4882593,4882593,5004291,5004291,5004291,5004291,5004291,5004291,5004291,5004291,5004291,5004291,5038830,5038830,5038830,5038830,5038830,5038830,5070733,5070733,5070733,5070733,5100201,5100201,5100201,5100201,5127421,5127421,5127421,5127421,5127421,5127421,5127421,5127421,5127421,5127421,5127421,5127421,5175788,5175788,5175788,5175788,5175788,5175788,5175788,5175788,5175788,5282306,5282306,5282306,5282306,5282306,5295630,5295630,5295630,5307937,5307937,5307937,5319305,5319305,5329805,5329805,5329805,5339505,5339505,5348464,5348464,5348464,5356739,5356739,5364383,5364383,5364383,5364383,5364383,5364383,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360,5448360]);
+
 function decimalAdjust(type, value, exp) {
     // If the exp is undefined or zero...
     if (typeof exp === 'undefined' || +exp === 0) {
@@ -142,116 +146,6 @@ function getBorbFant( ancientSouls, transcendentPower ) {
     return borbRequired;
 }
 
-function post4mStrategy(ancientSouls) {
-    let oldHZE = Math.round(ancientSouls / 0.09691) - 170;
-    let borb = spendAS(1, ancientSouls - 2000);
-    let borbLimit = borb * 5000 + 500;
-    let zonesTraveled = getZonesTraveled(borbLimit, 0);
-    let zonesGained = borbLimit - oldHZE;
-    let efficiency = zonesGained / zonesTraveled;
-    let zoneAdd = 0;
-    let addMPZ = 256;
-    
-    let zoneAddA = 0;
-    let efficiencyA = efficiency;
-    let zoneAddB = 0;
-    let efficiencyB = efficiency;
-    
-    do {
-        zonesTraveled = getZonesTraveled(borbLimit, zoneAdd + addMPZ * 500);
-        zonesGained = borbLimit + zoneAdd + addMPZ * 500 - oldHZE;
-        let newEfficiency = zonesTraveled === Infinity 
-            ? - Infinity
-            : zonesGained / zonesTraveled;
-        if (newEfficiency > efficiency) {
-            
-            zoneAddA = zoneAddB;
-            efficiencyA = efficiencyB;
-            zoneAddB = zoneAdd;
-            efficiencyB = efficiency;
-            
-            efficiency = newEfficiency;
-            zoneAdd += addMPZ * 500;
-        } else {
-            
-            zoneAdd = zoneAddA;
-            efficiency = efficiencyA;
-            zoneAddB = zoneAddA;
-            efficiencyB = efficiencyA;
-            if (addMPZ > 2) {
-                addMPZ /= 2;
-            }
-            
-            addMPZ = Math.floor(addMPZ / 2);
-        }
-    } while (addMPZ > 0);
-    return zoneAdd;
-}
-
-// Starting at 76603.93 lgHS (4m Zone)
-let simulatedAscensions = [
-    4044232,
-    4085089,
-    4155170,
-    4219902,
-    4291233,
-    4357121,
-    4417981,
-    4474197,
-    4537681,
-    4596321,
-    4650485,
-    4700517,
-    4758279
-];
-
-function getZonesTraveled(borbLimit, zoneAdd) {
-    let targetZone = borbLimit + zoneAdd;
-    let zonesTraveled = 45000000;
-    for (let i = 0; i < simulatedAscensions.length; i++) {
-        let ascZone = simulatedAscensions[i];
-        if (ascZone > targetZone) {
-            zonesTraveled += targetZone - Math.round(ascZone * 0.9) + 30000;
-            if (targetZone > borbLimit) {
-                let zonePush = targetZone - borbLimit;
-                zonesTraveled += Math.round(zonePush * zonePush / 10000);
-            }
-            break;
-        } else {
-            zonesTraveled += Math.round(ascZone / 10 + 30000);
-            if (ascZone > borbLimit) {
-                let zonePush = ascZone - borbLimit;
-                zonesTraveled += Math.round(zonePush * zonePush / 10000);
-            }
-        }
-    }
-    if (targetZone >= 4811634) {
-        let ascZone = 4811634;
-        let zoneIncrease = 49283;
-        do {
-            if (ascZone > targetZone) {
-                zonesTraveled += targetZone - Math.round(ascZone * 0.9) + 30000;
-                if (targetZone > borbLimit) {
-                    let zonePush = targetZone - borbLimit;
-                    zonesTraveled += Math.round(zonePush * zonePush / 10000);
-                }
-            } else {
-                zonesTraveled += Math.round(ascZone / 10 + 30000);
-                if (ascZone > borbLimit) {
-                    let zonePush = ascZone - borbLimit;
-                    zonesTraveled += Math.round(zonePush * zonePush / 10000);
-                }
-            }
-            ascZone += zoneIncrease;
-            zoneIncrease = zoneIncrease * 0.923989;
-            if (zoneIncrease < 10) {
-                return Infinity;
-            }
-        } while (ascZone <= targetZone);
-    }
-    return zonesTraveled;
-}
-
 function getInputs() {
     $("#ancient_souls").val($("#ancient_souls").val().replace(/,/g, ''));
     var ancientSouls = parseFloat( $("#ancient_souls").val() || 0 );
@@ -288,9 +182,7 @@ function refresh(test, ancientSouls) {
 
     // Figure out goals for this transcendence
     this.newHze = Math.floor(zoneOverride||0);
-    let nonBorb;
-    let zonePush = 0;
-    let zoneAdd = 0;
+    borbTarget = 0;
     if(this.newHze==0){
     if (ancientSouls < 100) {
         let a = ancientSouls + 42;
@@ -298,33 +190,20 @@ function refresh(test, ancientSouls) {
     } else if (ancientSouls < 10500) {
         this.newHze = (1 - Math.exp(-ancientSouls / 3900)) * 200000 + 4800;
     } else if (ancientSouls < 21000) {
-        // 21k or +8000 Ancient Souls
-        this.newHze = Math.max(225000, ancientSouls*10.32 + 90000);
-    } else if (ancientSouls < 333000) {
-        // End Game
-        if (ancientSouls < 27000) nonBorb = 1000 + (27000 - ancientSouls);
-        else nonBorb = 1000;
-        zonePush = ancientSouls / 16e4;
-        let b = this.spendAS(1, ancientSouls - nonBorb);
-        this.newHze = Math.min(5.46e6, b * 5000 + 500);
-    } else if (ancientSouls < 530000) {
-        // Post zone 4m
-        nonBorb = 500;
-        zoneAdd = post4mStrategy(ancientSouls);
-        let b = this.spendAS(1, ancientSouls - nonBorb);
-        this.newHze = Math.min(5.46e6, b * 5000 + 500);
+        let x = 8000 + (10500 - ancientSouls) / 10500 * 4000;
+        this.newHze = ancientSouls*10.32 + x*12;
     } else {
-        this.newHze = 5.46e6;
+        let nonBorb = ancientSouls > 433000 ? 500 : 1000;
+        let b = this.spendAS(1, ancientSouls - nonBorb);
+        borbTarget = b * 5000;
+        if (b > 1026) {
+            this.newHze = 5.46e6;
+        } else if (borbToZone[b]) {
+            this.newHze = Math.max(borbTarget + 500, borbToZone[b]);
+        } else {
+            this.newHze = borbTarget + 500;
+        }
     }}
-
-    // Push beyond 2mpz
-    this.borbTarget = false;
-    if (ancientSouls >= 21000) {
-        this.borbTarget = this.newHze;
-        this.newHze = (1 + zonePush / 100) * this.newHze + zoneAdd;
-        this.newHze--;
-        this.newHze += 500 - this.newHze % 500;
-    }
 
     this.newHze = Math.floor(this.newHze);
     let newLogHeroSouls = Math.log10(1 + transcendentPower) * this.newHze / 5 + 6;
@@ -346,8 +225,8 @@ function refresh(test, ancientSouls) {
     let unbuffedPrimalBossChance = 25 - nerfs * 2;
 
     // Outsider Caps
-    let borbCap = this.borbTarget
-        ? Math.ceil((this.borbTarget - 500) / 5000)
+    let borbCap = borbTarget
+        ? Math.ceil((borbTarget - 500) / 5000)
         : ancientSouls >= 10500
             ? Math.ceil((this.newHze - 500) / 5000)
             : Math.max(0, Math.ceil(((unbuffedMonstersPerZone - 2.1) / - kuma - 1) / 0.125));
@@ -401,19 +280,6 @@ function refresh(test, ancientSouls) {
     }
 
     this.remainingAncientSouls -= this.getCostFromLevel(borbLevel);
-
-    // logging
-    if (this.newHze > 4e6) {
-        console.clear();
-        console.log("Durations for " + ancientSouls + " Ancient Souls:");
-        let borbLimit = borbLevel * 5000 + 500;
-        let endMpz = Math.floor((this.newHze - borbLimit) / 500) / 10 + 2;
-        console.log(Math.ceil(getZonesTraveled(borbLimit, this.newHze - borbLimit) / 192000) + " days to reach zone " + this.newHze + " (" + endMpz + " mpz)");
-        endMpz = Math.floor((5.45e6 - borbLimit) / 500) / 10 + 2;
-        console.log(Math.ceil(getZonesTraveled(borbLimit, 5.45e6 - borbLimit) / 192000) + " days to reach zone " + 5.45e6 + " (" + endMpz + " mpz)");
-        endMpz = Math.floor((5.459e6 - borbLimit) / 500) / 10 + 2;
-        console.log(Math.ceil(getZonesTraveled(borbLimit, 5.459e6 - borbLimit) / 192000) + " days to reach zone " + 5.459e6 + " (" + endMpz + " mpz)");
-    }
     
     // Xyl sucks
     let xyliqilLevel = 0;
@@ -544,7 +410,7 @@ function refresh(test, ancientSouls) {
     if (!$("#helpText").is(":checked")) {
         $('#checkResults').parent().hide();
     } else {
-        let infoMessage = "<ul>";
+        let infoMessage = "";
         if (ancientSouls === 0) {
             infoMessage += "<li>You need to have ancient souls for this to work. Transcend as soon as you unlock transcendence at zone 300. It's worth it.</li>";
         } else {
@@ -565,26 +431,23 @@ function refresh(test, ancientSouls) {
                     infoMessage += "<li>Keep ascending until you reach at least the estimated Highest Zone shown below. This will take longer (more ascensions) than you are used to.</li>";
                     infoMessage += "<li>You are getting close to 25% Transcendent Power, therefore transcending won't give you as much of a boost like it did before.</li>"
                 }
-                if (ancientSouls >= 21000 && this.newHze <= 5e6) {
+                if (ancientSouls >= 21000) {
                     if (ancientSouls < 50000) {
                         infoMessage += "<li>You have enough TP to reach any hero. You are limited only by your Borb level. You only transcend to put more levels into Borb.</li>";
                         infoMessage += "<li>The last 4 Outsiders are impractical/impossible to maintain at high zones so they are kept at 0. <b>This is not a bug!</b></li>";
                     }
-                    if (this.newHze < 3e6) {
-                        infoMessage += "<li>Once you go over 2 monsters per zone, finish your ascension and transcend. It is too early for you to be pushing past 2 mpz.</li>"
-                    } else {
-                        infoMessage += "<li>Once you go over 2 monsters per zone, finish your ascension then do a few more ascensions before transcending. You should generally push higher mpz each transcend.</li>"
+                    if (this.newHze < 5.37e6 && buffedMPZ > 10) {
+                        infoMessage += "<li>You can do one less ascension than what the Highest Zone estimate requires if you want a more pleasant run. It will only be a bit less than optimal long term.</li>"
                     }
-                }
-                if (this.newHze >= 5e6) {
-                    infoMessage += "<li>This calculator is not optimized beyond zone 5 million. Make sure you are pushing at least 200k zones from last transcension ";
-                    infoMessage += "if not reaching the softcap (around zone 5.46m).</li>";
-                    infoMessage += "<li>Use the 'Zone override' under Advanced Settings and check your browser's console to see the estimated transcension time.</li>";
                 }
             }
         }
-        $('#checkResults').html(infoMessage+"</ul>");
-        $('#checkResults').parent().show();
+        if (infoMessage !== "") {
+            $('#checkResults').html("<ul>"+infoMessage+"</ul>");
+            $('#checkResults').parent().show();
+        } else {
+            $('#checkResults').parent().hide();
+        }
     }
     
     $("#outputsave").html("");
