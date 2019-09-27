@@ -82,7 +82,7 @@ function getDuration(borbLevel, zone) {
 
 $(function() {
     if (localStorage) {
-        $("#simulator").prop("checked", localStorage.getItem("simulator")==="true");
+        $("#simulator").prop("checked", localStorage.getItem("simulator")!=="false");
         if (localStorage.getItem("simulator")==="false") {
             changeSimulator();
         }
