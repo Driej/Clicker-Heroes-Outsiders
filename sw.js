@@ -1,14 +1,15 @@
-var CACHE_NAME = 'outsiders-cache-v23';
+var CACHE_NAME = 'outsiders-cache-v24';
 var urlsToCache = [
     '.',
-    'css/dark-theme-v003.css',
-    'css/light-theme-v003.css',
-    'css/main-v004.css',
+    'css/dark-theme-v004.css',
+    'css/light-theme-v004.css',
+    'css/main-v005.css',
     'css/normalize.css',
     'js/main.js',
     'js/pako.min.js',
     'js/readSave.js',
-    'js/autolevel.js'
+    'js/autolevel.js',
+    'js/simulator.js'
 ];
 
 self.addEventListener('install', function(event) {

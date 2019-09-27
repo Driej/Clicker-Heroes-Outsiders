@@ -88,12 +88,12 @@ input {
 	margin-top: 4px;
 }
 
-#showAdvanced {
+#showSettings {
 	border: none;
 	width: 100%;
 }
 
-#advancedSettings {
+#settings {
 	margin-top: 10px;
 	display: none;
 }
@@ -105,7 +105,6 @@ input {
 .numberInput > label {
 	display: inline-block;
 	margin: 0;
-	width: 100px;
 }
 
 .numberInput > input {

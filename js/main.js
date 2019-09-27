@@ -32,9 +32,9 @@ Math.round10 = function(value, exp) {
 
 var settingsVisible = false;
 
-function showAdvancedClick() {
-    $("#advancedSettings").toggle(100, function(){
-        $("#showAdvanced").html( (settingsVisible = !settingsVisible) ? "Hide Advanced Settings" : "Show Advanced Settings");
+function showSettingsClick() {
+    $("#settings").toggle(100, function(){
+        $("#showSettings").html( (settingsVisible = !settingsVisible) ? "Hide Settings" : "Show Settings");
     });
 }
 
@@ -153,6 +153,7 @@ function getInputs() {
         alert("Calculation failed. Ancient Souls must be a non-negative number.");
         return -1;
     }
+    $("#ancient_souls").val(Math.floor(ancientSouls));
     var val = $( "#zoneOverride" ).val();
         zoneOverride = ( val=="" ) ? 0 : parseFloat( val );
     if( isNaN(zoneOverride) || zoneOverride<0 ) {
@@ -164,13 +165,14 @@ function getInputs() {
     return [Math.floor(ancientSouls), zoneOverride];
 }
 
-function refresh(test, ancientSouls) {
+function refresh(test, ancientSouls, simulating) {
     //IE sucks
     if (test === undefined || test === null) test = false;
+    if (simulating === undefined || simulating === null) simulating = false;
     if (ancientSouls === undefined || ancientSouls === null) ancientSouls = 0;
     //Inputs
     let zoneOverride = 0;
-    if (!test) {
+    if (!test && !simulating) {
         let IEsucks = getInputs();
         ancientSouls = IEsucks[0];
         zoneOverride = IEsucks[1];
@@ -184,7 +186,9 @@ function refresh(test, ancientSouls) {
     this.newHze = Math.floor(zoneOverride||0);
     borbTarget = 0;
     if(this.newHze==0){
-    if (ancientSouls < 100) {
+    if (ancientSouls == 0) {
+        this.newHze = 300;
+    } else if (ancientSouls < 100) {
         let a = ancientSouls + 42;
         this.newHze = (a / 5 - 6) * 51.8 * Math.log(1.25) / Math.log(1 + transcendentPower);
     } else if (ancientSouls < 10500) {
@@ -344,6 +348,10 @@ function refresh(test, ancientSouls) {
             newTranscendentPower: this.newTranscendentPower*100
         }));
     }
+    
+    //transcensionSimulator
+    var buffedMPZ = unbuffedMonstersPerZone + kuma*( 1 + borbLevel/8 );
+    if (simulating) return [ancientSouls, borbLevel, this.newHze, buffedMPZ, this.newAncientSouls];
 
     // Display the results
     $("#TP").html("TP: " + tpDisplay(ancientSouls));
@@ -365,8 +373,7 @@ function refresh(test, ancientSouls) {
     $("#unbuffedTimer").html( "Boss Timer: " + unbuffedBossTimer + "s" );
     $("#unbuffedPBC").html( "Primal Chance: " + unbuffedPrimalBossChance + "%" );
     //Buffed Stats
-    var buffedMPZ = unbuffedMonstersPerZone + kuma*( 1 + borbLevel/8 );
-        buffedTCC = Math.max( 1, ( dora*( 1 + senakhanLevel)/100 + 1 )*unbuffedTreasureChestChance );
+    var buffedTCC = Math.max( 1, ( dora*( 1 + senakhanLevel)/100 + 1 )*unbuffedTreasureChestChance );
         buffedBossHP = Math.floor( Math.max( 5, unbuffedBossHealth + bubos*( 1 + kariquaLevel*0.5 ) ) );
         buffedTimer = Math.max( 2, unbuffedBossTimer + chronos*( 1 + orphalasLevel*0.75 ) );
         buffedPBC = Math.max( 5, unbuffedPrimalBossChance + atman*( 1 + rhageistLevel*0.25 ) );
@@ -384,15 +391,15 @@ function refresh(test, ancientSouls) {
     $("#1TTC").html( "1% treasure chests: " + (Math.ceil( Math.log( 0.015/( dora/10000*( 1 + senakhanLevel ) + 0.01 ) )/-0.006 )*500 ).toLocaleString() );
     //Outsiders Table
     $("#OutsidersTable tbody").html(
-        "<tr><td>Xyliqil</td><td>"+xyliqilLevel.toLocaleString()+"</td><td>"+getCostFromLevel(xyliqilLevel).toLocaleString()+"</td><td>"+
-        "<tr><td>Chor'gorloth</td><td>"+chorLevel.toLocaleString()+"</td><td>"+getCostFromLevel(chorLevel).toLocaleString()+"</td><td>"+
-        "<tr><td>Phandoryss</td><td>"+phanLevel.toLocaleString()+"</td><td>"+phanLevel.toLocaleString()+"</td><td>"+
-        "<tr><td>Ponyboy</td><td>"+ponyLevel.toLocaleString()+"</td><td>"+getCostFromLevel(ponyLevel).toLocaleString()+"</td><td>"+
-        "<tr><td>Borb</td><td>"+borbLevel.toLocaleString()+"</td><td>"+getCostFromLevel(borbLevel).toLocaleString()+"</td><td>"+
-        "<tr><td>Rhageist</td><td>"+rhageistLevel.toLocaleString()+"</td><td>"+getCostFromLevel(rhageistLevel).toLocaleString()+"</td><td>"+
-        "<tr><td>K'Ariqua</td><td>"+kariquaLevel.toLocaleString()+"</td><td>"+getCostFromLevel(kariquaLevel).toLocaleString()+"</td><td>"+
-        "<tr><td>Orphalas</td><td>"+orphalasLevel.toLocaleString()+"</td><td>"+getCostFromLevel(orphalasLevel).toLocaleString()+"</td><td>"+
-        "<tr><td>Sen-Akhan</td><td>"+senakhanLevel.toLocaleString()+"</td><td>"+getCostFromLevel(senakhanLevel).toLocaleString()+"</td><td>"
+        "<tr><td>Xyliqil</td><td>"+xyliqilLevel.toLocaleString()+"</td><td>"+getCostFromLevel(xyliqilLevel).toLocaleString()+"</td><tr>"+
+        "<tr><td>Chor'gorloth</td><td>"+chorLevel.toLocaleString()+"</td><td>"+getCostFromLevel(chorLevel).toLocaleString()+"</td><tr>"+
+        "<tr><td>Phandoryss</td><td>"+phanLevel.toLocaleString()+"</td><td>"+phanLevel.toLocaleString()+"</td><tr>"+
+        "<tr><td>Ponyboy</td><td>"+ponyLevel.toLocaleString()+"</td><td>"+getCostFromLevel(ponyLevel).toLocaleString()+"</td><tr>"+
+        "<tr><td>Borb</td><td>"+borbLevel.toLocaleString()+"</td><td>"+getCostFromLevel(borbLevel).toLocaleString()+"</td><tr>"+
+        "<tr><td>Rhageist</td><td>"+rhageistLevel.toLocaleString()+"</td><td>"+getCostFromLevel(rhageistLevel).toLocaleString()+"</td><tr>"+
+        "<tr><td>K'Ariqua</td><td>"+kariquaLevel.toLocaleString()+"</td><td>"+getCostFromLevel(kariquaLevel).toLocaleString()+"</td><tr>"+
+        "<tr><td>Orphalas</td><td>"+orphalasLevel.toLocaleString()+"</td><td>"+getCostFromLevel(orphalasLevel).toLocaleString()+"</td><tr>"+
+        "<tr><td>Sen-Akhan</td><td>"+senakhanLevel.toLocaleString()+"</td><td>"+getCostFromLevel(senakhanLevel).toLocaleString()+"</td><tr>"
     );
     $("#share").html(
         xyliqilLevel+'/'+
@@ -454,6 +461,8 @@ function refresh(test, ancientSouls) {
     if (autolevelEnabled) {
         return [xyliqilLevel, chorLevel, phanLevel, ponyLevel, borbLevel, rhageistLevel, kariquaLevel, orphalasLevel, senakhanLevel, unspent];
     }
+    
+    updateTable(ancientSouls, borbLevel, this.newHze, buffedMPZ, this.newAncientSouls, zoneOverride>0?true:false);
 }
 
 function tpDisplay(ancientSouls) {
@@ -499,11 +508,21 @@ function changeTheme() {
     if (localStorage) localStorage.setItem("darkmode", $("#dark").is(":checked"));
 }
 
+function toggleStatsHZE() {
+    $("#unbuffedHZE").toggle();
+    $("#buffedHZE").toggle();
+    if (localStorage) localStorage.setItem("statsHZE", $("#statsHZE").is(":checked"));
+}
+
 $(setDefaults);
 
 
 $(function() {
     if (localStorage) {
+        $("#statsHZE").prop("checked", localStorage.getItem("statsHZE")==="true");
+        if (localStorage.getItem("statsHZE")==="true") {
+            toggleStatsHZE();
+        }
         $("#dark").prop("checked", localStorage.getItem("darkmode")==="true");
     }
     $('.collapsible .title').click(function(){

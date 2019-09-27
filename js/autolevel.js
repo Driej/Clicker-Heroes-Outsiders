@@ -4,6 +4,7 @@ function changeAutoLevel() {
     $("#autoLevelDiv").toggle(50, function(){
         autolevelEnabled = $("#autolevel").is(":checked");
     });
+    if (localStorage) localStorage.setItem("autolevel", $("#autolevel").is(":checked"));
 }
 
 function generateNewSave(data, outsiders) {
@@ -27,3 +28,12 @@ function generateNewSave(data, outsiders) {
 function clearOutput() {
     $("#outputsave").val("");
 }
+
+$(function() {
+    if (localStorage) {
+        $("#autolevel").prop("checked", localStorage.getItem("autolevel")==="true");
+        if (localStorage.getItem("autolevel")==="true") {
+            changeAutoLevel();
+        }
+    }
+});
