@@ -366,22 +366,31 @@ function refresh(test, ancientSouls, simulating) {
     $("#bubos").html( bubos.toFixed(2) + " boss life" );
     $("#chronos").html( chronos.toFixed(2) + "s boss fight timer" );
     $("#dora").html( dora.toFixed(2) + "% treasure chests" );
-    //Unbuffed Stats
-    $("#unbuffedMPZ").html( "Monsters per Zone: " + unbuffedMonstersPerZone.toFixed(2) );
-    $("#unbuffedTCC").html( "Treasure Chests: " + unbuffedTreasureChestChance.toFixed(6) + "x" );
-    $("#unbuffedBossHP").html( "Boss Health: " + unbuffedBossHealth.toFixed(1) + "x" );
-    $("#unbuffedTimer").html( "Boss Timer: " + unbuffedBossTimer + "s" );
-    $("#unbuffedPBC").html( "Primal Chance: " + unbuffedPrimalBossChance + "%" );
-    //Buffed Stats
-    var buffedTCC = Math.max( 1, ( dora*( 1 + senakhanLevel)/100 + 1 )*unbuffedTreasureChestChance );
-        buffedBossHP = Math.floor( Math.max( 5, unbuffedBossHealth + bubos*( 1 + kariquaLevel*0.5 ) ) );
-        buffedTimer = Math.max( 2, unbuffedBossTimer + chronos*( 1 + orphalasLevel*0.75 ) );
-        buffedPBC = Math.max( 5, unbuffedPrimalBossChance + atman*( 1 + rhageistLevel*0.25 ) );
-    $("#buffedMPZ").html( "Monsters per Zone: " + buffedMPZ.toFixed(2) + (buffedMPZ<2?" (2)":"") );
-    $("#buffedTCC").html( "Treasure Chests: " + buffedTCC.toFixed() + "%" );
-    $("#buffedBossHP").html( "Boss Health: " + buffedBossHP.toFixed() + "x" );
-    $("#buffedTimer").html( "Boss Timer: " + buffedTimer.toFixed() + "s" );
-    $("#buffedPBC").html( "Primal Chance: " + buffedPBC.toFixed() + "%" );
+
+    const showStatsAtHZE = $("#statsHZE").is(":checked");
+    if (showStatsAtHZE) {
+        //Unbuffed Stats
+        $("#unbuffedMPZ").html( "Monsters per Zone: " + unbuffedMonstersPerZone.toFixed(2) );
+        $("#unbuffedTCC").html( "Treasure Chests: " + unbuffedTreasureChestChance.toFixed(6) + "x" );
+        $("#unbuffedBossHP").html( "Boss Health: " + unbuffedBossHealth.toFixed(1) + "x" );
+        $("#unbuffedTimer").html( "Boss Timer: " + unbuffedBossTimer + "s" );
+        $("#unbuffedPBC").html( "Primal Chance: " + unbuffedPrimalBossChance + "%" );
+        //Buffed Stats
+        var buffedTCC = Math.max( 1, ( dora*( 1 + senakhanLevel)/100 + 1 )*unbuffedTreasureChestChance );
+            buffedBossHP = Math.floor( Math.max( 5, unbuffedBossHealth + bubos*( 1 + kariquaLevel*0.5 ) ) );
+            buffedTimer = Math.max( 2, unbuffedBossTimer + chronos*( 1 + orphalasLevel*0.75 ) );
+            buffedPBC = Math.max( 5, unbuffedPrimalBossChance + atman*( 1 + rhageistLevel*0.25 ) );
+        $("#buffedMPZ").html( "Monsters per Zone: " + buffedMPZ.toFixed(2) + (buffedMPZ<2?" (2)":"") );
+        $("#buffedTCC").html( "Treasure Chests: " + buffedTCC.toFixed() + "%" );
+        $("#buffedBossHP").html( "Boss Health: " + buffedBossHP.toFixed() + "x" );
+        $("#buffedTimer").html( "Boss Timer: " + buffedTimer.toFixed() + "s" );
+        $("#buffedPBC").html( "Primal Chance: " + buffedPBC.toFixed() + "%" );
+        $("#unbuffedHZE").show();
+        $("#buffedHZE").show();
+    } else {
+        $("#unbuffedHZE").hide();
+        $("#buffedHZE").hide();
+    }
     //Zone Breakpoints
     $("#HighMpz").html( "2.1 monsters per zone: " + ( -39500 - Math.floor( kuma*( 1 + borbLevel/8 )*10 )*500 ).toLocaleString() );
     $("#5PBC").html( "5% primal chance: " + ( 5500 + Math.floor( atman*( 1 + rhageistLevel/4 )/2)*500 ).toLocaleString() );
@@ -389,6 +398,8 @@ function refresh(test, ancientSouls, simulating) {
     $("#2sTimer").html( "2s boss timer: " + ( 7000 + Math.floor( chronos*( 1 + orphalasLevel*0.75 )/2 )*500 ).toLocaleString() );
     $("#99TTC").html( "99% treasure chests: " + (Math.ceil( Math.log( 0.995/( dora/10000*( 1 + senakhanLevel ) + 0.01 ) )/-0.006 )*500 ).toLocaleString() );
     $("#1TTC").html( "1% treasure chests: " + (Math.ceil( Math.log( 0.015/( dora/10000*( 1 + senakhanLevel ) + 0.01 ) )/-0.006 )*500 ).toLocaleString() );
+    $("#estimates").show();
+
     //Outsiders Table
     $("#OutsidersTable tbody").html(
         "<tr><td>Xyliqil</td><td>"+xyliqilLevel.toLocaleString()+"</td><td>"+getCostFromLevel(xyliqilLevel).toLocaleString()+"</td><tr>"+
@@ -413,6 +424,7 @@ function refresh(test, ancientSouls, simulating) {
         senakhanLevel
     );
     $("#unspentAS").html( "Unspent: " + unspent );
+    $("#results").show();
     
     if (!$("#helpText").is(":checked")) {
         $('#checkResults').parent().hide();
@@ -456,13 +468,21 @@ function refresh(test, ancientSouls, simulating) {
             $('#checkResults').parent().hide();
         }
     }
+
+    const simulatorEnabled = $("#simulator").is(":checked");
+    if (simulatorEnabled) {
+        updateTable(ancientSouls, borbLevel, this.newHze, buffedMPZ, this.newAncientSouls, zoneOverride>0?true:false);
+        $('#simulatorBox').show();
+    } else {
+        $('#simulatorBox').hide();
+    }
     
     $("#outputsave").html("");
+
+    const autolevelEnabled = $("#autolevel").is(":checked");
     if (autolevelEnabled) {
         return [xyliqilLevel, chorLevel, phanLevel, ponyLevel, borbLevel, rhageistLevel, kariquaLevel, orphalasLevel, senakhanLevel, unspent];
     }
-    
-    updateTable(ancientSouls, borbLevel, this.newHze, buffedMPZ, this.newAncientSouls, zoneOverride>0?true:false);
 }
 
 function tpDisplay(ancientSouls) {
@@ -508,10 +528,12 @@ function changeTheme() {
     if (localStorage) localStorage.setItem("darkmode", $("#dark").is(":checked"));
 }
 
-function toggleStatsHZE() {
-    $("#unbuffedHZE").toggle();
-    $("#buffedHZE").toggle();
-    if (localStorage) localStorage.setItem("statsHZE", $("#statsHZE").is(":checked"));
+function toggleHelpText() {
+    if (localStorage) localStorage.setItem("helpText", $("#helpText").is(":checked"));
+}
+
+function toggleSetting(settingName) {
+    if (localStorage) localStorage.setItem(settingName, $(`#${settingName}`).is(":checked"));
 }
 
 $(setDefaults);
@@ -521,9 +543,14 @@ $(function() {
     if (localStorage) {
         $("#statsHZE").prop("checked", localStorage.getItem("statsHZE")==="true");
         if (localStorage.getItem("statsHZE")==="true") {
-            toggleStatsHZE();
+            $("#unbuffedHZE").toggle();
+            $("#buffedHZE").toggle();
         }
         $("#dark").prop("checked", localStorage.getItem("darkmode")==="true");
+        ["autolevel", "simulator", "helpText", "levelOrphalas", "reserveAS", "statsHZE"]
+            .forEach(
+                (settingName) => $(`#${settingName}`).prop("checked", localStorage.getItem(settingName)==="true")
+            );
     }
     $('.collapsible .title').click(function(){
         $(this).parent().find('.content').toggle();

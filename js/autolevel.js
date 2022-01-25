@@ -1,12 +1,3 @@
-let autolevelEnabled = false;
-
-function changeAutoLevel() {
-    $("#autoLevelDiv").toggle(50, function(){
-        autolevelEnabled = $("#autolevel").is(":checked");
-    });
-    if (localStorage) localStorage.setItem("autolevel", $("#autolevel").is(":checked"));
-}
-
 function generateNewSave(data, outsiders) {
     let a = [1, 2, 3, 5, 6, 7, 8, 9, 10];
     for (let i=0; i<9; i++) {
@@ -28,12 +19,3 @@ function generateNewSave(data, outsiders) {
 function clearOutput() {
     $("#outputsave").val("");
 }
-
-$(function() {
-    if (localStorage) {
-        $("#autolevel").prop("checked", localStorage.getItem("autolevel")==="true");
-        if (localStorage.getItem("autolevel")==="true") {
-            changeAutoLevel();
-        }
-    }
-});

@@ -31,7 +31,7 @@
         }
     </script>
 	<link rel="icon" type="image/png" href="Ruby.png">
-	<script src="https://code.jquery.com/jquery-3.4.1.min.js" defer></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
 </head>
 	<body>
 		<main class="container" role="main">
@@ -73,22 +73,22 @@
 							<button id="showSettings" onclick="showSettingsClick()">Show Settings</button>
 							<div id="settings">
 								<div class="numberInput">
-                                    <input type="checkbox" id="autolevel" class="checkbox" onclick="changeAutoLevel()"><label for="autolevel">Autolevel</label>
-                                    <br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()"><label for="dark">Dark Theme</label>
-                                    <br><input type="checkbox" id="simulator" class="checkbox" onclick="changeSimulator();refresh()" checked><label for="simulator">Transcension Simulator</label>
+                                    <input type="checkbox" id="autolevel" class="checkbox" onclick="toggleSetting('autolevel')"><label for="autolevel">Autolevel</label>
+                                    <br><input type="checkbox" id="dark" class="checkbox" onclick="changeTheme()" checked><label for="dark">Dark Theme</label>
+                                    <br><input type="checkbox" id="simulator" class="checkbox" onclick="toggleSetting('simulator')" checked><label for="simulator">Transcension Simulator</label>
 									<br><label for="zoneOverride">Zone override:</label>
 									<input id="zoneOverride" type="text" style="font-size:12px;">
-                                    <br><input type="checkbox" id="helpText" class="checkbox" onclick="clearOutput();refresh()" checked><label for="helpText">Help Text</label>
-                                    <br><input type="checkbox" id="levelOrphalas" class="checkbox" onclick="clearOutput();refresh()" checked><label for="levelOrphalas">Level Orphalas</label>
-                                    </br><input type="checkbox" id="reserveAS" class="checkbox" onclick="clearOutput();refresh()"><label for="reserveAS">Reserve Ancient Souls</label>
-                                    <br><input type="checkbox" id="statsHZE" class="checkbox" onclick="toggleStatsHZE()"><label for="statsHZE">Stats at HZE</label>
+                                    <br><input type="checkbox" id="helpText" class="checkbox" onclick="toggleSetting('helpText')" checked><label for="helpText">Help Text</label>
+                                    <br><input type="checkbox" id="levelOrphalas" class="checkbox" onclick="toggleSetting('levelOrphalas')"><label for="levelOrphalas">Level Orphalas</label>
+                                    </br><input type="checkbox" id="reserveAS" class="checkbox" onclick="toggleSetting('reserveAS')"><label for="reserveAS">Reserve Ancient Souls</label>
+                                    <br><input type="checkbox" id="statsHZE" class="checkbox" onclick="toggleSetting('statsHZE')"><label for="statsHZE">Stats at HZE</label>
 								</div>
 								<button id="defaultButton" onclick="defaultClick()">Set to Default</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="box-8" id="results">
+				<div class="box-8" id="results" style="display:none">
 					<div class="panel">
 						<div class="title">Outsider Recommendations</div>
 						<div class="content">
@@ -109,7 +109,7 @@
 				</div>
 			</div>
 			<div class="boxes">
-				<div class="box-4 boxes">
+				<div class="box-4 boxes" id="estimates" style="display:none">
                     <div class="box-12">
                         <div class="panel">
                             <div class="title">End of Transcension Estimates</div>
@@ -166,7 +166,7 @@
 						</div>
 					</div>
 				</div>
-                <div class="box-8" id="simulatorBox">
+                <div class="box-8" id="simulatorBox" style="display:none">
 					<div class="panel">
 						<div class="title">Transcension Simulator</div>
 						<div class="content">
