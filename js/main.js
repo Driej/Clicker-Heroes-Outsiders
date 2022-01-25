@@ -541,11 +541,6 @@ $(setDefaults);
 
 $(function() {
     if (localStorage) {
-        $("#statsHZE").prop("checked", localStorage.getItem("statsHZE")==="true");
-        if (localStorage.getItem("statsHZE")==="true") {
-            $("#unbuffedHZE").toggle();
-            $("#buffedHZE").toggle();
-        }
         $("#dark").prop("checked", localStorage.getItem("darkmode")==="true");
         ["autolevel", "simulator", "helpText", "levelOrphalas", "reserveAS", "statsHZE"]
             .forEach(
