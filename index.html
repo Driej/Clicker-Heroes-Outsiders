@@ -9,15 +9,15 @@
 	<title>CH Outsider Calculator</title>
 	<link rel="stylesheet" href="css/normalize.css">
 	<link rel="stylesheet" href="css/main-v005.css">
-    <link rel="stylesheet" href="css/light-theme-v004.css" id="theme-light" title="Light">
-    <link rel="stylesheet" href="css/dark-theme-v004.css" id="theme-dark" title="Dark" disabled>
+    <link rel="stylesheet" href="css/light-theme-v004.css" id="theme-light" title="Light" disabled>
+    <link rel="stylesheet" href="css/dark-theme-v004.css" id="theme-dark" title="Dark">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" sizes="192x192" href="icons/ruby192.png">
     <script>
         if (localStorage) {
-            if (localStorage.getItem("darkmode")==="true") {
-                document.getElementById("theme-light").disabled = true;
-                document.getElementById("theme-dark").disabled = false;
+            if (localStorage.getItem("darkmode")==="false") {
+                document.getElementById("theme-light").disabled = false;
+                document.getElementById("theme-dark").disabled = true;
             }
         }
         if ('serviceWorker' in navigator) {

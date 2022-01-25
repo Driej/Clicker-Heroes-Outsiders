@@ -541,10 +541,16 @@ $(setDefaults);
 
 $(function() {
     if (localStorage) {
-        $("#dark").prop("checked", localStorage.getItem("darkmode")==="true");
-        ["autolevel", "simulator", "helpText", "levelOrphalas", "reserveAS", "statsHZE"]
+        $("#dark").prop("checked", localStorage.getItem("darkmode")!=="false");
+        // default false
+        ["autolevel", "levelOrphalas", "reserveAS", "statsHZE"]
             .forEach(
                 (settingName) => $(`#${settingName}`).prop("checked", localStorage.getItem(settingName)==="true")
+            );
+        // default true
+        ["simulator", "helpText"]
+            .forEach(
+                (settingName) => $(`#${settingName}`).prop("checked", localStorage.getItem(settingName)!=="false")
             );
     }
     $('.collapsible .title').click(function(){
